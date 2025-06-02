@@ -4,6 +4,9 @@ import axios from "axios";
 const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
+
+    const[userName, setUserName] = useState("")
+    const[userRole, setUserRole] = useState("")
     /*
 
     Exaxmples:
@@ -28,6 +31,10 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
     value={{
+        userName,
+        setUserName,
+        userRole,
+        setUserRole
         /*
         Example continue:
 
