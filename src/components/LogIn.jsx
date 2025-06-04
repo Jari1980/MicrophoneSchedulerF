@@ -3,18 +3,16 @@ import { Button, Form } from "react-bootstrap";
 import axios from "axios";
 import { useGlobalContext } from "./context";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 const LogIn = () => {
     const{userName, setUserName} = useGlobalContext();
     const{userRole, setUserRole} = useGlobalContext();
-    const [cookies, setCookie] = useCookies(["jwtToken"])
+    const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
+    const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
-    const userData = {
-      username: event.currentTarget.elements.formUserName.value,
-      password: event.currentTarget.elements.formPassword.value,
-    };
     try {
       axios
         .post("http://localhost:8080/api/v1/user/login", {
@@ -31,10 +29,14 @@ const LogIn = () => {
               "\nuserRole: " +
               response.data.userRole
           );
-          setUserName(response.data.userName)
-          setUserRole(response.data.userRole)
+          setUserName(response.data.userName) //The globalstate will not be used here but keeping it if someone want to see how they are used
+          setUserRole(response.data.userRole) //
           setCookie("jwtToken", response.data.jwtToken, {path: "/"})
+          setCookie("userName", response.data.userName, {path: "/"})
+          setCookie("userRole", response.data.userRole, {path: "/"})
+          navigate("/")
         });
+        
     } catch (error) {
       console.log("Error logging in: " + error);
     }
