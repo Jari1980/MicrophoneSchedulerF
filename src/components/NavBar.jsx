@@ -20,7 +20,7 @@ const NavBar = () => {
             <Nav className="ms-auto" style={{marginRight:"20px"}}>
               <Nav.Link as={Link} to="/testUser">Test User</Nav.Link>
               <Nav.Link as={Link} to="/item2" disabled>item2</Nav.Link>
-              <Nav.Link as={Link} to="/item.." disabled>item..</Nav.Link>
+              {cookies.userName == "" || cookies.userName == null ? <Nav.Link as={Link} to="/register">Register</Nav.Link> : ""}
               {cookies.userName == "" || cookies.userName == null ? <Nav.Link as={Link} to="/login">Login</Nav.Link> : <Button onClick={() => logout()}>{cookies.userName} SignOut</Button>}
             </Nav>
           </Navbar.Collapse>

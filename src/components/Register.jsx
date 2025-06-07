@@ -1,40 +1,47 @@
 import React from "react";
 import { Button, Form, Container } from "react-bootstrap";
 import axios from "axios";
-import { useGlobalContext } from "./context";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
-const LogIn = () => {
-  const { userName, setUserName } = useGlobalContext();
-  const { userRole, setUserRole } = useGlobalContext();
+const Register = () => {
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
   const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
+    const userData = {
+      username: event.currentTarget.elements.formUserName.value,
+      password: event.currentTarget.elements.formPassword.value,
+    };
     try {
       axios
-        .post("http://localhost:8080/api/v1/user/login", {
+        .post("http://localhost:8080/api/v1/user/register", {
           userName: event.currentTarget.elements.formUserName.value,
           password: event.currentTarget.elements.formPassword.value,
         })
-        .then((response) => {
-          console.log(
-            "LogIn succes: " +
-              "\nJWT: " +
-              response.data.jwtToken +
-              "\nuserName: " +
-              response.data.userName +
-              "\nuserRole: " +
-              response.data.userRole
-          );
-          setUserName(response.data.userName); //The globalstate will not be used here but keeping it if someone want to see how they are used
-          setUserRole(response.data.userRole); //
-          setCookie("jwtToken", response.data.jwtToken, { path: "/" });
-          setCookie("userName", response.data.userName, { path: "/" });
-          setCookie("userRole", response.data.userRole, { path: "/" });
-          navigate("/");
+        .then(() => {
+          console
+            .log("Register succes, loggin in")
+            axios.post("http://localhost:8080/api/v1/user/login", {
+              userName: userData.username,
+              password: userData.password,
+            })
+            .then((response) => {
+              console.log(
+                "LogIn succes: " +
+                  "\nJWT: " +
+                  response.data.jwtToken +
+                  "\nuserName: " +
+                  response.data.userName +
+                  "\nuserRole: " +
+                  response.data.userRole
+              );
+              setCookie("jwtToken", response.data.jwtToken, { path: "/" });
+              setCookie("userName", response.data.userName, { path: "/" });
+              setCookie("userRole", response.data.userRole, { path: "/" });
+              navigate("/");
+            });
         });
     } catch (error) {
       console.log("Error logging in: " + error);
@@ -46,7 +53,7 @@ const LogIn = () => {
       <Container
         style={{ width: "50%", alignItems: "center", justifyContent: "center" }}
       >
-        <h1 style={{ marginTop: "20px" }}>Login</h1>
+        <h1 style={{ marginTop: "20px" }}>Register</h1>
         <br />
         <br />
         <Form onSubmit={handleSubmit}>
@@ -63,7 +70,7 @@ const LogIn = () => {
             <Form.Control type="password" placeholder="Enter password" />
           </Form.Group>
           <Button variant="primary" type="submit" className="extButton">
-            LogIn
+            Register and LogIn
           </Button>
         </Form>
       </Container>
@@ -71,4 +78,4 @@ const LogIn = () => {
   );
 };
 
-export default LogIn;
+export default Register;

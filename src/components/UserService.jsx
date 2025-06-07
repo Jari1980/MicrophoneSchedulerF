@@ -126,9 +126,9 @@ const UserService = () => {
               </td>
               <td>
                 <Button onClick={() => editUser(item.userId, item.role)}>
-                  Edit Role
+                  Set New Role
                 </Button>
-                <Button onClick={() => deleteUser(item.userId)}>Delete</Button>
+                <Button onClick={() => deleteUser(item.userId)}>Delete User</Button>
               </td>
             </tr>
           </tbody>
