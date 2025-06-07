@@ -10,6 +10,7 @@ import NavBar from "./components/NavBar.jsx";
 import LogIn from "./components/LogIn.jsx";
 import TestUser from "./components/TestUser.jsx";
 import UserService from "./components/userService.jsx";
+import Register from "./components/Register.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -21,6 +22,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/home" element={<App />} />
           <Route path="/userservice" element={<UserService />} />
           <Route path="/testuser" element={<TestUser />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/login" element={<LogIn />} />
         </Routes>
       </CookiesProvider>
