@@ -8,17 +8,18 @@ import { useCookies } from "react-cookie";
 import CookieConsent from "./components/CookieConsent";
 import { redirect, useNavigate } from "react-router-dom";
 
-function App() {
+function Home() {
   const [cookies, setCookie] = useCookies(["cookieConsent", "jwtToken", "userName", "userRole"])
   const navigate = useNavigate();
 
   return (
     <>
       <p>Hello World</p>
+      {cookies.userRole == "ROLE_ADMINISTRATOR" || cookies.userRole == "ROLE_DIRECTOR" ? <Button onClick={() => navigate("/dashboard")}>Manage Theater productions</Button> : ""}
       {cookies.userRole == "ROLE_ADMINISTRATOR" ? <Button onClick={() => navigate("/userservice")}>User Service</Button> : ""}
       {!cookies.cookieConsent && <CookieConsent />}
     </>
   )
 }
 
-export default App;
+export default Home;
