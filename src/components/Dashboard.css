@@ -1,0 +1,29 @@
+
+
+.dashboard-toggle{
+    position: fixed;
+    top: 6rem;
+    right: 2rem;
+    background: transparent;
+    border-color: transparent;
+    color: hsl(206, 46%, 65%);
+}
+
+.aside{
+    display: flex;
+    background: gray;
+    padding: "16px";
+    border-right: "1px solid #ddd";
+    transition: 250ms;
+}
+
+.aside-open{
+    left: 0;
+}
+
+.aside-closed{
+    display: flex;
+    position: fixed;
+    left: -300px;
+}
+
