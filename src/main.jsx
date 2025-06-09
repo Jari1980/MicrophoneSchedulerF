@@ -8,7 +8,6 @@ import { GlobalProvider } from "./components/context.jsx";
 import { CookiesProvider } from "react-cookie";
 import NavBar from "./components/NavBar.jsx";
 import LogIn from "./components/LogIn.jsx";
-import TestUser from "./components/TestUser.jsx";
 import UserService from "./components/userService.jsx";
 import Register from "./components/Register.jsx";
 import Dashboard from "./components/Dashboard.jsx";
@@ -22,7 +21,6 @@ createRoot(document.getElementById("root")).render(
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/userservice" element={<UserService />} />
-          <Route path="/testuser" element={<TestUser />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/dashboard/*" element={<Dashboard />} />
