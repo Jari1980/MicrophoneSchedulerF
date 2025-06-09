@@ -129,12 +129,16 @@ const ManageProductionHome = () => {
               <td>{item.dateCreated}</td>
               <td>{item.description}</td>
               <td>
+                { cookies.userRole == "ROLE_ADMINISTRATOR" ? 
                 <Button onClick={() => editProduction(item.playName, item.dateCreated, item.description)}>
                   Edit
                 </Button>
+                : ""}
+                { cookies.userRole == "ROLE_ADMINISTRATOR" ? 
                 <Button onClick={() => deleteProduction(item.playName)}>
                   Delete
                 </Button>
+                : ""}
               </td>
             </tr>
           </tbody>
@@ -167,8 +171,12 @@ const ManageProductionHome = () => {
       ) : (
         ""
       )}
+      { cookies.userRole == "ROLE_ADMINISTRATOR" ?
       <p>Select a play or create a new</p>
+      : ""}
+      { cookies.userRole == "ROLE_ADMINISTRATOR" ?
       <Button onClick={() => showForm()}>+ New Production</Button>
+      : ""}
       {formVisible ? (
         <Form onSubmit={handleSubmitNewProduction}>
           <Form.Group className="mb-3" controlId="formPlayName">
