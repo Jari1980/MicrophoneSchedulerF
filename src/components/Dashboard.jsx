@@ -36,27 +36,27 @@ const Dashboard = () => {
                   className="btn btn-outline-primary w-100 mb-2"
                   onClick={() => navigate("../dashboard")}
                 >
-                  Theater Plays
+                  Theater Productions
                 </button>
               </li>
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2" disabled>
-                  ...
+                <button className="btn btn-outline-primary w-100 mb-2">
+                  Scene
                 </button>
               </li>
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2" disabled>
-                  ...
+                <button className="btn btn-outline-primary w-100 mb-2">
+                  Character
                 </button>
               </li>
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2" disabled>
-                  ..
+                <button className="btn btn-outline-primary w-100 mb-2">
+                  Actor
                 </button>
               </li>
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2" disabled>
-                  ...
+                <button className="btn btn-outline-primary w-100 mb-2">
+                  Microphone
                 </button>
               </li>
               <li>
