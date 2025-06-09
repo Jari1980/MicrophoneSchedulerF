@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import ManageProductionHome from "./ManageProductionHome";
 import "./Dashboard.css";
+import Scene from "./Scene";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -40,7 +41,9 @@ const Dashboard = () => {
                 </button>
               </li>
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2">
+                <button className="btn btn-outline-primary w-100 mb-2"
+                onClick={() => navigate("./scene")}
+                >
                   Scene
                 </button>
               </li>
@@ -83,6 +86,7 @@ const Dashboard = () => {
           <main style={{ flex: 2, padding: "16px" }}>
             <Routes>
               <Route path="/" element={<ManageProductionHome />} />
+              <Route path="scene" element={<Scene />} />
             </Routes>
           </main>
         </div>
