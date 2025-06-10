@@ -167,6 +167,9 @@ const ManageProductionHome = () => {
           <Button variant="primary" type="submit" className="extButton">
             Save Production
           </Button>
+          <Button variant="danger" onClick={() => setFormEditVisible(false)} className="extButton">
+                              Cancel edit
+                          </Button>
         </Form>
       ) : (
         ""
