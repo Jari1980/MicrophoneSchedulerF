@@ -7,7 +7,7 @@ import Scene from "./Scene";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     const handleToggle = () => {
@@ -23,6 +23,7 @@ const Dashboard = () => {
     <>
       <div style={{ display: "flex", height: "auto" }}>
         <button className="dashboard-toggle" onClick={() => setOpen(!open)}>
+            {/* Using Google icon for toggle */}
           <span className="material-symbols-outlined">
             {open ? "toggle_on" : "toggle_off"}
           </span>
@@ -42,7 +43,7 @@ const Dashboard = () => {
               </li>
               <li>
                 <button className="btn btn-outline-primary w-100 mb-2"
-                onClick={() => navigate("./scene")}
+                onClick={() => navigate("../dashboard/scene")}
                 >
                   Scene
                 </button>
