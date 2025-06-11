@@ -4,6 +4,7 @@ import { Nav } from "react-bootstrap";
 import ManageProductionHome from "./ManageProductionHome";
 import "./Dashboard.css";
 import Scene from "./Scene";
+import Character from "./Character";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -49,7 +50,8 @@ const Dashboard = () => {
                 </button>
               </li>
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2">
+                <button className="btn btn-outline-primary w-100 mb-2"
+                onClick={() => navigate("../dashboard/character")}>
                   Character
                 </button>
               </li>
@@ -88,6 +90,7 @@ const Dashboard = () => {
             <Routes>
               <Route path="/" element={<ManageProductionHome />} />
               <Route path="scene" element={<Scene />} />
+              <Route path="character" element={<Character />} />
             </Routes>
           </main>
         </div>
