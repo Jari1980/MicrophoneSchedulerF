@@ -5,6 +5,7 @@ import ManageProductionHome from "./ManageProductionHome";
 import "./Dashboard.css";
 import Scene from "./Scene";
 import Character from "./Character";
+import CharacterScene from "./CharacterScene";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -51,17 +52,18 @@ const Dashboard = () => {
               </li>
               <li>
                 <button className="btn btn-outline-primary w-100 mb-2"
+                onClick={() => navigate("../dashboard/characterscene")}>
+                  Character to Scene
+                </button>
+              </li>
+              <li>
+                <button className="btn btn-outline-primary w-100 mb-2"
                 onClick={() => navigate("../dashboard/character")}>
                   Character
                 </button>
               </li>
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2">
-                  Actor
-                </button>
-              </li>
-              <li>
-                <button className="btn btn-outline-primary w-100 mb-2">
+                <button className="btn btn-outline-primary w-100 mb-2" disabled>
                   Microphone
                 </button>
               </li>
@@ -91,6 +93,7 @@ const Dashboard = () => {
               <Route path="/" element={<ManageProductionHome />} />
               <Route path="scene" element={<Scene />} />
               <Route path="character" element={<Character />} />
+              <Route path="characterScene" element={<CharacterScene />} />
             </Routes>
           </main>
         </div>
