@@ -13,13 +13,11 @@ const Character = () => {
   const [actorName, setActorName] = useState("");
   const [actorUserData, setActorUserData] = useState([]);
   const [characterId, setCharacterId] = useState();
-  const [actorUserDataFiltered, setActorUserDataFiltered] = useState();
   const [showEditForm, setShowEditForm] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
 
   useEffect(() => {
     fetchData();
-    //fetchActorUser();
   }, []);
 
   const fetchData = async () => {
@@ -30,7 +28,6 @@ const Character = () => {
         })
         .then((res) => {
           setCharacterData(res.data.personages);
-          console.log(res.data);
         });
     } catch (error) {
       console.log("Error fetching characterdata: " + error);
@@ -45,7 +42,6 @@ const Character = () => {
         })
         .then((res) => {
           setActorUserData(res.data);
-          console.log(res.data);
         });
     } catch (error) {
       console.log("Error fetching characterdata: " + error);
@@ -55,7 +51,6 @@ const Character = () => {
   function handleShowScenes(id, name) {
     const data = characterData.filter((item) => item.personageId == id);
     setCharacterScenes(data[0]);
-    //console.log("Nu har vi: " + data[0].personageId);
     setSelectedCharacter(name);
     setShowScenes(true);
   }
@@ -66,7 +61,6 @@ const Character = () => {
     setActorName(actorName);
     fetchActorUser();
     setShowEditForm(true);
-    console.log("data: " + actorUserData);
   }
 
   function deleteCharacter(id) {
@@ -137,8 +131,8 @@ const Character = () => {
         <thead>
           <tr>
             <th>Character Id</th>
-            <th>Production Name</th>
             <th>Character Name</th>
+            <th>Production Name</th>
             <th>Actor Name</th>
             <th>Scenes</th>
             <th>Actions</th>
@@ -149,8 +143,8 @@ const Character = () => {
           <tbody key={item.personageId}>
             <tr>
               <td>{item.personageId}</td>
-              <td>{item.playName}</td>
               <td>{item.personageName}</td>
+              <td>{item.playName}</td>
               <td>{item.actorName}</td>
               <td>
                 <Button
