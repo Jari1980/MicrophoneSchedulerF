@@ -1,8 +1,16 @@
 import React from "react";
-import { Button, Table, Form } from "react-bootstrap";
+import {
+  Button,
+  Table,
+  Form,
+  FormControl,
+  ListGroup,
+  ListGroupItem,
+} from "react-bootstrap";
 import { useCookies } from "react-cookie";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import Select from "react-select";
 
 const Character = () => {
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
@@ -16,9 +24,17 @@ const Character = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
 
+  const [actorId, setActorId] = useState("");
+  const [selectedOption, setSelectedOption] = useState(null);
+  const handleChoise = (selectedOption) => {
+    setSelectedOption(selectedOption);
+    setActorId(selectedOption.actorId)
+  };
+
   useEffect(() => {
     fetchData();
-  }, []);
+    
+  }, []); 
 
   const fetchData = async () => {
     try {
@@ -42,6 +58,7 @@ const Character = () => {
         })
         .then((res) => {
           setActorUserData(res.data);
+          console.log("Actor user data: " + actorUserData[0]);
         });
     } catch (error) {
       console.log("Error fetching characterdata: " + error);
@@ -60,7 +77,7 @@ const Character = () => {
     setSelectedCharacter(name);
     setActorName(actorName);
     fetchActorUser();
-    setShowEditForm(true);
+    setShowEditForm(!showEditForm);
   }
 
   function deleteCharacter(id) {
@@ -80,9 +97,9 @@ const Character = () => {
 
   function handleEdit(event) {
     event.preventDefault();
+    console.log("ActorId: " + actorId)
     const userData = {
       characterName: event.currentTarget.elements.formCharacterName.value,
-      actorId: event.currentTarget.elements.level.value,
     };
 
     try {
@@ -92,7 +109,7 @@ const Character = () => {
           {
             personageId: characterId,
             personageName: userData.characterName,
-            actorId: userData.actorId,
+            actorId: actorId
           },
           {
             headers: { Authorization: `Bearer ${cookies.jwtToken}` },
@@ -121,6 +138,10 @@ const Character = () => {
     } catch (error) {
       console.log("Error logging in: " + error);
     }
+  }
+
+  function test(username) {
+    setSearchResults(username);
   }
 
   return (
@@ -221,23 +242,21 @@ const Character = () => {
             <Form.Label>
               <b>Character Name</b>
             </Form.Label>
-            <Form.Control type="text" placeholder={selectedCharacter} />
+            <Form.Control type="text" defaultValue={selectedCharacter} />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formActor">
+          <Form.Group className="mb-3">
             <Form.Label>
               <b>Actor</b>
             </Form.Label>
-            <select
-              id="level"
-              defaultValue={actorName}
-              className={`form-select`}
-            >
-              {actorUserData.map((type) => (
-                <option key={type.actorId} value={type.actorId}>
-                  {type.userName}
-                </option>
-              ))}
-            </select>
+            <Select
+            id="search"
+              isMulti={false}
+              options={actorUserData}
+              getOptionLabel={(options) => options["userName"]}
+              getOptionValue={(options) => options["actorId"]}
+              
+              onChange={handleChoise}
+            />
           </Form.Group>
           <Button variant="primary" type="submit" className="extButton">
             Edit
@@ -278,6 +297,11 @@ const Character = () => {
       ) : (
         ""
       )}
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </>
   );
 };
