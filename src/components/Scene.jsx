@@ -15,7 +15,8 @@ const Scene = () => {
   const [actNumber, setActNumber] = useState();
   const [sceneNumber, setSceneNumber] = useState();
   const [sceneName, setSceneName] = useState();
-  const [createScene, setCreateScene] = useState(false);
+  const [addAct, setAddAct] = useState(false);
+  //const [createScene, setCreateScene] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -107,6 +108,39 @@ const Scene = () => {
     }
   }
 
+  function handleAddAct(event) {
+     event.preventDefault();
+     let max = 0;
+     sceneData.forEach(element => {
+        if(element.actNumber > max){
+            max = element.actNumber
+        }        
+     });
+     const actNumber = max + 1;
+    try {
+      axios
+        .post(
+          "http://localhost:8080/api/v1/admin/addAct",
+          {
+            playName: playName,
+            act: actNumber,
+            scenes: event.currentTarget.elements.formScenes.value,
+          },
+          {
+            headers: { Authorization: `Bearer ${cookies.jwtToken}` },
+          }
+        )
+        .then((response) => {
+          console.log("Scene Created");
+          setCounter(counter + 1);
+          setAddAct(!addAct);
+        });
+    } catch (error) {
+      console.log("Error creating scene: " + error);
+    }
+  }
+
+  /* Removing add "custom" scene possibility, this way likehood off errors is far less
   function handleCreateScene(event) {
      event.preventDefault();
     try {
@@ -133,6 +167,7 @@ const Scene = () => {
     }
   }
 
+  */
   return (
     <div>
       <h1>Manage Scenes</h1>
@@ -256,6 +291,34 @@ const Scene = () => {
         ""
       )}
       {playName != "" ? (
+        <Button onClick={() => setAddAct(true)}>+ Add Act</Button>
+      ) : (
+        ""
+      )}
+      {addAct ? (
+        <Form onSubmit={handleAddAct}>
+          <Form.Group className="mb-3" controlId="formScenes">
+            <Form.Label>
+              <b>Number of Scenes</b>
+            </Form.Label>
+            <Form.Control type="text" placeholder="Number of scenes to be added" />
+          </Form.Group>
+          <Button variant="primary" type="submit" className="extButton">
+            Add Act
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => setAddAct(false)}
+            className="extButton"
+          >
+            Cancel
+          </Button>
+        </Form>
+      ) : (
+        ""
+      )}
+      {/*  Removing add "custom" scene possibility, this way likehood off errors is far less
+      {playName != "" ? (
         <Button onClick={() => setCreateScene(true)}>+ Create Scene</Button>
       ) : (
         ""
@@ -285,7 +348,7 @@ const Scene = () => {
           </Button>
           <Button
             variant="danger"
-            onClick={() => setShowEdit(false)}
+            onClick={() => setCreateScene(false)}
             className="extButton"
           >
             Cancel
@@ -294,6 +357,7 @@ const Scene = () => {
       ) : (
         ""
       )}
+        */}
     </div>
   );
 };
