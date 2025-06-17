@@ -6,6 +6,7 @@ import "./Dashboard.css";
 import Scene from "./Scene";
 import Character from "./Character";
 import CharacterScene from "./CharacterScene";
+import MicrophoneProduction from "./MicrophoneProduction";
 import Microphone from "./Microphone";
 
 const Dashboard = () => {
@@ -65,13 +66,14 @@ const Dashboard = () => {
               </li>
               <li>
                 <button className="btn btn-outline-primary w-100 mb-2"
-                onClick={() => navigate("../dashboard/microphone")}>
+                onClick={() => navigate("../dashboard/microphoneProduction")}>
                   Microphone in Production
                 </button>
               </li>
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2" disabled>
-                  ...
+                <button className="btn btn-outline-primary w-100 mb-2"
+                onClick={() => navigate("../dashboard/microphone")}>
+                  Microphone
                 </button>
               </li>
               <li>
@@ -96,6 +98,7 @@ const Dashboard = () => {
               <Route path="scene" element={<Scene />} />
               <Route path="character" element={<Character />} />
               <Route path="characterScene" element={<CharacterScene />} />
+              <Route path="microphoneProduction" element={<MicrophoneProduction />} />
               <Route path="microphone" element={<Microphone />} />
             </Routes>
           </main>
