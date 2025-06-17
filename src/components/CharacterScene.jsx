@@ -41,7 +41,6 @@ const CharacterScene = () => {
   };
 
   const fetchScenes = async () => {
-    //setPlayName(name);
     console.log("Data fetched");
     try {
       const response = await axios
@@ -56,7 +55,7 @@ const CharacterScene = () => {
           setSceneData(res.data);
         });
     } catch (error) {
-      console.log("Error fetching userdata: " + error);
+      console.log("Error fetching scenedata: " + error);
     }
   };
 
@@ -202,8 +201,8 @@ const CharacterScene = () => {
             </tr>
           </thead>
           {characterScenes.personages &&
-            characterScenes.personages.map((item) => (
-              <tbody key={item.sceneId}>
+            characterScenes.personages.map((item, index) => (
+              <tbody key={index}>
                 <tr>
                   <td>{item.personageId}</td>
                   <td>{item.personageName}</td>
