@@ -8,7 +8,9 @@ const Microphone = () => {
   const [microphoneData, setMicrophoneData] = useState([]);
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
   const [addMicrophone, setAddMicrophone] = useState(false);
- 
+  const [showRenameMicrophone, setShowRenameMicrophone] = useState(false);
+  const [microphoneId, setMicrophoneId] = useState("");
+  const [microphoneName, setMicrophoneName] = useState("");
 
   useEffect(() => {
     fetchMicrophones();
@@ -28,10 +30,9 @@ const Microphone = () => {
       console.log("Error fetching microphonedata: " + error);
     }
   };
-  
-   function handleAddMicrophone(event) {
-     event.preventDefault();
-     
+
+  function handleAddMicrophone(event) {
+    event.preventDefault();
     try {
       axios
         .post(
@@ -40,19 +41,59 @@ const Microphone = () => {
             microphoneName: event.currentTarget.elements.formMicrophone.value,
           },
           {
-            headers: { 
-                'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${cookies.jwtToken}` },
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${cookies.jwtToken}`,
+            },
           }
         )
         .then(() => {
-          console.log("Nudå");
           setAddMicrophone(!addMicrophone);
           fetchMicrophones();
         });
     } catch (error) {
-      console.log("Error creating scene: " + error);
-      console.log("mmm")
+      console.log("Error creating microphone: " + error);
+    }
+  }
+
+  function deleteMicrophone(microphoneName) {
+    try {
+      const response = axios
+        .delete(
+          `http://localhost:8080/api/v1/microphone/deleteMicrophone?microphoneName=${microphoneName}`,
+          {
+            headers: { Authorization: `Bearer ${cookies.jwtToken}` },
+          }
+        )
+        .then(fetchMicrophones);
+    } catch (error) {
+      console.log("error deleting microphone: " + error);
+    }
+  }
+
+  function renameMicrophone(event) {
+    event.preventDefault();
+    try {
+      axios
+        .put(
+          "http://localhost:8080/api/v1/microphone/updateMicrophone",
+          {
+            microphoneId: microphoneId,
+            microphoneName: event.currentTarget.elements.formMicrophoneName.value,
+          },
+          {
+            headers: {
+              //"Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${cookies.jwtToken}`,
+            },
+          }
+        )
+        .then(() => {
+          setShowRenameMicrophone(!showRenameMicrophone);
+          fetchMicrophones();
+        });
+    } catch (error) {
+      console.log("Error creating microphone: " + error);
     }
   }
 
@@ -75,8 +116,20 @@ const Microphone = () => {
               <td>{item.microphoneId}</td>
               <td>{item.microphoneName}</td>
               <td>
-                <Button>Rename</Button>
-                <Button>Delete</Button>
+                <Button
+                  onClick={() => {
+                    setMicrophoneId(item.microphoneId),
+                      setMicrophoneName(
+                        item.microphoneName,
+                        setShowRenameMicrophone(true)
+                      );
+                  }}
+                >
+                  Rename
+                </Button>
+                <Button onClick={() => deleteMicrophone(item.microphoneName)}>
+                  Delete
+                </Button>
               </td>
             </tr>
           </tbody>
@@ -101,6 +154,29 @@ const Microphone = () => {
             type="cancel"
             className="extButton"
             onClick={() => setAddMicrophone(!addMicrophone)}
+          >
+            Cancel
+          </Button>
+        </Form>
+      ) : (
+        ""
+      )}
+      {showRenameMicrophone ? (
+        <Form onSubmit={renameMicrophone}>
+          <Form.Group className="mb-3" controlId="formMicrophoneName">
+            <Form.Label>
+              <b>Add Microphone</b>
+            </Form.Label>
+            <Form.Control type="text" placeholder={microphoneName} />
+          </Form.Group>
+          <Button variant="primary" className="extButton" type="submit">
+            Rename
+          </Button>
+          <Button
+            variant="danger"
+            type="cancel"
+            className="extButton"
+            onClick={() => setShowRenameMicrophone(!showRenameMicrophone)}
           >
             Cancel
           </Button>
