@@ -93,7 +93,7 @@ const Microphone = () => {
           fetchMicrophones();
         });
     } catch (error) {
-      console.log("Error creating microphone: " + error);
+      console.log("Error renaming microphone: " + error);
     }
   }
 
