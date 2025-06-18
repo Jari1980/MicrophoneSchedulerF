@@ -3,16 +3,26 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { Button, Table, Form, FormCheck } from "react-bootstrap";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import Select from "react-select";
 
 const MicrophoneProduction = () => {
   const [productionData, setProductionData] = useState([]);
   const [microphoneData, setMicrophoneData] = useState([]);
+  const [microphones, setMicrophones] = useState([]);
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
   const [playName, setPlayName] = useState("");
+  const [addMicrophone, setAddMicrophone] = useState(false);
+  const [scene_characterId, setSceneCharacterId] = useState();
+  const [microphoneId, setMicrophoneId] = useState("");
+  const [selectedOption, setSelectedOption] = useState(null);
+  const handleChoise = (selectedOption) => {
+    setSelectedOption(selectedOption);
+    setMicrophoneId(selectedOption.microphoneId)
+  };
 
   useEffect(() => {
     fetchData();
-    //fetchPersonages();
+    fetchMicrophones();
     if (playName != "") {
       fetchMicrophoneData();
     }
@@ -33,6 +43,20 @@ const MicrophoneProduction = () => {
     }
   };
 
+  const fetchMicrophones = async () => {
+    try {
+      const response = await axios
+        .get("http://localhost:8080/api/v1/microphone/getMicrophones", {
+          headers: { Authorization: `Bearer ${cookies.jwtToken}` },
+        })
+        .then((res) => {
+          setMicrophones(res.data);
+        });
+    } catch (error) {
+      console.log("Error fetching microphonedata: " + error);
+    }
+  };
+
   const fetchMicrophoneData = async () => {
     try {
       const response = await axios
@@ -50,6 +74,49 @@ const MicrophoneProduction = () => {
       console.log("Error fetching scenedata: " + error);
     }
   };
+
+  const removeMicrophone = async (id) => {
+    console.log("id: " + id);
+    try {
+      const response = await axios
+        .put(
+          `http://localhost:8080/api/v1/admin/removeMicrophone?scene_characterId=${id}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${cookies.jwtToken}`,
+            },
+          }
+        )
+        .then(fetchMicrophoneData);
+    } catch (error) {
+      console.log("error removing microphone: " + error);
+    }
+  };
+
+  function handleAddMicrophone(event) {
+    event.preventDefault();
+    try {
+      const response = axios
+        .put(
+          "http://localhost:8080/api/v1/admin/addMicrophone",
+          {
+            scene_characterId: scene_characterId,
+            microphoneId: microphoneId,
+          },
+          {
+            headers: { Authorization: `Bearer ${cookies.jwtToken}` },
+          }
+        )
+        .then(
+          fetchMicrophoneData,
+          setSceneCharacterId(""),
+          setAddMicrophone(false),
+        );
+    } catch (error) {
+      console.log("eror adding character: " + error);
+    }
+  }
 
   return (
     <>
@@ -110,10 +177,17 @@ const MicrophoneProduction = () => {
                 <td>{item.userName}</td>
                 <td>{item.microphoneName}</td>
                 <td>
-                  <Button onClick={() => showCharacter(item.sceneId)}>
+                  <Button
+                    onClick={() => {
+                      setSceneCharacterId(item.scene_characterId),
+                        setAddMicrophone(true);
+                    }}
+                  >
                     Add
                   </Button>
-                  <Button onClick={() => showCharacter(item.sceneId)}>
+                  <Button
+                    onClick={() => removeMicrophone(item.scene_characterId)}
+                  >
                     Remove
                   </Button>
                 </td>
@@ -124,6 +198,40 @@ const MicrophoneProduction = () => {
       ) : (
         ""
       )}
+      {addMicrophone ? (
+        <Form onSubmit={handleAddMicrophone}>
+          <Form.Group className="mb-3">
+            <Form.Label>
+              <b>Add Microphone</b>
+            </Form.Label>
+            <Select
+              id="search"
+              isMulti={false}
+              options={microphones}
+              getOptionLabel={(options) => options["microphoneName"]}
+              getOptionValue={(options) => options["microphoneId"]}
+              onChange={handleChoise}
+            />
+          </Form.Group>
+          <Button variant="primary" type="submit" className="extButton">
+            Add
+          </Button>
+          <Button
+            variant="danger"
+            type="cancel"
+            className="extButton"
+            onClick={() => setAddMicrophone(false)}
+          >
+            Cancel
+          </Button>
+        </Form>
+      ) : (
+        ""
+      )}
+      <br />
+      <br />
+      <br />
+      <br />
     </>
   );
 };
