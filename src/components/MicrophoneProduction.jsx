@@ -185,11 +185,13 @@ const MicrophoneProduction = () => {
                   >
                     Add
                   </Button>
+                  {item.microphoneId != null ?
                   <Button
                     onClick={() => removeMicrophone(item.scene_characterId)}
                   >
                     Remove
                   </Button>
+                  : ""}
                 </td>
               </tr>
             </tbody>
