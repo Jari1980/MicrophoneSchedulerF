@@ -8,6 +8,8 @@ import Select from "react-select";
 const MicrophoneProduction = () => {
   const [productionData, setProductionData] = useState([]);
   const [microphoneData, setMicrophoneData] = useState([]);
+  const [suggestedMicrophones, setSuggestedMicrophones] = useState([]);
+  const [showSuggested, setShowSuggested] = useState(false);
   const [microphones, setMicrophones] = useState([]);
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
   const [playName, setPlayName] = useState("");
@@ -17,7 +19,7 @@ const MicrophoneProduction = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const handleChoise = (selectedOption) => {
     setSelectedOption(selectedOption);
-    setMicrophoneId(selectedOption.microphoneId)
+    setMicrophoneId(selectedOption.microphoneId);
   };
 
   useEffect(() => {
@@ -111,12 +113,31 @@ const MicrophoneProduction = () => {
         .then(
           fetchMicrophoneData,
           setSceneCharacterId(""),
-          setAddMicrophone(false),
+          setAddMicrophone(false)
         );
     } catch (error) {
       console.log("eror adding character: " + error);
     }
   }
+
+  const suggestMicrophones = async () => {
+    try {
+      const response = await axios
+        .get(
+          `http://localhost:8080/api/v1/admin/suggestMicrophoneSchedule?playName=${playName}`,
+          {
+            headers: { Authorization: `Bearer ${cookies.jwtToken}` },
+          }
+        )
+        .then((res) => {
+          console.log("Data fetched");
+          setSuggestedMicrophones(res.data.microphoneList);
+          setShowSuggested(!showSuggested);
+        });
+    } catch (error) {
+      console.log("Error suggesting microfones: " + error);
+    }
+  };
 
   return (
     <>
@@ -185,13 +206,15 @@ const MicrophoneProduction = () => {
                   >
                     Add
                   </Button>
-                  {item.microphoneId != null ?
-                  <Button
-                    onClick={() => removeMicrophone(item.scene_characterId)}
-                  >
-                    Remove
-                  </Button>
-                  : ""}
+                  {item.microphoneId != null ? (
+                    <Button
+                      onClick={() => removeMicrophone(item.scene_characterId)}
+                    >
+                      Remove
+                    </Button>
+                  ) : (
+                    ""
+                  )}
                 </td>
               </tr>
             </tbody>
@@ -230,6 +253,43 @@ const MicrophoneProduction = () => {
       ) : (
         ""
       )}
+      {playName != "" ? (
+        <Button onClick={() => suggestMicrophones()}>
+          Suggest MicrophoneSchedule
+        </Button>
+      ) : (
+        ""
+      )}
+      <br />
+      <br />
+      {showSuggested ? <b>Suggested Schedule</b> : ""}
+      {showSuggested ?
+      <Table striped bordered hover variant="dark">
+          <thead>
+            <tr>
+              <th>Scene</th>
+              <th>Character</th>
+              <th>User</th>
+              <th>Microphone</th>
+            </tr>
+          </thead>
+
+          {suggestedMicrophones.map((item, index) => (
+            <tbody key={index}>
+              <tr>
+                <td>{item.sceneName}</td>
+                <td>{item.personageName}</td>
+                <td>{item.userName}</td>
+                <td>{item.microphoneId}</td> {/* this is fictional id from backend */}
+              </tr>
+            </tbody>
+          ))}
+        </Table>
+       : ""}
+       {showSuggested ?
+      <Button onClick={() => setShowSuggested(false)}>Hide suggest</Button>
+      : "" 
+      }
       <br />
       <br />
       <br />
