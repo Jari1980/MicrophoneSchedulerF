@@ -4,8 +4,10 @@ import { Button } from 'react-bootstrap';
 
 const CookieConsent = () => {
     const [cookies, setCookie] = useCookies(["cookieConsent"])
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + 30);
     const giveCookieConsent = () => {
-        setCookie("cookieConsent", true, {path: "/"})
+        setCookie("cookieConsent", true, {path: "/", expires: expirationDate})
     }
 
     return (
