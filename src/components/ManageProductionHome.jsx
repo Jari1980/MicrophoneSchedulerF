@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Table, Form } from "react-bootstrap";
+import { Button, Table, Form, Alert } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -12,6 +12,8 @@ const ManageProductionHome = () => {
   const [editName, setEditName] = useState("");
   const [editDate, setEditDate] = useState("");
   const [editDescription, setEditDescription] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [productionId, setProductionId] = useState();
 
   useEffect(() => {
     fetchData();
@@ -61,7 +63,7 @@ const ManageProductionHome = () => {
   }
 
   function handleEditSubmitNewProduction(event) {
-     event.preventDefault();
+    event.preventDefault();
     try {
       axios
         .put(
@@ -85,10 +87,10 @@ const ManageProductionHome = () => {
   }
 
   function editProduction(name, date, description) {
-    setEditName(name)
-    setEditDate(date)
-    setEditDescription(description)
-    setFormEditVisible(true)
+    setEditName(name);
+    setEditDate(date);
+    setEditDescription(description);
+    setFormEditVisible(true);
   }
 
   function deleteProduction(playName) {
@@ -112,6 +114,24 @@ const ManageProductionHome = () => {
       <br />
       <h2>Theatre plays in database</h2>
       <br />
+      <Alert key="alert-text" variant="warning" show={showAlert}>
+        <b>Warning!</b>
+        <br />
+        <br />
+        This will delete the production and all related scenes,
+        however characters and microphones in this production will not be
+        deleted. Are you sure you want to proceed?
+        <br />
+        <br />
+        <Button variant="danger" onClick={() => deleteProduction(productionId)}>Proceed</Button>
+        <Button
+          onClick={() => {
+            setShowAlert(false), setProductionId("");
+          }}
+        >
+          Cancel
+        </Button>
+      </Alert>
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
@@ -129,16 +149,33 @@ const ManageProductionHome = () => {
               <td>{item.dateCreated}</td>
               <td>{item.description}</td>
               <td>
-                { cookies.userRole == "ROLE_ADMINISTRATOR" ? 
-                <Button onClick={() => editProduction(item.playName, item.dateCreated, item.description)}>
-                  Edit
-                </Button>
-                : ""}
-                { cookies.userRole == "ROLE_ADMINISTRATOR" ? 
-                <Button onClick={() => deleteProduction(item.playName)}>
-                  Delete
-                </Button>
-                : ""}
+                {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
+                  <Button
+                    onClick={() =>
+                      editProduction(
+                        item.playName,
+                        item.dateCreated,
+                        item.description
+                      )
+                    }
+                  >
+                    Edit
+                  </Button>
+                ) : (
+                  ""
+                )}
+                {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
+                  <Button
+                  variant="danger"
+                    onClick={() => {
+                      setShowAlert(true), setProductionId(item.playName);
+                    }}
+                  >
+                    Delete
+                  </Button>
+                ) : (
+                  ""
+                )}
               </td>
             </tr>
           </tbody>
@@ -150,7 +187,7 @@ const ManageProductionHome = () => {
             <Form.Label>
               <b>Production Name</b>
             </Form.Label>
-            <Form.Control type="text" defaultValue={editName} disabled/>
+            <Form.Control type="text" defaultValue={editName} disabled />
           </Form.Group>
           <Form.Group className="mb-3" controlId="dateEditCreated">
             <Form.Label>
@@ -167,19 +204,27 @@ const ManageProductionHome = () => {
           <Button variant="primary" type="submit" className="extButton">
             Save Production
           </Button>
-          <Button variant="danger" onClick={() => setFormEditVisible(false)} className="extButton">
-                              Cancel edit
-                          </Button>
+          <Button
+            variant="danger"
+            onClick={() => setFormEditVisible(false)}
+            className="extButton"
+          >
+            Cancel edit
+          </Button>
         </Form>
       ) : (
         ""
       )}
-      { cookies.userRole == "ROLE_ADMINISTRATOR" ?
-      <p>Select a play or create a new</p>
-      : ""}
-      { cookies.userRole == "ROLE_ADMINISTRATOR" ?
-      <Button onClick={() => showForm()}>+ New Production</Button>
-      : ""}
+      {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
+        <p>Select a play or create a new</p>
+      ) : (
+        ""
+      )}
+      {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
+        <Button onClick={() => showForm()}>+ New Production</Button>
+      ) : (
+        ""
+      )}
       {formVisible ? (
         <Form onSubmit={handleSubmitNewProduction}>
           <Form.Group className="mb-3" controlId="formPlayName">
