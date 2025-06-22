@@ -3,8 +3,10 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { Button, Table, Form, FormCheck } from "react-bootstrap";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { useGlobalContext } from "./context";
 
 const Scene = () => {
+  const {dark, setDark} = useGlobalContext();
   const [productionData, setProductionData] = useState([]);
   const [sceneData, setSceneData] = useState();
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
@@ -173,7 +175,7 @@ const Scene = () => {
       <h1>Manage Scenes</h1>
       <br />
       <h2>Select Production to work from</h2>
-      <Table striped bordered hover variant="dark">
+      <Table striped bordered hover variant={dark}>
         <thead>
           <tr>
             <th>Theater Production</th>
@@ -200,7 +202,7 @@ const Scene = () => {
       </Table>
       <p>PlayName: {playName}</p>
       {sceneData != null && sceneData != "" ? (
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover variant={dark}>
           <thead>
             <tr>
               <th>Scene Id</th>

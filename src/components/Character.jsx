@@ -11,6 +11,7 @@ import { useCookies } from "react-cookie";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Select from "react-select";
+import { useGlobalContext } from "./context";
 
 const Character = () => {
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
@@ -23,6 +24,7 @@ const Character = () => {
   const [characterId, setCharacterId] = useState();
   const [showEditForm, setShowEditForm] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
+  const {dark, setDark} = useGlobalContext();
 
   const [actorId, setActorId] = useState("");
   const [selectedOption, setSelectedOption] = useState(null);
@@ -148,7 +150,7 @@ const Character = () => {
     <>
       <h1>Manage Characters</h1>
       <br />
-      <Table striped bordered hover variant="dark">
+      <Table striped bordered hover variant={dark}>
         <thead>
           <tr>
             <th>Character Id</th>
@@ -206,7 +208,7 @@ const Character = () => {
       </Table>
       {showScenes ? <h3>{selectedCharacter} Scene Information</h3> : ""}
       {showScenes ? (
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover variant={dark}>
           <thead>
             <tr>
               <th>Scene Id</th>

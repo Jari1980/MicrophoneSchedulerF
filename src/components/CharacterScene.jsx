@@ -3,8 +3,10 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { Button, Table, Form, FormCheck } from "react-bootstrap";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { useGlobalContext } from "./context";
 
 const CharacterScene = () => {
+  const {dark, setDark} = useGlobalContext();
   const [productionData, setProductionData] = useState([]);
   const [sceneData, setSceneData] = useState([]);
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
@@ -24,6 +26,18 @@ const CharacterScene = () => {
       fetchScenes();
     }
   }, [playName]);
+
+  useEffect(() => {
+    if (playName != "") {
+      fetchScenes();
+      if (sceneId !== null || sceneId === ""){
+      showCharacter(sceneId)
+    }
+    }
+    
+  }, [characterScenes])
+
+  
 
   const fetchData = async () => {
     try {
@@ -53,6 +67,9 @@ const CharacterScene = () => {
         .then((res) => {
           console.log("Data fetched");
           setSceneData(res.data);
+          if(showCharacters){
+            showCharacter(sceneId)
+          }
         });
     } catch (error) {
       console.log("Error fetching scenedata: " + error);
@@ -73,7 +90,7 @@ const CharacterScene = () => {
     }
   };
 
-  function showCharacter(id) {
+  const showCharacter = async (id) => {
     const data = sceneData.filter((item) => item.sceneId == id);
     setCharacterScenes(data[0]);
     console.log("characters: " + characterScenes + ", data: " + data);
@@ -81,9 +98,10 @@ const CharacterScene = () => {
     setShowCharacters(true);
   }
 
-  function removeCharacterFromScene(personageId, sceneId) {
+  const removeCharacterFromScene = async (personageId, sceneId) => {
+    setCounter(counter + 1)
     try {
-      const response = axios
+      const response = await axios
         .put(
           "http://localhost:8080/api/v1/admin/removePersonageFromScene",
           {
@@ -94,20 +112,21 @@ const CharacterScene = () => {
             headers: { Authorization: `Bearer ${cookies.jwtToken}` },
           }
         )
-        .then(fetchScenes, setShowCharacters(false));
+        .then(fetchScenes)
     } catch (error) {
       console.log("eror removing character: " + error);
     }
   }
 
-  function handleAddCharacter(event) {
+  const handleAddCharacter = async (event) => {
+    setCounter(counter + 1)
     event.preventDefault();
     const personageData = {
       personageId: event.currentTarget.elements.level.value,
     };
 
     try {
-      const response = axios
+      const response = await axios
         .put(
           "http://localhost:8080/api/v1/admin/addPersonageToScene",
           {
@@ -118,7 +137,7 @@ const CharacterScene = () => {
             headers: { Authorization: `Bearer ${cookies.jwtToken}` },
           }
         )
-        .then(fetchScenes, fetchData, setSceneId(""), setAddCharacter(false), setShowCharacters(false));
+        .then(fetchScenes)
     } catch (error) {
       console.log("eror adding character: " + error);
     }
@@ -129,7 +148,7 @@ const CharacterScene = () => {
       <h1>Manage characters to scene</h1>
       <br />
       <h2>Select Production to work from</h2>
-      <Table striped bordered hover variant="dark">
+      <Table striped bordered hover variant={dark}>
         <thead>
           <tr>
             <th>Theater Production</th>
@@ -160,7 +179,7 @@ const CharacterScene = () => {
       </Table>
       {playName != "" ? <h2>{playName}</h2> : ""}
       {playName != "" ? (
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover variant={dark}>
           <thead>
             <tr>
               <th>Scene Id</th>
@@ -192,7 +211,7 @@ const CharacterScene = () => {
       )}
       {showCharacters != "" ? <h2>Scene Id {sceneId} selected</h2> : ""}
       {showCharacters ? (
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover variant={dark}>
           <thead>
             <tr>
               <th>Character Id</th>
