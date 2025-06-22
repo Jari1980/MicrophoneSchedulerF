@@ -3,8 +3,10 @@ import { Button, Table, Form, Alert } from "react-bootstrap";
 import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useGlobalContext } from "./context";
 
 const ManageProductionHome = () => {
+  const {dark, setDark} = useGlobalContext();
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
   const [productionData, setProductionData] = useState([]);
   const [formVisible, setFormVisible] = useState(false);
@@ -132,7 +134,7 @@ const ManageProductionHome = () => {
           Cancel
         </Button>
       </Alert>
-      <Table striped bordered hover variant="dark">
+      <Table striped bordered hover variant={dark}>
         <thead>
           <tr>
             <th>Theater Production</th>

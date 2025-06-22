@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { Button, Table, Form, FormCheck } from "react-bootstrap";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { useGlobalContext } from "./context";
 
 const Microphone = () => {
   const [microphoneData, setMicrophoneData] = useState([]);
@@ -11,6 +12,7 @@ const Microphone = () => {
   const [showRenameMicrophone, setShowRenameMicrophone] = useState(false);
   const [microphoneId, setMicrophoneId] = useState("");
   const [microphoneName, setMicrophoneName] = useState("");
+  const {dark, setDark} = useGlobalContext();
 
   useEffect(() => {
     fetchMicrophones();
@@ -101,7 +103,7 @@ const Microphone = () => {
     <>
       <h1>Microphones</h1>
       <br />
-      <Table striped bordered hover variant="dark">
+      <Table striped bordered hover variant={dark}>
         <thead>
           <tr>
             <th>Id</th>

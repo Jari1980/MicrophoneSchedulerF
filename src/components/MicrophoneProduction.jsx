@@ -4,6 +4,7 @@ import { Button, Table, Form, FormCheck } from "react-bootstrap";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import Select from "react-select";
+import { useGlobalContext } from "./context";
 
 const MicrophoneProduction = () => {
   const [productionData, setProductionData] = useState([]);
@@ -17,6 +18,8 @@ const MicrophoneProduction = () => {
   const [scene_characterId, setSceneCharacterId] = useState();
   const [microphoneId, setMicrophoneId] = useState("");
   const [selectedOption, setSelectedOption] = useState(null);
+  const {dark, setDark} = useGlobalContext();
+
   const handleChoise = (selectedOption) => {
     setSelectedOption(selectedOption);
     setMicrophoneId(selectedOption.microphoneId);
@@ -144,7 +147,7 @@ const MicrophoneProduction = () => {
       <h1>Manage Microphone in production</h1>
       <br />
       <h2>Select Production to work from</h2>
-      <Table striped bordered hover variant="dark">
+      <Table striped bordered hover variant={dark}>
         <thead>
           <tr>
             <th>Theater Production</th>
@@ -179,7 +182,7 @@ const MicrophoneProduction = () => {
         ""
       )}
       {playName != "" ? (
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover variant={dark}>
           <thead>
             <tr>
               <th>Scene</th>
