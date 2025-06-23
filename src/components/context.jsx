@@ -4,10 +4,14 @@ import axios from "axios";
 const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
-    const[dark, setDark] = useState("dark");
-    const[bgColor, setBgColor] = useState(
+    const [dark, setDark] = useState("dark");
+    const [bgColor, setBgColor] = useState(
       "linear-gradient(120deg,rgb(114, 119, 138),rgb(71, 97, 190) 50%,rgb(132, 142, 173))"
     );
+    const [bgColorDashboard, setBgColorDashboard] = useState(
+      "linear-gradient(120deg,rgb(114, 119, 138),rgb(74, 85, 126) 50%,rgb(135, 138, 148))"
+    );
+    const [dashboardText, setDashboardText] = useState("whitesmoke")
     
 
   return (
@@ -16,7 +20,11 @@ export const GlobalProvider = ({ children }) => {
         dark,
         setDark,
         bgColor,
-        setBgColor
+        setBgColor,
+        bgColorDashboard,
+        setBgColorDashboard,
+        dashboardText,
+        setDashboardText
     }}
     >
         {children}

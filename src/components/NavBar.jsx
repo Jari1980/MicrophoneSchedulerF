@@ -10,6 +10,8 @@ const NavBar = () => {
     const navigate = useNavigate();
     const {dark, setDark} = useGlobalContext();
     const {bgColor, setBgColor} = useGlobalContext();
+    const {bgColorDashboard, setBgColorDashboard} = useGlobalContext();
+    const {dashboardText, setDashboardText} = useGlobalContext();
 
     function logout(){
         setCookie("jwtToken", "", {path: "/"})
@@ -22,10 +24,14 @@ const NavBar = () => {
     if(dark === "dark"){
       setDark("light")
       setBgColor("linear-gradient(120deg,rgb(117, 143, 231), rgb(149, 165, 207) 50%,rgb(221, 224, 233))")
+      setBgColorDashboard("linear-gradient(120deg,rgb(117, 143, 231), rgb(149, 165, 207) 50%,rgb(221, 224, 233))")
+      setDashboardText("indigo")
     }
     else{
       setDark("dark")
       setBgColor("linear-gradient(120deg,rgb(114, 119, 138),rgb(71, 97, 190) 50%,rgb(132, 142, 173))")
+      setBgColorDashboard("linear-gradient(120deg,rgb(114, 119, 138),rgb(74, 85, 126) 50%,rgb(135, 138, 148))")
+      setDashboardText("whitesmoke")
     }
   }
 

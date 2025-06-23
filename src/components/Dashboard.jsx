@@ -14,6 +14,8 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
   const {bgColor, setBgColor} = useGlobalContext();
+  const {bgColorDashboard, setBgColorDashboard} = useGlobalContext();
+  const {dashboardText, setDashboardText} = useGlobalContext();
 
   useEffect(() => {
     const handleToggle = () => {
@@ -27,7 +29,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div style={{ display: "flex", height: "auto" }}>
+      <div style={{ display: "flex", height: "100vh" }}>
         <button className="dashboard-toggle" onClick={() => setOpen(!open)}>
             {/* Using Google icon for toggle */}
           <span className="material-symbols-outlined">
@@ -37,11 +39,12 @@ const Dashboard = () => {
         <aside
           className={`aside ${open ? "aside-open" : "aside-closed"}`}
         >
-          <Nav>
-            <ul style={{ listStyle: "none", padding: 0 }}>
+          <Nav style={{height: "100%" , background:bgColorDashboard }}>
+            <ul style={{ listStyle: "none", padding: 10 }}>
               <li>
                 <button
                   className="btn btn-outline-primary w-100 mb-2"
+                  style={{color: dashboardText}}
                   onClick={() => navigate("../dashboard")}
                 >
                   Theater Productions
@@ -49,6 +52,7 @@ const Dashboard = () => {
               </li>
               <li>
                 <button className="btn btn-outline-primary w-100 mb-2"
+                style={{color: dashboardText}}
                 onClick={() => navigate("../dashboard/scene")}
                 >
                   Scene
@@ -56,30 +60,37 @@ const Dashboard = () => {
               </li>
               <li>
                 <button className="btn btn-outline-primary w-100 mb-2"
+                style={{color: dashboardText}}
                 onClick={() => navigate("../dashboard/characterscene")}>
                   Character to Scene
                 </button>
               </li>
               <li>
                 <button className="btn btn-outline-primary w-100 mb-2"
+                style={{color: dashboardText}}
                 onClick={() => navigate("../dashboard/character")}>
                   Character
                 </button>
               </li>
               <li>
                 <button className="btn btn-outline-primary w-100 mb-2"
+                style={{color: dashboardText}}
                 onClick={() => navigate("../dashboard/microphoneProduction")}>
                   Microphone in Production
                 </button>
               </li>
               <li>
                 <button className="btn btn-outline-primary w-100 mb-2"
+                style={{color: dashboardText}}
                 onClick={() => navigate("../dashboard/microphone")}>
                   Microphone
                 </button>
               </li>
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2" disabled>
+                <button className="btn btn-outline-primary w-100 mb-2" 
+                style={{color: dashboardText}}
+                disabled>
+                  
                   ...
                 </button>
               </li>
@@ -94,7 +105,7 @@ const Dashboard = () => {
             marginLeft: "-2px",
           }}
         >
-          <main style={{ flex: 2, padding: "16px" }}>
+          <main style={{ flex: 2, padding: "16px", height: "100%" }}>
             <Routes>
               <Route path="/" element={<ManageProductionHome />} />
               <Route path="scene" element={<Scene />} />
