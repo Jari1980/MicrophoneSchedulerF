@@ -1,7 +1,5 @@
 import React from "react";
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { Button } from 'react-bootstrap'
 import { useCookies } from "react-cookie";
@@ -17,10 +15,25 @@ function Home() {
   return (
     <>
     <div style={{backgroundImage:bgColor, width:"100vw", height:"100vh", overflow: "hidden"}}>
-      <p>Hello World</p>
-      {cookies.userRole == "ROLE_ADMINISTRATOR" || cookies.userRole == "ROLE_DIRECTOR" ? <Button onClick={() => navigate("/dashboard")}>Manage Theater productions</Button> : ""}
-      {cookies.userRole == "ROLE_ADMINISTRATOR" ? <Button onClick={() => navigate("/userservice")}>User Service</Button> : ""}
+      <br />
+      <div style={{textAlign:"center"}}>
+      <h1 style={{fontFamily: "Brush Script MT", fontSize: "44px"}}>Teaterstickorna</h1>
+      <br/>
+      <b>Image?</b>
+      <br />
+      <br />
+      <br />
       {!cookies.cookieConsent && <CookieConsent />}
+      <br />
+      {cookies.userRole == "ROLE_ADMINISTRATOR" || cookies.userRole == "ROLE_DIRECTOR" ? 
+      <Button style={{width: "240px"}} onClick={() => navigate("/dashboard")}>Manage Theater productions</Button>
+       : ""}
+      <br />
+      <br />
+      {cookies.userRole == "ROLE_ADMINISTRATOR" ? 
+      <Button style={{width: "240px"}} onClick={() => navigate("/userservice")}>User Service</Button> 
+      : ""}
+      </div>
       </div>
     </>
   )

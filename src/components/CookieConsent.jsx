@@ -12,11 +12,11 @@ const CookieConsent = () => {
 
     return (
         <>
-        <div>
+        <div style={{background: "yellow", padding: "20px"}}>
             <h3>Cookie Consent</h3>
             <p>In order to run this application we are using cookies.</p>
-            <Button onClick={giveCookieConsent}>Accept</Button>
-            <Button onClick={() => {location.href = 'https://www.google.com/'}}>Go somewhere else</Button>
+            <Button style={{marginRight: "50px"}} onClick={giveCookieConsent}>Accept</Button>
+            <Button variant='danger' onClick={() => {location.href = 'https://www.google.com/'}}>Go somewhere else</Button>
         </div>
         </>
     );
