@@ -3,10 +3,12 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { Button, Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { useGlobalContext } from "./context";
 
 const UserService = () => {
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
   const [userData, setUserData] = useState([]);
+  const {bgColor, setBgColor} = useGlobalContext();
 
   useEffect(() => {
     fetchData();
@@ -94,6 +96,7 @@ const UserService = () => {
 
   return (
     <>
+    <div style={{backgroundImage:bgColor, width:"100vw", height:"100vh", overflow: "hidden"}}>
       <p>User service</p>
       <Table striped bordered hover variant="dark">
         <thead>
@@ -134,6 +137,7 @@ const UserService = () => {
           </tbody>
         ))}
       </Table>
+      </div>
     </>
   );
 };
