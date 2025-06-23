@@ -283,7 +283,7 @@ const MicrophoneProduction = () => {
                 <td>{item.sceneName}</td>
                 <td>{item.personageName}</td>
                 <td>{item.userName}</td>
-                <td>{item.microphoneId}</td> {/* this is fictional id from backend */}
+                <td>{item.microphoneId}</td>
               </tr>
             </tbody>
           ))}

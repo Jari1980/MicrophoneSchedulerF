@@ -8,10 +8,12 @@ import Character from "./Character";
 import CharacterScene from "./CharacterScene";
 import MicrophoneProduction from "./MicrophoneProduction";
 import Microphone from "./Microphone";
+import { useGlobalContext } from "./context";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
+  const {bgColor, setBgColor} = useGlobalContext();
 
   useEffect(() => {
     const handleToggle = () => {
@@ -86,7 +88,7 @@ const Dashboard = () => {
         </aside>
         <div
           style={{
-            backgroundSize: "100%",
+            background: bgColor,
             width: "100vw",
             overflow: "hidden",
             marginLeft: "-2px",

@@ -9,6 +9,7 @@ const NavBar = () => {
     const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
     const navigate = useNavigate();
     const {dark, setDark} = useGlobalContext();
+    const {bgColor, setBgColor} = useGlobalContext();
 
     function logout(){
         setCookie("jwtToken", "", {path: "/"})
@@ -20,9 +21,11 @@ const NavBar = () => {
     function handleClick(){
     if(dark === "dark"){
       setDark("light")
+      setBgColor("linear-gradient(120deg,rgb(117, 143, 231), rgb(149, 165, 207) 50%,rgb(221, 224, 233))")
     }
     else{
       setDark("dark")
+      setBgColor("linear-gradient(120deg,rgb(114, 119, 138),rgb(71, 97, 190) 50%,rgb(132, 142, 173))")
     }
   }
 
