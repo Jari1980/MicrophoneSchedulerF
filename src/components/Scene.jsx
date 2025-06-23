@@ -179,7 +179,7 @@ const Scene = () => {
         <thead>
           <tr>
             <th>Theater Production</th>
-            <th>Date Created</th>
+            <th>Premiere Date</th>
             <th>Description</th>
             <th>Actions</th>
           </tr>
@@ -189,7 +189,7 @@ const Scene = () => {
           <tbody key={item.playName}>
             <tr>
               <td>{item.playName}</td>
-              <td>{item.dateCreated}</td>
+              <td>{item.premiereDate}</td>
               <td>{item.description}</td>
               <td>
                 <Button onClick={() => fetchScenes(item.playName)}>

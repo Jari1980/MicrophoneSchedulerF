@@ -48,7 +48,7 @@ const ManageProductionHome = () => {
           "http://localhost:8080/api/v1/admin/createPlay",
           {
             playName: event.currentTarget.elements.formPlayName.value,
-            dateCreated: event.currentTarget.elements.dateCreated.value,
+            premiereDate: event.currentTarget.elements.dateCreated.value,
             description: event.currentTarget.elements.description.value,
           },
           {
@@ -72,7 +72,7 @@ const ManageProductionHome = () => {
           "http://localhost:8080/api/v1/admin/updatePlay",
           {
             playName: event.currentTarget.elements.formEditPlayName.value,
-            dateCreated: event.currentTarget.elements.dateEditCreated.value,
+            premiereDate: event.currentTarget.elements.dateEditCreated.value,
             description: event.currentTarget.elements.editDescription.value,
           },
           {
@@ -125,7 +125,7 @@ const ManageProductionHome = () => {
         deleted. Are you sure you want to proceed?
         <br />
         <br />
-        <Button variant="danger" onClick={() => deleteProduction(productionId)}>Proceed</Button>
+        <Button variant="danger" onClick={() => {deleteProduction(productionId), setShowAlert(false)}}>Proceed</Button>
         <Button
           onClick={() => {
             setShowAlert(false), setProductionId("");
@@ -138,7 +138,7 @@ const ManageProductionHome = () => {
         <thead>
           <tr>
             <th>Theater Production</th>
-            <th>Date Created</th>
+            <th>Premiere Date</th>
             <th>Description</th>
             <th>Actions</th>
           </tr>
@@ -148,7 +148,7 @@ const ManageProductionHome = () => {
           <tbody key={item.playName}>
             <tr>
               <td>{item.playName}</td>
-              <td>{item.dateCreated}</td>
+              <td>{item.premiereDate}</td>
               <td>{item.description}</td>
               <td>
                 {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
@@ -156,7 +156,7 @@ const ManageProductionHome = () => {
                     onClick={() =>
                       editProduction(
                         item.playName,
-                        item.dateCreated,
+                        item.premiereDate,
                         item.description
                       )
                     }

@@ -6,8 +6,6 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 const LogIn = () => {
-  const { userName, setUserName } = useGlobalContext();
-  const { userRole, setUserRole } = useGlobalContext();
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
   const navigate = useNavigate();
 
@@ -29,8 +27,6 @@ const LogIn = () => {
               "\nuserRole: " +
               response.data.userRole
           );
-          setUserName(response.data.userName); //The globalstate will not be used here but keeping it if someone want to see how they are used
-          setUserRole(response.data.userRole); //
           setCookie("jwtToken", response.data.jwtToken, { path: "/" });
           setCookie("userName", response.data.userName, { path: "/" });
           setCookie("userRole", response.data.userRole, { path: "/" });
