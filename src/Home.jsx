@@ -15,6 +15,7 @@ function Home() {
   return (
     <>
     <div style={{backgroundImage:bgColor, width:"100vw", height:"100vh", overflow: "hidden"}}>
+      {!cookies.cookieConsent && <CookieConsent />}
       <br />
       <div style={{textAlign:"center"}}>
       <h1 style={{fontFamily: "Brush Script MT", fontSize: "44px"}}>Teaterstickorna</h1>
@@ -22,8 +23,6 @@ function Home() {
       <b>Image?</b>
       <br />
       <br />
-      <br />
-      {!cookies.cookieConsent && <CookieConsent />}
       <br />
       {cookies.userRole == "ROLE_ADMINISTRATOR" || cookies.userRole == "ROLE_DIRECTOR" ? 
       <Button style={{width: "240px"}} onClick={() => navigate("/dashboard")}>Manage Theater productions</Button>

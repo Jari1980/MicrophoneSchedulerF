@@ -181,6 +181,7 @@ const Character = () => {
               <td>
                 {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                   <Button
+                  style={{width: "70px", marginRight: "10px"}}
                     onClick={() =>
                       editCharacter(
                         item.personageId,
@@ -195,7 +196,10 @@ const Character = () => {
                   ""
                 )}
                 {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
-                  <Button onClick={() => deleteCharacter(item.personageId)}>
+                  <Button
+                  style={{width: "70px"}}
+                  variant="danger" 
+                  onClick={() => deleteCharacter(item.personageId)}>
                     Delete
                   </Button>
                 ) : (
@@ -260,10 +264,13 @@ const Character = () => {
               onChange={handleChoise}
             />
           </Form.Group>
-          <Button variant="primary" type="submit" className="extButton">
+          <Button
+          style={{width: "70px", marginRight: "10px"}} 
+          variant="primary" type="submit" className="extButton">
             Edit
           </Button>
           <Button
+          style={{width: "70px"}}
             variant="danger"
             type="cancel"
             className="extButton"
@@ -275,6 +282,7 @@ const Character = () => {
       ) : (
         ""
       )}
+      <br />
       <Button onClick={() => setShowCreate(true)}>+ Create Character</Button>
       {showCreate ? (
         <Form onSubmit={handleCreate}>

@@ -223,6 +223,7 @@ const Scene = () => {
                 <td>
                   {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                     <Button
+                    style={{width: "70px", marginRight: "10px"}}
                       onClick={() =>
                         editScene(
                           item.sceneId,
@@ -238,7 +239,10 @@ const Scene = () => {
                     ""
                   )}
                   {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
-                    <Button onClick={() => deleteScene(item.sceneId)}>
+                    <Button 
+                    style={{width: "70px"}}
+                    variant="danger"
+                    onClick={() => deleteScene(item.sceneId)}>
                       Delete
                     </Button>
                   ) : (

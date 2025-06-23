@@ -153,6 +153,7 @@ const ManageProductionHome = () => {
               <td>
                 {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                   <Button
+                  style={{width: "70px", marginRight: "10px"}}
                     onClick={() =>
                       editProduction(
                         item.playName,
@@ -168,6 +169,7 @@ const ManageProductionHome = () => {
                 )}
                 {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                   <Button
+                  style={{width: "70px"}}
                   variant="danger"
                     onClick={() => {
                       setShowAlert(true), setProductionId(item.playName);

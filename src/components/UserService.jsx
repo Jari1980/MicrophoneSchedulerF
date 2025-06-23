@@ -128,10 +128,15 @@ const UserService = () => {
                 </select>
               </td>
               <td>
-                <Button onClick={() => editUser(item.userId, item.role)}>
+                <Button
+                style={{width: "120px", marginRight: "10px"}} 
+                onClick={() => editUser(item.userId, item.role)}>
                   Set New Role
                 </Button>
-                <Button onClick={() => deleteUser(item.userId)}>Delete User</Button>
+                <Button
+                style={{width: "120px"}}
+                variant="danger" 
+                onClick={() => deleteUser(item.userId)}>Delete User</Button>
               </td>
             </tr>
           </tbody>
