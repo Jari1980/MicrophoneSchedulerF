@@ -119,6 +119,7 @@ const Microphone = () => {
               <td>{item.microphoneName}</td>
               <td>
                 <Button
+                style={{width: "80px", marginRight: "10px"}}
                   onClick={() => {
                     setMicrophoneId(item.microphoneId),
                       setMicrophoneName(
@@ -129,7 +130,10 @@ const Microphone = () => {
                 >
                   Rename
                 </Button>
-                <Button onClick={() => deleteMicrophone(item.microphoneName)}>
+                <Button
+                style={{width: "80px"}}
+                variant="danger" 
+                onClick={() => deleteMicrophone(item.microphoneName)}>
                   Delete
                 </Button>
               </td>
@@ -148,10 +152,13 @@ const Microphone = () => {
             </Form.Label>
             <Form.Control type="text" placeholder="Enter username" />
           </Form.Group>
-          <Button variant="primary" className="extButton" type="submit">
+          <Button
+          style={{width: "70px", marginRight: "10px"}} 
+          variant="primary" className="extButton" type="submit">
             Create
           </Button>
           <Button
+          style={{width: "70px"}}
             variant="danger"
             type="cancel"
             className="extButton"
