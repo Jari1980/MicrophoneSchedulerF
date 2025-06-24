@@ -171,7 +171,7 @@ const CharacterScene = () => {
               <td>
                 <Button
                   onClick={() => {
-                    setPlayName(item.playName), fetchScenes;
+                    setShowCharacters(!showCharacter), setPlayName(item.playName), fetchScenes;
                   }}
                 >
                   Select

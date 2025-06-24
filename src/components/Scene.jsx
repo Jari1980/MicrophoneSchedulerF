@@ -213,7 +213,8 @@ const Scene = () => {
           </tbody>
         ))}
       </Table>
-      <b>Production: {playName}</b>
+      {playName != "" ? <b>Production: {playName}</b >: ""}
+      
       {sceneData != null && sceneData != "" ? (
         <Table striped bordered hover variant={dark}>
           <thead>
