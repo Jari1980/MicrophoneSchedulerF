@@ -14,6 +14,7 @@ const CharacterScene = () => {
   const [playName, setPlayName] = useState("");
   const [showCharacters, setShowCharacters] = useState(false);
   const [sceneId, setSceneId] = useState("");
+  const [sceneName, setSceneName] = useState("");
   const [characterScenes, setCharacterScenes] = useState([]);
   const [counter, setCounter] = useState(1);
   const [addCharacter, setAddCharacter] = useState(false);
@@ -21,9 +22,10 @@ const CharacterScene = () => {
 
   useEffect(() => {
     fetchData();
-    fetchPersonages();
+    
     if (playName != "") {
       fetchScenes();
+      fetchPersonages();
     }
   }, [playName]);
 
@@ -95,6 +97,8 @@ const CharacterScene = () => {
     setCharacterScenes(data[0]);
     console.log("characters: " + characterScenes + ", data: " + data);
     setSceneId(id);
+    
+    console.log("mmm" + sceneName + "mmm" + name)
     setShowCharacters(true);
   }
 
@@ -152,7 +156,7 @@ const CharacterScene = () => {
         <thead>
           <tr>
             <th>Theater Production</th>
-            <th>Premiere Date</th>
+            <th>Premiere</th>
             <th>Description</th>
             <th>Actions</th>
           </tr>
@@ -182,7 +186,6 @@ const CharacterScene = () => {
         <Table striped bordered hover variant={dark}>
           <thead>
             <tr>
-              <th>Scene Id</th>
               <th>Act Number</th>
               <th>Scene Number</th>
               <th>Scene Name</th>
@@ -193,12 +196,11 @@ const CharacterScene = () => {
           {sceneData.map((item) => (
             <tbody key={item.sceneId}>
               <tr>
-                <td>{item.sceneId}</td>
                 <td>{item.actNumber}</td>
                 <td>{item.sceneNumber}</td>
                 <td>{item.sceneName}</td>
                 <td>
-                  <Button onClick={() => showCharacter(item.sceneId)}>
+                  <Button onClick={() => {showCharacter(item.sceneId), setSceneName(item.sceneName)}}>
                     Select
                   </Button>
                 </td>
@@ -209,12 +211,11 @@ const CharacterScene = () => {
       ) : (
         ""
       )}
-      {showCharacters != "" ? <h2>Scene Id {sceneId} selected</h2> : ""}
+      {showCharacters != "" ? <h2>{sceneName} selected</h2> : ""}
       {showCharacters ? (
         <Table striped bordered hover variant={dark}>
           <thead>
             <tr>
-              <th>Character Id</th>
               <th>Character Name</th>
               <th>Action</th>
             </tr>
@@ -223,7 +224,6 @@ const CharacterScene = () => {
             characterScenes.personages.map((item, index) => (
               <tbody key={index}>
                 <tr>
-                  <td>{item.personageId}</td>
                   <td>{item.personageName}</td>
                   <td>
                     <Button
@@ -251,7 +251,7 @@ const CharacterScene = () => {
       <Form onSubmit={handleAddCharacter}>
                 <Form.Group className="mb-3" controlId="formActor">
                   <Form.Label>
-                    <b>Add character to sceneId {sceneId}</b>
+                    <b>Add character</b>
                   </Form.Label>
                   <select
                     id="level"

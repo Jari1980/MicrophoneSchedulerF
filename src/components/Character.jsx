@@ -153,7 +153,6 @@ const Character = () => {
       <Table striped bordered hover variant={dark}>
         <thead>
           <tr>
-            <th>Character Id</th>
             <th>Character Name</th>
             <th>Production Name</th>
             <th>Actor Name</th>
@@ -165,7 +164,6 @@ const Character = () => {
         {characterData.map((item) => (
           <tbody key={item.personageId}>
             <tr>
-              <td>{item.personageId}</td>
               <td>{item.personageName}</td>
               <td>{item.playName}</td>
               <td>{item.actorName}</td>
@@ -215,7 +213,6 @@ const Character = () => {
         <Table striped bordered hover variant={dark}>
           <thead>
             <tr>
-              <th>Scene Id</th>
               <th>Act Number</th>
               <th>Scene Number</th>
               <th>Scene Name</th>
@@ -226,7 +223,6 @@ const Character = () => {
             characterScenes.scenes.map((item) => (
               <tbody key={item.sceneId}>
                 <tr>
-                  <td>{item.sceneId}</td>
                   <td>{item.actNumber}</td>
                   <td>{item.sceneNumber}</td>
                   <td>{item.sceneName}</td>

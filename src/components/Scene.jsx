@@ -28,6 +28,17 @@ const Scene = () => {
     }
   }, [counter]);
 
+  useEffect(() => {
+      if (playName != "") {
+        //fetchScenes();
+        //fetchScenes(playName);
+        if (sceneId !== null || sceneId === ""){
+        //showCharacter(sceneId)
+      }
+      }
+      
+    }, [sceneData])
+
   const fetchData = async () => {
     try {
       const response = await axios
@@ -70,7 +81,9 @@ const Scene = () => {
             headers: { Authorization: `Bearer ${cookies.jwtToken}` },
           }
         )
-        .then(fetchScenes(playName), setCounter(counter + 1));
+        .then((res) => {
+          setCounter(counter + 1)
+        });
     } catch (error) {
       console.log("error deleting: " + error);
     }
@@ -200,12 +213,11 @@ const Scene = () => {
           </tbody>
         ))}
       </Table>
-      <p>PlayName: {playName}</p>
+      <b>Production: {playName}</b>
       {sceneData != null && sceneData != "" ? (
         <Table striped bordered hover variant={dark}>
           <thead>
             <tr>
-              <th>Scene Id</th>
               <th>Act Number</th>
               <th>Scene Number</th>
               <th>Scene Name</th>
@@ -216,7 +228,6 @@ const Scene = () => {
           {sceneData.map((item) => (
             <tbody key={item.sceneId}>
               <tr>
-                <td>{item.sceneId}</td>
                 <td>{item.actNumber}</td>
                 <td>{item.sceneNumber}</td>
                 <td>{item.sceneName}</td>
@@ -256,13 +267,15 @@ const Scene = () => {
       ) : (
         ""
       )}
+      {showEdit ? 
+      <b>Editing scene {sceneName}</b>
+      : ""}
       {showEdit ? (
         <Form onSubmit={handleEditSubmitScene}>
           <Form.Group className="mb-3" controlId="formSceneId">
             <Form.Label>
-              <b>Scene Id</b>
             </Form.Label>
-            <Form.Control type="text" defaultValue={sceneId} disabled />
+            <Form.Control type="text" defaultValue={sceneId} hidden />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formActNumber">
             <Form.Label>
@@ -282,7 +295,9 @@ const Scene = () => {
             </Form.Label>
             <Form.Control type="text" defaultValue={sceneName} />
           </Form.Group>
-          <Button variant="primary" type="submit" className="extButton">
+          <Button 
+          style={{marginRight:"10px"}}
+          variant="primary" type="submit" className="extButton">
             Save Scene
           </Button>
           <Button
@@ -296,6 +311,7 @@ const Scene = () => {
       ) : (
         ""
       )}
+      <br />
       {playName != "" ? (
         <Button onClick={() => setAddAct(true)}>+ Add Act</Button>
       ) : (
