@@ -32,6 +32,9 @@ function Home() {
       {cookies.userRole == "ROLE_ADMINISTRATOR" ? 
       <Button style={{width: "240px"}} onClick={() => navigate("/userservice")}>User Service</Button> 
       : ""}
+      {cookies.userRole == "ROLE_ACTOR" ?
+      <Button style={{width: "240px"}} onClick={() => navigate("/actorscenes")}>Microphone Schedule</Button>
+    :""}
       </div>
       </div>
     </>
