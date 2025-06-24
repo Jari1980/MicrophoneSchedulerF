@@ -244,10 +244,13 @@ const MicrophoneProduction = () => {
               onChange={handleChoise}
             />
           </Form.Group>
-          <Button variant="primary" type="submit" className="extButton">
+          <Button
+          style={{width: "70px", marginRight: "10px"}} 
+          variant="primary" type="submit" className="extButton">
             Add
           </Button>
           <Button
+          style={{width: "70px"}} 
             variant="danger"
             type="cancel"
             className="extButton"
@@ -259,6 +262,7 @@ const MicrophoneProduction = () => {
       ) : (
         ""
       )}
+      <br />
       {playName != "" ? (
         <Button onClick={() => suggestMicrophones()}>
           Suggest MicrophoneSchedule
