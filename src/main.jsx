@@ -11,6 +11,7 @@ import LogIn from "./components/LogIn.jsx";
 import UserService from "./components/userService.jsx";
 import Register from "./components/Register.jsx";
 import Dashboard from "./components/Dashboard.jsx";
+import ActorScenes from "./components/ActorScenes.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -24,6 +25,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<LogIn />} />
           <Route path="/dashboard/*" element={<Dashboard />} />
+          <Route path="/actorscenes" element={<ActorScenes />} />
         </Routes>
       </CookiesProvider>
     </GlobalProvider>

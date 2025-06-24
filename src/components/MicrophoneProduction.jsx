@@ -202,6 +202,7 @@ const MicrophoneProduction = () => {
                 <td>{item.microphoneName}</td>
                 <td>
                   <Button
+                  style={{width: "80px", marginRight: "10px"}}
                     onClick={() => {
                       setSceneCharacterId(item.scene_characterId),
                         setAddMicrophone(true);
@@ -211,6 +212,8 @@ const MicrophoneProduction = () => {
                   </Button>
                   {item.microphoneId != null ? (
                     <Button
+                    style={{width: "80px" }}
+                    variant="danger"
                       onClick={() => removeMicrophone(item.scene_characterId)}
                     >
                       Remove

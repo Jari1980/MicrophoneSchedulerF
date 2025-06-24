@@ -32,7 +32,7 @@ const ManageProductionHome = () => {
           console.log(res.data);
         });
     } catch (error) {
-      console.log("Error fetching userdata: " + error);
+      console.log("Error fetching productiondata: " + error);
     }
   };
 
