@@ -216,7 +216,6 @@ const CharacterScene = () => {
         <Table striped bordered hover variant={dark}>
           <thead>
             <tr>
-              <th>Character Id</th>
               <th>Character Name</th>
               <th>Action</th>
             </tr>
@@ -225,7 +224,6 @@ const CharacterScene = () => {
             characterScenes.personages.map((item, index) => (
               <tbody key={index}>
                 <tr>
-                  <td>{item.personageId}</td>
                   <td>{item.personageName}</td>
                   <td>
                     <Button
