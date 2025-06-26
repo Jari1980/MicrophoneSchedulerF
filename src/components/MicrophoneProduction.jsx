@@ -39,6 +39,13 @@ const MicrophoneProduction = () => {
 
   // For pdf
   const styles = StyleSheet.create({
+    heading: {
+      padding: "40px",
+      textAlign: "center",
+      color: "black",
+      fontWeight: "1000",
+      fontSize: "26"
+    },
     table: {
       width: "100%",
     },
@@ -360,6 +367,7 @@ const MicrophoneProduction = () => {
         <PDFViewer style={{ width: "100%", height: "30%" }}>
           <Document>
             <Page size="A4" style={styles.page}>
+              <Text style={styles.heading}>{playName}</Text>
               <View style={styles.table}>
                 <View style={[styles.row, styles.bold, styles.header]}>
                   <Text style={styles.col1}>Scene</Text>
