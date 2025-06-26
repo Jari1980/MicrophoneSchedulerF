@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { Button, Table, Form, FormCheck } from "react-bootstrap";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import Select from "react-select";
 import { useGlobalContext } from "./context";
+import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+//import ReactPDF from '@react-pdf/renderer';
+import { PDFViewer } from "@react-pdf/renderer";
 
 const MicrophoneProduction = () => {
   const [productionData, setProductionData] = useState([]);
@@ -18,7 +21,8 @@ const MicrophoneProduction = () => {
   const [scene_characterId, setSceneCharacterId] = useState();
   const [microphoneId, setMicrophoneId] = useState("");
   const [selectedOption, setSelectedOption] = useState(null);
-  const {dark, setDark} = useGlobalContext();
+  const { dark, setDark } = useGlobalContext();
+  const [showPDF, setShowPDF] = useState(false);
 
   const handleChoise = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -32,6 +36,38 @@ const MicrophoneProduction = () => {
       fetchMicrophoneData();
     }
   }, [playName]);
+
+  // For pdf
+  const styles = StyleSheet.create({
+    table: {
+      width: "100%",
+    },
+    row: {
+      display: "flex",
+      flexDirection: "row",
+      borderTop: "1px solid #EEE",
+      paddingTop: 8,
+      paddingBottom: 8,
+    },
+    header: {
+      borderTop: "none",
+    },
+    bold: {
+      fontWeight: "bold",
+    },
+    col1: {
+      width: "25%",
+    },
+    col2: {
+      width: "25%",
+    },
+    col3: {
+      width: "25%",
+    },
+    col4: {
+      width: "25%",
+    },
+  });
 
   const fetchData = async () => {
     try {
@@ -202,7 +238,7 @@ const MicrophoneProduction = () => {
                 <td>{item.microphoneName}</td>
                 <td>
                   <Button
-                  style={{width: "80px", marginRight: "10px"}}
+                    style={{ width: "80px", marginRight: "10px" }}
                     onClick={() => {
                       setSceneCharacterId(item.scene_characterId),
                         setAddMicrophone(true);
@@ -212,8 +248,8 @@ const MicrophoneProduction = () => {
                   </Button>
                   {item.microphoneId != null ? (
                     <Button
-                    style={{width: "80px" }}
-                    variant="danger"
+                      style={{ width: "80px" }}
+                      variant="danger"
                       onClick={() => removeMicrophone(item.scene_characterId)}
                     >
                       Remove
@@ -245,12 +281,15 @@ const MicrophoneProduction = () => {
             />
           </Form.Group>
           <Button
-          style={{width: "70px", marginRight: "10px"}} 
-          variant="primary" type="submit" className="extButton">
+            style={{ width: "70px", marginRight: "10px" }}
+            variant="primary"
+            type="submit"
+            className="extButton"
+          >
             Add
           </Button>
           <Button
-          style={{width: "70px"}} 
+            style={{ width: "70px" }}
             variant="danger"
             type="cancel"
             className="extButton"
@@ -273,8 +312,8 @@ const MicrophoneProduction = () => {
       <br />
       <br />
       {showSuggested ? <b>Suggested Schedule</b> : ""}
-      {showSuggested ?
-      <Table striped bordered hover variant="dark">
+      {showSuggested ? (
+        <Table striped bordered hover variant="dark">
           <thead>
             <tr>
               <th>Scene</th>
@@ -295,11 +334,57 @@ const MicrophoneProduction = () => {
             </tbody>
           ))}
         </Table>
-       : ""}
-       {showSuggested ?
-      <Button onClick={() => setShowSuggested(false)}>Hide suggest</Button>
-      : "" 
-      }
+      ) : (
+        ""
+      )}
+      {showSuggested ? (
+        <Button onClick={() => setShowSuggested(false)}>Hide suggest</Button>
+      ) : (
+        ""
+      )}
+      <br />
+      <br />
+      {!showPDF && playName != "" ? (
+        <Button onClick={() => setShowPDF(true)}>Load PDF</Button>
+      ) : (
+        ""
+      )}
+      {showPDF && playName != "" ? (
+        <Button onClick={() => setShowPDF(false)}>Hide PDF</Button>
+      ) : (
+        ""
+      )}
+      <br />
+      <br />
+      {showPDF && playName != "" ? (
+        <PDFViewer style={{ width: "100%", height: "30%" }}>
+          <Document>
+            <Page size="A4" style={styles.page}>
+              <View style={styles.table}>
+                <View style={[styles.row, styles.bold, styles.header]}>
+                  <Text style={styles.col1}>Scene</Text>
+                  <Text style={styles.col2}>Character</Text>
+                  <Text style={styles.col3}>User</Text>
+                  <Text style={styles.col4}>Microphone</Text>
+                </View>
+                {microphoneData.map((row, i) => (
+                  <View key={i} style={styles.row} wrap={false}>
+                    <Text style={styles.col1}>{row.sceneName}</Text>
+                    <Text style={styles.col2}>{row.personageName}</Text>
+                    <Text style={styles.col3}>{row.userName}</Text>
+                    <Text style={styles.col4}>{row.microphoneName}</Text>
+                  </View>
+                ))}
+              </View>
+            </Page>
+          </Document>
+        </PDFViewer>
+      ) : (
+        ""
+      )}
+
+      <br />
+      <br />
       <br />
       <br />
       <br />

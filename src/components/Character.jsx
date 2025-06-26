@@ -263,7 +263,7 @@ const Character = () => {
           <Button
           style={{width: "70px", marginRight: "10px"}} 
           variant="primary" type="submit" className="extButton">
-            Edit
+            Save
           </Button>
           <Button
           style={{width: "70px"}}
