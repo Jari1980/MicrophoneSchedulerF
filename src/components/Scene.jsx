@@ -5,6 +5,7 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useGlobalContext } from "./context";
 
+
 const Scene = () => {
   const {dark, setDark} = useGlobalContext();
   const [productionData, setProductionData] = useState([]);
@@ -18,6 +19,7 @@ const Scene = () => {
   const [sceneNumber, setSceneNumber] = useState();
   const [sceneName, setSceneName] = useState();
   const [addAct, setAddAct] = useState(false);
+  const navigate = useNavigate();
   //const [createScene, setCreateScene] = useState(false);
 
   useEffect(() => {
@@ -48,9 +50,18 @@ const Scene = () => {
         .then((res) => {
           setProductionData(res.data);
           console.log(res.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching scenedata: " + error);
         });
     } catch (error) {
-      console.log("Error fetching userdata: " + error);
+      console.log("Error fetching data: " + error);
     }
   };
 
@@ -66,9 +77,18 @@ const Scene = () => {
         )
         .then((res) => {
           setSceneData(res.data.scenes);
-        });
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching scenes: " + error);
+          });
     } catch (error) {
-      console.log("Error fetching userdata: " + error);
+      console.log("Error fetching scenes: " + error);
     }
   }
 
@@ -83,7 +103,16 @@ const Scene = () => {
         )
         .then((res) => {
           setCounter(counter + 1)
-        });
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error deleting: " + error);
+          });
     } catch (error) {
       console.log("error deleting: " + error);
     }
@@ -119,6 +148,12 @@ const Scene = () => {
           setShowEdit(!showEdit);
         });
     } catch (error) {
+      if (error.response.status === 401) {
+        setCookie("jwtToken", "", { path: "/" });
+        setCookie("userName", "", { path: "/" });
+        setCookie("userRole", "", { path: "/" });
+        navigate("/");
+      }
       console.log("Error editing scene: " + error);
     }
   }
@@ -151,6 +186,12 @@ const Scene = () => {
           setAddAct(!addAct);
         });
     } catch (error) {
+      if (error.response.status === 401) {
+        setCookie("jwtToken", "", { path: "/" });
+        setCookie("userName", "", { path: "/" });
+        setCookie("userRole", "", { path: "/" });
+        navigate("/");
+      }
       console.log("Error creating scene: " + error);
     }
   }

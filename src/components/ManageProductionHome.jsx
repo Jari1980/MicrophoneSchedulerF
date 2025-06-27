@@ -4,9 +4,10 @@ import { useCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useGlobalContext } from "./context";
+import { useNavigate } from "react-router-dom";
 
 const ManageProductionHome = () => {
-  const {dark, setDark} = useGlobalContext();
+  const { dark, setDark } = useGlobalContext();
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
   const [productionData, setProductionData] = useState([]);
   const [formVisible, setFormVisible] = useState(false);
@@ -16,6 +17,7 @@ const ManageProductionHome = () => {
   const [editDescription, setEditDescription] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [productionId, setProductionId] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -30,6 +32,15 @@ const ManageProductionHome = () => {
         .then((res) => {
           setProductionData(res.data);
           console.log(res.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching data: " + error);
         });
     } catch (error) {
       console.log("Error fetching productiondata: " + error);
@@ -58,6 +69,15 @@ const ManageProductionHome = () => {
         .then((response) => {
           console.log("Play created");
           setFormVisible(!formVisible);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error creating play: " + error);
         });
     } catch (error) {
       console.log("Error creating play: " + error);
@@ -82,6 +102,15 @@ const ManageProductionHome = () => {
         .then((response) => {
           console.log("Play edited");
           setFormEditVisible(!formEditVisible);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error editing play: " + error);
         });
     } catch (error) {
       console.log("Error editing play: " + error);
@@ -104,7 +133,16 @@ const ManageProductionHome = () => {
             headers: { Authorization: `Bearer ${cookies.jwtToken}` },
           }
         )
-        .then(fetchData, console.log("mmmm"));
+        .then(fetchData, console.log("mmmm"))
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error deleting: " + error);
+        });
     } catch (error) {
       console.log("error deleting: " + error);
     }
@@ -120,12 +158,19 @@ const ManageProductionHome = () => {
         <b>Warning!</b>
         <br />
         <br />
-        This will delete the production and all related scenes,
-        however characters and microphones in this production will not be
-        deleted. Are you sure you want to proceed?
+        This will delete the production and all related scenes, however
+        characters and microphones in this production will not be deleted. Are
+        you sure you want to proceed?
         <br />
         <br />
-        <Button variant="danger" onClick={() => {deleteProduction(productionId), setShowAlert(false)}}>Proceed</Button>
+        <Button
+          variant="danger"
+          onClick={() => {
+            deleteProduction(productionId), setShowAlert(false);
+          }}
+        >
+          Proceed
+        </Button>
         <Button
           onClick={() => {
             setShowAlert(false), setProductionId("");
@@ -153,7 +198,7 @@ const ManageProductionHome = () => {
               <td>
                 {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                   <Button
-                  style={{width: "70px", marginRight: "10px"}}
+                    style={{ width: "70px", marginRight: "10px" }}
                     onClick={() =>
                       editProduction(
                         item.playName,
@@ -169,8 +214,8 @@ const ManageProductionHome = () => {
                 )}
                 {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                   <Button
-                  style={{width: "70px"}}
-                  variant="danger"
+                    style={{ width: "70px" }}
+                    variant="danger"
                     onClick={() => {
                       setShowAlert(true), setProductionId(item.playName);
                     }}

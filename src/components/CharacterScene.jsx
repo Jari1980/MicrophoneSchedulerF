@@ -19,6 +19,7 @@ const CharacterScene = () => {
   const [counter, setCounter] = useState(1);
   const [addCharacter, setAddCharacter] = useState(false);
   const [characters, setCharacters] = useState([]);
+   const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -50,6 +51,15 @@ const CharacterScene = () => {
         .then((res) => {
           setProductionData(res.data);
           console.log(res.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching data: " + error);
         });
     } catch (error) {
       console.log("Error fetching userdata: " + error);
@@ -72,6 +82,15 @@ const CharacterScene = () => {
           if(showCharacters){
             showCharacter(sceneId)
           }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching data: " + error);
         });
     } catch (error) {
       console.log("Error fetching scenedata: " + error);
@@ -86,6 +105,15 @@ const CharacterScene = () => {
         })
         .then((res) => {
           setCharacters(res.data.personages);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching data: " + error);
         });
     } catch (error) {
       console.log("Error fetching characterdata: " + error);
@@ -117,6 +145,15 @@ const CharacterScene = () => {
           }
         )
         .then(fetchScenes)
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error removing character: " + error);
+        });
     } catch (error) {
       console.log("eror removing character: " + error);
     }
@@ -142,6 +179,15 @@ const CharacterScene = () => {
           }
         )
         .then(fetchScenes)
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error adding character: " + error);
+        });
     } catch (error) {
       console.log("eror adding character: " + error);
     }

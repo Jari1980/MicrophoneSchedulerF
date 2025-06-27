@@ -4,11 +4,13 @@ import { useCookies } from "react-cookie";
 import { Button, Table } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "./context";
+import { useNavigate } from "react-router-dom";
 
 const UserService = () => {
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
   const [userData, setUserData] = useState([]);
-  const {bgColor, setBgColor} = useGlobalContext();
+  const { bgColor, setBgColor } = useGlobalContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -38,6 +40,15 @@ const UserService = () => {
         .then((res) => {
           setUserData(res.data);
           console.log(res.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching users: " + error);
         });
     } catch (error) {
       console.log("Error fetching userdata: " + error);
@@ -46,17 +57,23 @@ const UserService = () => {
 
   function deleteUser(userId) {
     try {
-      const response = axios.delete(
-        `http://localhost:8080/api/v1/admin/deleteuser?userId=${userId}`,
-        {
-          headers: { Authorization: `Bearer ${cookies.jwtToken}` },
-        }
-      )
-      .then(
-        fetchData,
-        console.log("mmmm")
-      )
-      
+      const response = axios
+        .delete(
+          `http://localhost:8080/api/v1/admin/deleteuser?userId=${userId}`,
+          {
+            headers: { Authorization: `Bearer ${cookies.jwtToken}` },
+          }
+        )
+        .then(fetchData, console.log("mmmm"))
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error deleting user: " + error);
+        });
     } catch (error) {
       console.log("error deleting: " + error);
     }
@@ -76,9 +93,18 @@ const UserService = () => {
             headers: { Authorization: `Bearer ${cookies.jwtToken}` },
           }
         )
-        .then(console.log("Role edited"));
+        //.then();
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error editing role: " + error);
+        });
     } catch (error) {
-      console.log("eroor editing role: " + error);
+      console.log("error editing role: " + error);
     }
   }
 
@@ -96,52 +122,65 @@ const UserService = () => {
 
   return (
     <>
-    <div style={{backgroundImage:bgColor, width:"100vw", height:"100vh", overflow: "hidden"}}>
-      <p>User service</p>
-      <Table striped bordered hover variant="dark">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>User Name</th>
-            <th>User Role</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-
-        {userData.map((item) => (
-          <tbody key={item.userId}>
+      <div
+        style={{
+          backgroundImage: bgColor,
+          width: "100vw",
+          height: "100vh",
+          overflow: "hidden",
+        }}
+      >
+        <p>User service</p>
+        <Table striped bordered hover variant="dark">
+          <thead>
             <tr>
-              <td>{item.userId}</td>
-              <td>{item.userName}</td>
-              <td>
-                <select
-                  id="role"
-                  defaultValue={item.role}
-                  className={`form-select`}
-                  onChange={(event) => uppdate(item.userId, event.target.value)}
-                >
-                  {roles.map((type) => (
-                    <option key={type.id} value={type.role}>
-                      {type.role}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td>
-                <Button
-                style={{width: "120px", marginRight: "10px"}} 
-                onClick={() => editUser(item.userId, item.role)}>
-                  Set New Role
-                </Button>
-                <Button
-                style={{width: "120px"}}
-                variant="danger" 
-                onClick={() => deleteUser(item.userId)}>Delete User</Button>
-              </td>
+              <th>Id</th>
+              <th>User Name</th>
+              <th>User Role</th>
+              <th>Actions</th>
             </tr>
-          </tbody>
-        ))}
-      </Table>
+          </thead>
+
+          {userData.map((item) => (
+            <tbody key={item.userId}>
+              <tr>
+                <td>{item.userId}</td>
+                <td>{item.userName}</td>
+                <td>
+                  <select
+                    id="role"
+                    defaultValue={item.role}
+                    className={`form-select`}
+                    onChange={(event) =>
+                      uppdate(item.userId, event.target.value)
+                    }
+                  >
+                    {roles.map((type) => (
+                      <option key={type.id} value={type.role}>
+                        {type.role}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td>
+                  <Button
+                    style={{ width: "120px", marginRight: "10px" }}
+                    onClick={() => editUser(item.userId, item.role)}
+                  >
+                    Set New Role
+                  </Button>
+                  <Button
+                    style={{ width: "120px" }}
+                    variant="danger"
+                    onClick={() => deleteUser(item.userId)}
+                  >
+                    Delete User
+                  </Button>
+                </td>
+              </tr>
+            </tbody>
+          ))}
+        </Table>
       </div>
     </>
   );

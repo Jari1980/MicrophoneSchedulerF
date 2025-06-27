@@ -12,6 +12,7 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Select from "react-select";
 import { useGlobalContext } from "./context";
+import { useNavigate } from "react-router-dom";
 
 const Character = () => {
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
@@ -25,6 +26,7 @@ const Character = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
   const {dark, setDark} = useGlobalContext();
+  const navigate = useNavigate();
 
   const [actorId, setActorId] = useState("");
   const [selectedOption, setSelectedOption] = useState(null);
@@ -46,6 +48,15 @@ const Character = () => {
         })
         .then((res) => {
           setCharacterData(res.data.personages);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching data: " + error);
         });
     } catch (error) {
       console.log("Error fetching characterdata: " + error);
@@ -61,6 +72,15 @@ const Character = () => {
         .then((res) => {
           setActorUserData(res.data);
           console.log("Actor user data: " + actorUserData[0]);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching data: " + error);
         });
     } catch (error) {
       console.log("Error fetching characterdata: " + error);
@@ -91,7 +111,16 @@ const Character = () => {
             headers: { Authorization: `Bearer ${cookies.jwtToken}` },
           }
         )
-        .then(fetchData);
+        .then(fetchData)
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error deleting: " + error);
+        });
     } catch (error) {
       console.log("error deleting: " + error);
     }
@@ -117,7 +146,16 @@ const Character = () => {
             headers: { Authorization: `Bearer ${cookies.jwtToken}` },
           }
         )
-        .then(fetchData, setShowEditForm(false));
+        .then(fetchData, setShowEditForm(false))
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error editing character: " + error);
+        });
     } catch (error) {
       console.log("eror editing character: " + error);
     }
@@ -136,9 +174,18 @@ const Character = () => {
             headers: { Authorization: `Bearer ${cookies.jwtToken}` },
           }
         )
-        .then(fetchData, setShowCreate(false));
+        .then(fetchData, setShowCreate(false))
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error creating: " + error);
+        });
     } catch (error) {
-      console.log("Error logging in: " + error);
+      console.log("Error creating: " + error);
     }
   }
 
