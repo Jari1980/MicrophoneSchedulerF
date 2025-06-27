@@ -13,6 +13,7 @@ const Microphone = () => {
   const [microphoneId, setMicrophoneId] = useState("");
   const [microphoneName, setMicrophoneName] = useState("");
   const {dark, setDark} = useGlobalContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchMicrophones();
@@ -27,6 +28,15 @@ const Microphone = () => {
         .then((res) => {
           setMicrophoneData(res.data);
           console.log(res.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching data: " + error);
         });
     } catch (error) {
       console.log("Error fetching microphonedata: " + error);
@@ -52,6 +62,15 @@ const Microphone = () => {
         .then(() => {
           setAddMicrophone(!addMicrophone);
           fetchMicrophones();
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error creating microphone: " + error);
         });
     } catch (error) {
       console.log("Error creating microphone: " + error);
@@ -67,7 +86,16 @@ const Microphone = () => {
             headers: { Authorization: `Bearer ${cookies.jwtToken}` },
           }
         )
-        .then(fetchMicrophones);
+        .then(fetchMicrophones)
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error deleting microphone: " + error);
+        });
     } catch (error) {
       console.log("error deleting microphone: " + error);
     }
@@ -93,6 +121,15 @@ const Microphone = () => {
         .then(() => {
           setShowRenameMicrophone(!showRenameMicrophone);
           fetchMicrophones();
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error renaming microphone: " + error);
         });
     } catch (error) {
       console.log("Error renaming microphone: " + error);

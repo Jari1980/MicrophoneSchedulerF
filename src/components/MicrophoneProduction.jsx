@@ -23,6 +23,7 @@ const MicrophoneProduction = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const { dark, setDark } = useGlobalContext();
   const [showPDF, setShowPDF] = useState(false);
+  const navigate = useNavigate();
 
   const handleChoise = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -85,6 +86,15 @@ const MicrophoneProduction = () => {
         .then((res) => {
           setProductionData(res.data);
           console.log(res.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching data: " + error);
         });
     } catch (error) {
       console.log("Error fetching data: " + error);
@@ -99,6 +109,15 @@ const MicrophoneProduction = () => {
         })
         .then((res) => {
           setMicrophones(res.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching microphonedata: " + error);
         });
     } catch (error) {
       console.log("Error fetching microphonedata: " + error);
@@ -117,9 +136,18 @@ const MicrophoneProduction = () => {
         .then((res) => {
           console.log("Data fetched");
           setMicrophoneData(res.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching data: " + error);
         });
     } catch (error) {
-      console.log("Error fetching scenedata: " + error);
+      console.log("Error fetching data: " + error);
     }
   };
 
@@ -136,7 +164,16 @@ const MicrophoneProduction = () => {
             },
           }
         )
-        .then(fetchMicrophoneData);
+        .then(fetchMicrophoneData)
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error removing microphone: " + error);
+        });
     } catch (error) {
       console.log("error removing microphone: " + error);
     }
@@ -160,7 +197,16 @@ const MicrophoneProduction = () => {
           fetchMicrophoneData,
           setSceneCharacterId(""),
           setAddMicrophone(false)
-        );
+        )
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error adding character: " + error);
+        });
     } catch (error) {
       console.log("eror adding character: " + error);
     }

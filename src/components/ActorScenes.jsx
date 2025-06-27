@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useGlobalContext } from "./context";
 import Select from "react-select";
+import { useNavigate } from "react-router-dom";
 
 const ActorScenes = () => {
   const { bgColor, setBgColor } = useGlobalContext();
@@ -19,6 +20,7 @@ const ActorScenes = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [showOtherSchedule, setShowOtherSchedule] = useState(false);
   const [otherMicrophoneData, setOtherMicrophoneData] = useState([]);
+  const navigate = useNavigate();
 
   const handleChoise = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -38,6 +40,15 @@ const ActorScenes = () => {
         .then((res) => {
           setProductionData(res.data);
           console.log(res.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching data: " + error);
         });
     } catch (error) {
       console.log("Error fetching productiondata: " + error);
@@ -57,6 +68,15 @@ const ActorScenes = () => {
         .then((res) => {
           setMicrophoneSchedule(res.data.actorScenes);
           setShowMicrophoneSchedule(!showMicrophoneSchedule);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching data: " + error);
         });
     } catch (error) {
       console.log("Error fetching actor data: " + error);
@@ -72,6 +92,15 @@ const ActorScenes = () => {
         .then((res) => {
           setUsers(res.data);
           setShowOther(!showOther);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching actors: " + error);
         });
     } catch (error) {
       console.log("Error fetching actors: " + error);
@@ -92,7 +121,7 @@ const ActorScenes = () => {
           {
             headers: {
               //'Content-Type': 'multipart/form-data',
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
               //headers: { Authorization: `Bearer ${cookies.jwtToken}` },
               Authorization: `Bearer ${cookies.jwtToken}`,
             },
@@ -101,6 +130,15 @@ const ActorScenes = () => {
         .then((res) => {
           setOtherMicrophoneData(res.data.actorScenes);
           setShowOtherSchedule(true);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error fetching data: " + error);
         });
     } catch (error) {
       console.log("Error fetching actor data: " + error);
@@ -190,7 +228,7 @@ const ActorScenes = () => {
               onClick={() => {
                 setShowOther(false),
                   setShowMicrophoneSchedule(!showMicrophoneSchedule),
-                  setShowOtherSchedule(false)
+                  setShowOtherSchedule(false);
               }}
             >
               Hide MicrophoneSchedule
@@ -244,7 +282,9 @@ const ActorScenes = () => {
                 variant="danger"
                 type="cancel"
                 className="extButton"
-                onClick={() => {setShowOtherSchedule(false), setShowOther(false)}}
+                onClick={() => {
+                  setShowOtherSchedule(false), setShowOther(false);
+                }}
               >
                 Hide
               </Button>
