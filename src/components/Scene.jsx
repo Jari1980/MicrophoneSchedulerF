@@ -5,9 +5,8 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import { useGlobalContext } from "./context";
 
-
 const Scene = () => {
-  const {dark, setDark} = useGlobalContext();
+  const { dark, setDark } = useGlobalContext();
   const [productionData, setProductionData] = useState([]);
   const [sceneData, setSceneData] = useState();
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
@@ -31,15 +30,14 @@ const Scene = () => {
   }, [counter]);
 
   useEffect(() => {
-      if (playName != "") {
-        //fetchScenes();
-        //fetchScenes(playName);
-        if (sceneId !== null || sceneId === ""){
+    if (playName != "") {
+      //fetchScenes();
+      //fetchScenes(playName);
+      if (sceneId !== null || sceneId === "") {
         //showCharacter(sceneId)
       }
-      }
-      
-    }, [sceneData])
+    }
+  }, [sceneData]);
 
   const fetchData = async () => {
     try {
@@ -86,7 +84,7 @@ const Scene = () => {
             navigate("/");
           }
           console.log("error fetching scenes: " + error);
-          });
+        });
     } catch (error) {
       console.log("Error fetching scenes: " + error);
     }
@@ -102,7 +100,7 @@ const Scene = () => {
           }
         )
         .then((res) => {
-          setCounter(counter + 1)
+          setCounter(counter + 1);
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -112,7 +110,7 @@ const Scene = () => {
             navigate("/");
           }
           console.log("error deleting: " + error);
-          });
+        });
     } catch (error) {
       console.log("error deleting: " + error);
     }
@@ -146,27 +144,33 @@ const Scene = () => {
           console.log("scene edited");
           setCounter(counter + 1);
           setShowEdit(!showEdit);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          if (error.response.status === 491) {
+            alert("This scene already exist")
+          }
+          console.log("error editing: " + error);
         });
     } catch (error) {
-      if (error.response.status === 401) {
-        setCookie("jwtToken", "", { path: "/" });
-        setCookie("userName", "", { path: "/" });
-        setCookie("userRole", "", { path: "/" });
-        navigate("/");
-      }
       console.log("Error editing scene: " + error);
     }
   }
 
   function handleAddAct(event) {
-     event.preventDefault();
-     let max = 0;
-     sceneData.forEach(element => {
-        if(element.actNumber > max){
-            max = element.actNumber
-        }        
-     });
-     const actNumber = max + 1;
+    event.preventDefault();
+    let max = 0;
+    sceneData.forEach((element) => {
+      if (element.actNumber > max) {
+        max = element.actNumber;
+      }
+    });
+    const actNumber = max + 1;
     try {
       axios
         .post(
@@ -254,8 +258,8 @@ const Scene = () => {
           </tbody>
         ))}
       </Table>
-      {playName != "" ? <b>Production: {playName}</b >: ""}
-      
+      {playName != "" ? <b>Production: {playName}</b> : ""}
+
       {sceneData != null && sceneData != "" ? (
         <Table striped bordered hover variant={dark}>
           <thead>
@@ -276,7 +280,7 @@ const Scene = () => {
                 <td>
                   {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                     <Button
-                    style={{width: "70px", marginRight: "10px"}}
+                      style={{ width: "70px", marginRight: "10px" }}
                       onClick={() =>
                         editScene(
                           item.sceneId,
@@ -292,10 +296,11 @@ const Scene = () => {
                     ""
                   )}
                   {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
-                    <Button 
-                    style={{width: "70px"}}
-                    variant="danger"
-                    onClick={() => deleteScene(item.sceneId)}>
+                    <Button
+                      style={{ width: "70px" }}
+                      variant="danger"
+                      onClick={() => deleteScene(item.sceneId)}
+                    >
                       Delete
                     </Button>
                   ) : (
@@ -309,14 +314,11 @@ const Scene = () => {
       ) : (
         ""
       )}
-      {showEdit ? 
-      <b>Editing scene {sceneName}</b>
-      : ""}
+      {showEdit ? <b>Editing scene {sceneName}</b> : ""}
       {showEdit ? (
         <Form onSubmit={handleEditSubmitScene}>
           <Form.Group className="mb-3" controlId="formSceneId">
-            <Form.Label>
-            </Form.Label>
+            <Form.Label></Form.Label>
             <Form.Control type="text" defaultValue={sceneId} hidden />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formActNumber">
@@ -337,9 +339,12 @@ const Scene = () => {
             </Form.Label>
             <Form.Control type="text" defaultValue={sceneName} />
           </Form.Group>
-          <Button 
-          style={{marginRight:"10px"}}
-          variant="primary" type="submit" className="extButton">
+          <Button
+            style={{ marginRight: "10px" }}
+            variant="primary"
+            type="submit"
+            className="extButton"
+          >
             Save Scene
           </Button>
           <Button
@@ -365,7 +370,10 @@ const Scene = () => {
             <Form.Label>
               <b>Number of Scenes</b>
             </Form.Label>
-            <Form.Control type="text" placeholder="Number of scenes to be added" />
+            <Form.Control
+              type="text"
+              placeholder="Number of scenes to be added"
+            />
           </Form.Group>
           <Button variant="primary" type="submit" className="extButton">
             Add Act
