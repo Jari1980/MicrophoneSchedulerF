@@ -9,88 +9,112 @@ import CharacterScene from "./CharacterScene";
 import MicrophoneProduction from "./MicrophoneProduction";
 import Microphone from "./Microphone";
 import { useGlobalContext } from "./context";
+import { useCookies } from "react-cookie";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(true);
-  const {bgColor, setBgColor} = useGlobalContext();
-  const {bgColorDashboard, setBgColorDashboard} = useGlobalContext();
-  const {dashboardText, setDashboardText} = useGlobalContext();
+  const { bgColor, setBgColor } = useGlobalContext();
+  const { bgColorDashboard, setBgColorDashboard } = useGlobalContext();
+  const { dashboardText, setDashboardText } = useGlobalContext();
+  const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
 
   useEffect(() => {
     const handleToggle = () => {
-        if(window.innerWidth < 550 && open) {
-            setOpen(false)
-        }
-    }
-    window.addEventListener("resize", handleToggle)
-    return () => window.removeEventListener("resize", handleToggle)
-  }, [open])
+      if (window.innerWidth < 550 && open) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleToggle);
+    return () => window.removeEventListener("resize", handleToggle);
+  }, [open]);
 
   return (
     <>
       <div style={{ display: "flex", height: "100vh" }}>
         <button className="dashboard-toggle" onClick={() => setOpen(!open)}>
-            {/* Using Google icon for toggle */}
+          {/* Using Google icon for toggle */}
           <span className="material-symbols-outlined">
             {open ? "toggle_on" : "toggle_off"}
           </span>
         </button>
-        <aside
-          className={`aside ${open ? "aside-open" : "aside-closed"}`}
-        >
-          <Nav style={{height: "100%" , background:bgColorDashboard }}>
+        <aside className={`aside ${open ? "aside-open" : "aside-closed"}`}>
+          <Nav style={{ height: "100%", background: bgColorDashboard }}>
             <ul style={{ listStyle: "none", padding: 10 }}>
+              {cookies.userRole == "ROLE_ADMINISTRATOR" || cookies.userRole == "ROLE_DIRECTOR" ? (
               <li>
                 <button
                   className="btn btn-outline-primary w-100 mb-2"
-                  style={{color: dashboardText}}
+                  style={{ color: dashboardText }}
                   onClick={() => navigate("../dashboard")}
                 >
                   Theater Productions
                 </button>
               </li>
+              ) : "" }
+              {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
+                <li>
+                  <button
+                    className="btn btn-outline-primary w-100 mb-2"
+                    style={{ color: dashboardText }}
+                    onClick={() => navigate("../dashboard/scene")}
+                  >
+                    Scene
+                  </button>
+                </li>
+              ) : (
+                ""
+              )}
+              {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2"
-                style={{color: dashboardText}}
-                onClick={() => navigate("../dashboard/scene")}
+                <button
+                  className="btn btn-outline-primary w-100 mb-2"
+                  style={{ color: dashboardText }}
+                  onClick={() => navigate("../dashboard/characterscene")}
                 >
-                  Scene
-                </button>
-              </li>
-              <li>
-                <button className="btn btn-outline-primary w-100 mb-2"
-                style={{color: dashboardText}}
-                onClick={() => navigate("../dashboard/characterscene")}>
                   Character to Scene
                 </button>
               </li>
+              ) : ""}
+              {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2"
-                style={{color: dashboardText}}
-                onClick={() => navigate("../dashboard/character")}>
+                <button
+                  className="btn btn-outline-primary w-100 mb-2"
+                  style={{ color: dashboardText }}
+                  onClick={() => navigate("../dashboard/character")}
+                >
                   Character
                 </button>
               </li>
+              ) : ""}
+              {cookies.userRole == "ROLE_ADMINISTRATOR" || cookies.userRole == "ROLE_DIRECTOR" ? (
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2"
-                style={{color: dashboardText}}
-                onClick={() => navigate("../dashboard/microphoneProduction")}>
+                <button
+                  className="btn btn-outline-primary w-100 mb-2"
+                  style={{ color: dashboardText }}
+                  onClick={() => navigate("../dashboard/microphoneProduction")}
+                >
                   Microphone in Production
                 </button>
               </li>
+              ) : ""}
+              {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2"
-                style={{color: dashboardText}}
-                onClick={() => navigate("../dashboard/microphone")}>
+                <button
+                  className="btn btn-outline-primary w-100 mb-2"
+                  style={{ color: dashboardText }}
+                  onClick={() => navigate("../dashboard/microphone")}
+                >
                   Microphone
                 </button>
               </li>
+              ) : "" }
               <li>
-                <button className="btn btn-outline-primary w-100 mb-2" 
-                style={{color: dashboardText}}
-                disabled>
-                  
+                <button
+                  className="btn btn-outline-primary w-100 mb-2"
+                  style={{ color: dashboardText }}
+                  disabled
+                >
                   ...
                 </button>
               </li>
@@ -111,7 +135,10 @@ const Dashboard = () => {
               <Route path="scene" element={<Scene />} />
               <Route path="character" element={<Character />} />
               <Route path="characterScene" element={<CharacterScene />} />
-              <Route path="microphoneProduction" element={<MicrophoneProduction />} />
+              <Route
+                path="microphoneProduction"
+                element={<MicrophoneProduction />}
+              />
               <Route path="microphone" element={<Microphone />} />
             </Routes>
           </main>
