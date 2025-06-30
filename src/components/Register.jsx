@@ -8,7 +8,7 @@ import { useGlobalContext } from "./context";
 const Register = () => {
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
   const navigate = useNavigate();
-  const {bgColor, setBgColor} = useGlobalContext();
+  const { bgColor, setBgColor } = useGlobalContext();
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -23,9 +23,9 @@ const Register = () => {
           password: event.currentTarget.elements.formPassword.value,
         })
         .then(() => {
-          console
-            .log("Register succes, loggin in")
-            axios.post("http://localhost:8080/api/v1/user/login", {
+          console.log("Register succes, loggin in");
+          axios
+            .post("http://localhost:8080/api/v1/user/login", {
               userName: userData.username,
               password: userData.password,
             })
@@ -43,15 +43,27 @@ const Register = () => {
               setCookie("userName", response.data.userName, { path: "/" });
               setCookie("userRole", response.data.userRole, { path: "/" });
               navigate("/");
+            })
+        })
+        .catch((error) => {
+              if (error.status === 492) {
+                alert("User with the requested username already exist");
+              }
             });
-        });
     } catch (error) {
       console.log("Error logging in: " + error);
     }
   }
 
   return (
-    <div style={{backgroundImage:bgColor, width:"100vw", height:"100vh", overflow: "hidden"}}>
+    <div
+      style={{
+        backgroundImage: bgColor,
+        width: "100vw",
+        height: "100vh",
+        overflow: "hidden",
+      }}
+    >
       <Container
         style={{ width: "50%", alignItems: "center", justifyContent: "center" }}
       >
