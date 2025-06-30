@@ -25,20 +25,19 @@ const Character = () => {
   const [characterId, setCharacterId] = useState();
   const [showEditForm, setShowEditForm] = useState(false);
   const [showCreate, setShowCreate] = useState(false);
-  const {dark, setDark} = useGlobalContext();
+  const { dark, setDark } = useGlobalContext();
   const navigate = useNavigate();
 
   const [actorId, setActorId] = useState("");
   const [selectedOption, setSelectedOption] = useState(null);
   const handleChoise = (selectedOption) => {
     setSelectedOption(selectedOption);
-    setActorId(selectedOption.actorId)
+    setActorId(selectedOption.actorId);
   };
 
   useEffect(() => {
     fetchData();
-    
-  }, []); 
+  }, []);
 
   const fetchData = async () => {
     try {
@@ -128,7 +127,7 @@ const Character = () => {
 
   function handleEdit(event) {
     event.preventDefault();
-    console.log("ActorId: " + actorId)
+    console.log("ActorId: " + actorId);
     const userData = {
       characterName: event.currentTarget.elements.formCharacterName.value,
     };
@@ -140,7 +139,7 @@ const Character = () => {
           {
             personageId: characterId,
             personageName: userData.characterName,
-            actorId: actorId
+            actorId: actorId,
           },
           {
             headers: { Authorization: `Bearer ${cookies.jwtToken}` },
@@ -204,7 +203,7 @@ const Character = () => {
             <th>Production Name</th>
             <th>Actor Name</th>
             <th>Scenes</th>
-            <th>Actions</th>
+            {cookies.userRole == "ROLE_ADMINISTRATOR" ? <th>Actions</th> : ""}
           </tr>
         </thead>
 
@@ -223,10 +222,10 @@ const Character = () => {
                   Scenes
                 </Button>
               </td>
-              <td>
-                {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
+              {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
+                <td>
                   <Button
-                  style={{width: "70px", marginRight: "10px"}}
+                    style={{ width: "70px", marginRight: "10px" }}
                     onClick={() =>
                       editCharacter(
                         item.personageId,
@@ -237,20 +236,17 @@ const Character = () => {
                   >
                     Edit
                   </Button>
-                ) : (
-                  ""
-                )}
-                {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                   <Button
-                  style={{width: "70px"}}
-                  variant="danger" 
-                  onClick={() => deleteCharacter(item.personageId)}>
+                    style={{ width: "70px" }}
+                    variant="danger"
+                    onClick={() => deleteCharacter(item.personageId)}
+                  >
                     Delete
                   </Button>
-                ) : (
-                  ""
-                )}
-              </td>
+                </td>
+              ) : (
+                ""
+              )}
             </tr>
           </tbody>
         ))}
@@ -285,6 +281,7 @@ const Character = () => {
       ) : (
         ""
       )}
+      <br />
       {showEditForm ? (
         <Form onSubmit={handleEdit}>
           <Form.Group className="mb-3" controlId="formCharacterName">
@@ -298,22 +295,24 @@ const Character = () => {
               <b>Actor</b>
             </Form.Label>
             <Select
-            id="search"
+              id="search"
               isMulti={false}
               options={actorUserData}
               getOptionLabel={(options) => options["userName"]}
               getOptionValue={(options) => options["actorId"]}
-              
               onChange={handleChoise}
             />
           </Form.Group>
           <Button
-          style={{width: "70px", marginRight: "10px"}} 
-          variant="primary" type="submit" className="extButton">
+            style={{ width: "70px", marginRight: "10px" }}
+            variant="primary"
+            type="submit"
+            className="extButton"
+          >
             Save
           </Button>
           <Button
-          style={{width: "70px"}}
+            style={{ width: "70px" }}
             variant="danger"
             type="cancel"
             className="extButton"
@@ -326,7 +325,9 @@ const Character = () => {
         ""
       )}
       <br />
+      {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
       <Button onClick={() => setShowCreate(true)}>+ Create Character</Button>
+      ) : "" }
       {showCreate ? (
         <Form onSubmit={handleCreate}>
           <Form.Group className="mb-3" controlId="formCharacter">

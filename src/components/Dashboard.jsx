@@ -76,7 +76,7 @@ const Dashboard = () => {
                 </button>
               </li>
               ) : ""}
-              {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
+              {cookies.userRole == "ROLE_ADMINISTRATOR" || cookies.userRole == "ROLE_DIRECTOR" ? (
               <li>
                 <button
                   className="btn btn-outline-primary w-100 mb-2"
