@@ -12,6 +12,7 @@ import UserService from "./components/userService.jsx";
 import Register from "./components/Register.jsx";
 import Dashboard from "./components/Dashboard.jsx";
 import ActorScenes from "./components/ActorScenes.jsx";
+import Footer from "./components/Footer.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
@@ -27,6 +28,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/dashboard/*" element={<Dashboard />} />
           <Route path="/actorscenes" element={<ActorScenes />} />
         </Routes>
+        <Footer />
       </CookiesProvider>
     </GlobalProvider>
   </BrowserRouter>

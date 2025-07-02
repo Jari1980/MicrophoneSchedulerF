@@ -12,6 +12,8 @@ export const GlobalProvider = ({ children }) => {
       "linear-gradient(120deg,rgb(114, 119, 138),rgb(74, 85, 126) 50%,rgb(135, 138, 148))"
     );
     const [dashboardText, setDashboardText] = useState("whitesmoke")
+    const [footerRowClass, setFooterRowClass] = useState("bg-dark text-secondary p-2")
+    const [footerLinkText, setFooterLinkText] = useState("text-secondary")
     
 
   return (
@@ -24,7 +26,11 @@ export const GlobalProvider = ({ children }) => {
         bgColorDashboard,
         setBgColorDashboard,
         dashboardText,
-        setDashboardText
+        setDashboardText,
+        footerRowClass,
+        setFooterRowClass,
+        footerLinkText,
+        setFooterLinkText
     }}
     >
         {children}
