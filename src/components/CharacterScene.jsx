@@ -180,6 +180,12 @@ const CharacterScene = () => {
         )
         .then(fetchScenes)
         .catch((error) => {
+          if (error.status === 493) {
+                alert("Character already in scene")
+          }
+          if (error.status === 494) {
+                alert("Actor already in scene")
+          }
           if (error.response.status === 401) {
             setCookie("jwtToken", "", { path: "/" });
             setCookie("userName", "", { path: "/" });
