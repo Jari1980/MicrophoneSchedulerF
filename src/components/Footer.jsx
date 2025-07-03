@@ -19,9 +19,9 @@ const Footer = () => {
     }
 
   return (
-    <footer>
-      <Container fluid>
-        <Row className={footerRowClass}>
+    <footer >
+      <Container fluid style={{marginTop: "auto", position:"absolute", width:"100%"}}>
+        <Row className={footerRowClass} >
           <Col className="mx-4">
             <Stack>
               <h3>Teaterstickorna</h3>
