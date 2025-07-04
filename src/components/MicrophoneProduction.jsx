@@ -231,6 +231,41 @@ const MicrophoneProduction = () => {
     }
   };
 
+  function addSuggested(){
+    try {
+      const response = axios
+        .put(
+          "http://localhost:8080/api/v1/admin/addSuggestedMicrophones",
+          {
+            microphoneList: suggestedMicrophones,
+          },
+          {
+            headers: { Authorization: `Bearer ${cookies.jwtToken}` },
+          }
+        )
+        .then(
+          fetchMicrophoneData,
+          setSceneCharacterId(""),
+          setAddMicrophone(false),
+          setShowSuggested(false)
+        )
+        .catch((error) => {
+          if (error.response.status === 495){
+            alert("Not enough microphones in database, please add more in order to assign these.")
+          }
+          if (error.response.status === 401) {
+            setCookie("jwtToken", "", { path: "/" });
+            setCookie("userName", "", { path: "/" });
+            setCookie("userRole", "", { path: "/" });
+            navigate("/");
+          }
+          console.log("error adding character: " + error);
+        });
+    } catch (error) {
+      console.log("eror adding character: " + error);
+    }
+  }
+
   return (
     <>
       <h1>Manage Microphone in production</h1>
@@ -391,7 +426,12 @@ const MicrophoneProduction = () => {
         ""
       )}
       {showSuggested ? (
-        <Button onClick={() => setShowSuggested(false)}>Hide suggest</Button>
+        <Button style={{marginRight:"20px"}} onClick={() => addSuggested()}>Add suggested</Button>
+      ) : (
+        ""
+      )}
+      {showSuggested ? (
+        <Button onClick={() => setShowSuggested(false)}>Hide suggested</Button>
       ) : (
         ""
       )}
