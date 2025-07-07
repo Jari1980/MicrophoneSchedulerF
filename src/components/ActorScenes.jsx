@@ -240,7 +240,7 @@ const ActorScenes = () => {
         style={{
           backgroundImage: bgColor,
           width: "100vw",
-          height: "100%",
+          height: "80%",
           overflow: "hidden",
         }}
       >

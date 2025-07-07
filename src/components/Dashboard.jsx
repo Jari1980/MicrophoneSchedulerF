@@ -31,7 +31,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div style={{ display: "flex", height: "100%" }}>
+      <div style={{ display: "flex", height: "80%" }}>
         <button className="dashboard-toggle" onClick={() => setOpen(!open)}>
           {/* Using Google icon for toggle */}
           <span className="material-symbols-outlined">
