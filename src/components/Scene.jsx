@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { Button, Table, Form, FormCheck } from "react-bootstrap";
 import axios from "axios";
@@ -19,6 +19,7 @@ const Scene = () => {
   const [sceneName, setSceneName] = useState();
   const [addAct, setAddAct] = useState(false);
   const navigate = useNavigate();
+  const ref = useRef(null);
   //const [createScene, setCreateScene] = useState(false);
 
   useEffect(() => {
@@ -122,6 +123,7 @@ const Scene = () => {
     setSceneNumber(sceneNumb);
     setSceneName(name);
     setShowEdit(true);
+    ref.current?.scrollIntoView({behaviour: 'smooth'});
   }
 
   function handleEditSubmitScene(event) {
@@ -358,6 +360,7 @@ const Scene = () => {
       ) : (
         ""
       )}
+      <div ref={ref}></div>
       <br />
       {playName != "" ? (
         <Button onClick={() => setAddAct(true)}>+ Add Act</Button>

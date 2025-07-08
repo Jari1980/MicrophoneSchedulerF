@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { Button, Table, Form, FormCheck } from "react-bootstrap";
 import axios from "axios";
@@ -19,7 +19,8 @@ const CharacterScene = () => {
   const [counter, setCounter] = useState(1);
   const [addCharacter, setAddCharacter] = useState(false);
   const [characters, setCharacters] = useState([]);
-   const navigate = useNavigate();
+  const navigate = useNavigate();
+  const ref = useRef(null);
 
   useEffect(() => {
     fetchData();
@@ -81,6 +82,7 @@ const CharacterScene = () => {
           setSceneData(res.data);
           if(showCharacters){
             showCharacter(sceneId)
+            ref.current?.scrollIntoView({behaviour: 'smooth'});
           }
         })
         .catch((error) => {
@@ -263,6 +265,7 @@ const CharacterScene = () => {
       ) : (
         ""
       )}
+      <div ref={ref}></div>
       {showCharacters != "" ? <h2>{sceneName} selected</h2> : ""}
       {showCharacters ? (
         <Table striped bordered hover variant={dark}>
