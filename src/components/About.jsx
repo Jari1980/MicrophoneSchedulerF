@@ -10,9 +10,10 @@ const About = () => {
         style={{
           backgroundImage: bgColor,
           width: "100vw",
-          height: "80%",
+          height: "100%",
           overflow: "hidden",
           textAlign: "center",
+          paddingBottom: "120px"
         }}
       >
         <br />

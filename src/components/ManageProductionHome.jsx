@@ -240,7 +240,7 @@ const ManageProductionHome = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="dateEditCreated">
             <Form.Label>
-              <b>Date Created</b>
+              <b>Premiere Date</b>
             </Form.Label>
             <Form.Control type="date" defaultValue={editDate} />
           </Form.Group>
@@ -274,6 +274,8 @@ const ManageProductionHome = () => {
       ) : (
         ""
       )}
+      <br />
+      <br />
       {formVisible ? (
         <Form onSubmit={handleSubmitNewProduction}>
           <Form.Group className="mb-3" controlId="formPlayName">
@@ -284,7 +286,7 @@ const ManageProductionHome = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="dateCreated">
             <Form.Label>
-              <b>Date Created</b>
+              <b>Premiere Date</b>
             </Form.Label>
             <Form.Control type="date" placeholder="Enter date" />
           </Form.Group>

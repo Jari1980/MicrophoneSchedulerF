@@ -126,8 +126,9 @@ const UserService = () => {
         style={{
           backgroundImage: bgColor,
           width: "100vw",
-          height: "80vh",
+          height: "100%",
           overflow: "hidden",
+          paddingBottom: "120px"
         }}
       >
         <p>User service</p>

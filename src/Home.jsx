@@ -23,8 +23,9 @@ function Home() {
         style={{
           backgroundImage: bgColor,
           width: "100vw",
-          height: "80%",
+          height: "100%",
           overflow: "hidden",
+          paddingBottom: "120px"
         }}
       >
         {!cookies.cookieConsent && <CookieConsent />}

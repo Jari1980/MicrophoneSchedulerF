@@ -35,6 +35,9 @@ const Character = () => {
     setActorId(selectedOption.actorId);
   };
 
+  const refCharacter = useRef(null);
+  const refScene = useRef(null);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -91,6 +94,8 @@ const Character = () => {
     setCharacterScenes(data[0]);
     setSelectedCharacter(name);
     setShowScenes(true);
+    refScene.current?.scrollIntoView({behaviour: 'smooth'});
+    
   }
 
   function editCharacter(id, name, actorName) {
@@ -99,6 +104,9 @@ const Character = () => {
     setActorName(actorName);
     fetchActorUser();
     setShowEditForm(!showEditForm);
+    //if(!showEditForm){
+      refCharacter.current?.scrollIntoView({behaviour: 'smooth'});
+    //}
   }
 
   function deleteCharacter(id) {
@@ -225,7 +233,7 @@ const Character = () => {
               {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                 <td>
                   <Button
-                    style={{ width: "70px", marginRight: "10px" }}
+                    style={{ width: "100px", marginRight: "10px" }}
                     onClick={() =>
                       editCharacter(
                         item.personageId,
@@ -234,10 +242,10 @@ const Character = () => {
                       )
                     }
                   >
-                    Edit
+                    Edit Actor
                   </Button>
                   <Button
-                    style={{ width: "70px" }}
+                    style={{ width: "100px" }}
                     variant="danger"
                     onClick={() => deleteCharacter(item.personageId)}
                   >
@@ -251,6 +259,7 @@ const Character = () => {
           </tbody>
         ))}
       </Table>
+      <div ref={refScene}></div>
       {showScenes ? <h3>{selectedCharacter} Scene Information</h3> : ""}
       {showScenes ? (
         <Table striped bordered hover variant={dark}>
@@ -282,8 +291,9 @@ const Character = () => {
         ""
       )}
       <br />
+      <div ref={refCharacter}></div>
       {showEditForm ? (
-        <Form onSubmit={handleEdit}>
+        <Form onSubmit={handleEdit} id="editCharacter">
           <Form.Group className="mb-3" controlId="formCharacterName">
             <Form.Label>
               <b>Character Name</b>

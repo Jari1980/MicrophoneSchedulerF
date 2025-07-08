@@ -39,7 +39,7 @@ const LogIn = () => {
   }
 
   return (
-    <div style={{backgroundImage:bgColor, width:"100vw", height:"80vh", overflow: "hidden"}}>
+    <div style={{backgroundImage:bgColor, width:"100vw", height:"100%", overflow: "hidden", paddingBottom: "120px"}}>
       <Container
         style={{ width: "50%", alignItems: "center", justifyContent: "center" }}
       >

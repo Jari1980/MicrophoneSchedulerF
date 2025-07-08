@@ -20,7 +20,7 @@ const Footer = () => {
 
   return (
     <footer >
-      <Container fluid style={{marginTop: "auto", position:"absolute", width:"100%"}}>
+      <Container fluid style={{marginTop: "auto", position:"fixed", width:"100%", bottom: "0", height: "120px"}}>
         <Row className={footerRowClass} >
           <Col className="mx-4">
             <Stack>
@@ -29,6 +29,7 @@ const Footer = () => {
               <p></p>
             </Stack>
           </Col>
+          {/*
           <Col>
             <Nav className="flex-column fs-5">
               <h5>Short Links</h5>
@@ -56,6 +57,7 @@ const Footer = () => {
               )}
             </Nav>
           </Col>
+          */}
           <Col>
           <h5>Contact:</h5>
           <p>???</p>
