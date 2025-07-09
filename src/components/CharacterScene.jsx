@@ -188,6 +188,9 @@ const CharacterScene = () => {
           if (error.status === 494) {
                 alert("Actor already in scene")
           }
+          if (error.status === 496) {
+                alert("Character used in other production already")
+          }
           if (error.response.status === 401) {
             setCookie("jwtToken", "", { path: "/" });
             setCookie("userName", "", { path: "/" });
