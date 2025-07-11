@@ -59,7 +59,7 @@ const Dashboard = () => {
                     style={{ color: dashboardText }}
                     onClick={() => navigate("../dashboard/scene")}
                   >
-                    Scene
+                    Act & Scene
                   </button>
                 </li>
               ) : (

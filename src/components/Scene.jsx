@@ -232,10 +232,10 @@ const Scene = () => {
   */
   return (
     <div>
-      <h1>Manage Scenes</h1>
+      <h1>Manage Acts & Scenes</h1>
       <br />
-      <h2>Select Production to work from</h2>
-      <Table striped bordered hover variant={dark}>
+      <h2>Select Production</h2>
+      <Table striped bordered hover variant={dark} size="sm">
         <thead>
           <tr>
             <th>Theater Production</th>
@@ -252,7 +252,7 @@ const Scene = () => {
               <td>{item.premiereDate}</td>
               <td>{item.description}</td>
               <td>
-                <Button onClick={() => fetchScenes(item.playName)}>
+                <Button size="sm" onClick={() => fetchScenes(item.playName)}>
                   Select
                 </Button>
               </td>
@@ -263,7 +263,7 @@ const Scene = () => {
       {playName != "" ? <b>Production: {playName}</b> : ""}
 
       {sceneData != null && sceneData != "" ? (
-        <Table striped bordered hover variant={dark}>
+        <Table striped bordered hover variant={dark} size="sm">
           <thead>
             <tr>
               <th>Act Number</th>
@@ -282,6 +282,7 @@ const Scene = () => {
                 <td>
                   {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                     <Button
+                    size="sm"
                       style={{ width: "70px", marginRight: "10px" }}
                       onClick={() =>
                         editScene(
@@ -299,6 +300,7 @@ const Scene = () => {
                   )}
                   {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                     <Button
+                    size="sm"
                       style={{ width: "70px" }}
                       variant="danger"
                       onClick={() => deleteScene(item.sceneId)}
@@ -362,7 +364,7 @@ const Scene = () => {
       )}
       <div ref={ref}></div>
       <br />
-      {playName != "" ? (
+      {playName != "" && !addAct? (
         <Button onClick={() => setAddAct(true)}>+ Add Act</Button>
       ) : (
         ""

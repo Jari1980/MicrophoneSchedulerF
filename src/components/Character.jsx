@@ -204,7 +204,7 @@ const Character = () => {
     <>
       <h1>Manage Characters</h1>
       <br />
-      <Table striped bordered hover variant={dark}>
+      <Table striped bordered hover variant={dark} size="sm">
         <thead>
           <tr>
             <th>Character Name</th>
@@ -223,6 +223,7 @@ const Character = () => {
               <td>{item.actorName}</td>
               <td>
                 <Button
+                size="sm"
                   onClick={() =>
                     handleShowScenes(item.personageId, item.personageName)
                   }
@@ -233,6 +234,7 @@ const Character = () => {
               {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                 <td>
                   <Button
+                  size="sm"
                     style={{ width: "100px", marginRight: "10px" }}
                     onClick={() =>
                       editCharacter(
@@ -245,6 +247,7 @@ const Character = () => {
                     Edit Actor
                   </Button>
                   <Button
+                  size="sm"
                     style={{ width: "100px" }}
                     variant="danger"
                     onClick={() => deleteCharacter(item.personageId)}
@@ -262,7 +265,7 @@ const Character = () => {
       <div ref={refScene}></div>
       {showScenes ? <h3>{selectedCharacter} Scene Information</h3> : ""}
       {showScenes ? (
-        <Table striped bordered hover variant={dark}>
+        <Table striped bordered hover variant={dark} size="sm">
           <thead>
             <tr>
               <th>Act Number</th>
@@ -335,7 +338,7 @@ const Character = () => {
         ""
       )}
       <br />
-      {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
+      {cookies.userRole == "ROLE_ADMINISTRATOR" && !showCreate? (
       <Button onClick={() => setShowCreate(true)}>+ Create Character</Button>
       ) : "" }
       {showCreate ? (

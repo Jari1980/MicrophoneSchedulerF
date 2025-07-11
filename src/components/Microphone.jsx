@@ -140,7 +140,7 @@ const Microphone = () => {
     <>
       <h1>Microphones</h1>
       <br />
-      <Table striped bordered hover variant={dark}>
+      <Table striped bordered hover variant={dark} size="sm">
         <thead>
           <tr>
             <th>Id</th>
@@ -156,6 +156,7 @@ const Microphone = () => {
               <td>{item.microphoneName}</td>
               <td>
                 <Button
+                size="sm"
                 style={{width: "80px", marginRight: "10px"}}
                   onClick={() => {
                     setMicrophoneId(item.microphoneId),
@@ -168,6 +169,7 @@ const Microphone = () => {
                   Rename
                 </Button>
                 <Button
+                size="sm"
                 style={{width: "80px"}}
                 variant="danger" 
                 onClick={() => deleteMicrophone(item.microphoneName)}>

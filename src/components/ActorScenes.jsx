@@ -257,7 +257,7 @@ const ActorScenes = () => {
           <br />
           <br />
           <h3>Productions</h3>
-          <Table striped bordered hover variant={dark}>
+          <Table striped bordered hover variant={dark} size="sm">
             <thead>
               <tr>
                 <th>Theater Production</th>
@@ -275,6 +275,7 @@ const ActorScenes = () => {
                   <td>{item.description}</td>
                   <td>
                     <Button
+                    size="sm"
                       style={{ width: "70px", marginRight: "10px" }}
                       onClick={() => fetchActorData(item.playName)}
                     >
@@ -286,7 +287,7 @@ const ActorScenes = () => {
             ))}
           </Table>
           {showMicrophoneSchedule ? (
-            <Table striped bordered hover variant={dark}>
+            <Table striped bordered hover variant={dark} size="sm">
               <thead>
                 <tr>
                   <th>Scene</th>
@@ -305,6 +306,7 @@ const ActorScenes = () => {
                     <td>
                         {item.comment != null && item.comment != "" ?
                         <Button
+                        size="sm"
                         variant="success"
                         onClick={() =>
                           {setSceneCharacterId(item.sceneCharacterId), setUserId(item.userId), viewComment(item.comment, item.sceneCharacterId)}
@@ -314,6 +316,7 @@ const ActorScenes = () => {
                       </Button>
                         :
                         <Button
+                        size="sm"
                         onClick={() =>
                           {setSceneCharacterId(item.sceneCharacterId), setUserId(item.userId), viewComment(item.comment, item.sceneCharacterId)}
                         }
@@ -429,7 +432,7 @@ const ActorScenes = () => {
           <br />
           <br />
           {showOtherSchedule && cookies.userRole == "ROLE_ACTOR" ? (
-            <Table striped bordered hover variant={dark}>
+            <Table striped bordered hover variant={dark} size="sm">
               <thead>
                 <tr>
                   <th>Scene</th>
@@ -452,7 +455,7 @@ const ActorScenes = () => {
             ""
           )}
           {showOtherSchedule && (cookies.userRole == "ROLE_DIRECTOR" || cookies.userRole == "ROLE_ADMINISTRATOR") ? (
-            <Table striped bordered hover variant={dark}>
+            <Table striped bordered hover variant={dark} size="sm">
               <thead>
                 <tr>
                   <th>Scene</th>
@@ -471,6 +474,7 @@ const ActorScenes = () => {
                     <td>
                         {item.comment !== null && item.comment !== "" ?
                         <Button
+                        size="sm"
                         variant="success"
                         onClick={() =>
                           viewComment(item.comment, item.sceneCharacterId)
@@ -480,6 +484,7 @@ const ActorScenes = () => {
                       </Button>
                         :
                         <Button
+                        size="sm"
                         onClick={() =>
                           viewComment(item.comment, item.sceneCharacterId)
                         }

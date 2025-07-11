@@ -153,7 +153,6 @@ const ManageProductionHome = () => {
       <h1>Manage Theater Productions</h1>
       <br />
       <h2>Theatre plays in database</h2>
-      <br />
       <Alert key="alert-text" variant="warning" show={showAlert}>
         <b>Warning!</b>
         <br />
@@ -179,7 +178,7 @@ const ManageProductionHome = () => {
           Cancel
         </Button>
       </Alert>
-      <Table striped bordered hover variant={dark}>
+      <Table striped bordered hover variant={dark} size="sm">
         <thead>
           <tr>
             <th>Theater Production</th>
@@ -199,6 +198,7 @@ const ManageProductionHome = () => {
                 {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                   <Button
                     style={{ width: "70px", marginRight: "10px" }}
+                    size="sm"
                     onClick={() =>
                       editProduction(
                         item.playName,
@@ -215,6 +215,7 @@ const ManageProductionHome = () => {
                 {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                   <Button
                     style={{ width: "70px" }}
+                    size="sm"
                     variant="danger"
                     onClick={() => {
                       setShowAlert(true), setProductionId(item.playName);
@@ -265,7 +266,7 @@ const ManageProductionHome = () => {
         ""
       )}
       {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
-        <p>Select a play or create a new</p>
+        <p><b>Edit a production or create a new</b></p>
       ) : (
         ""
       )}

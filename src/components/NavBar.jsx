@@ -43,7 +43,7 @@ const NavBar = () => {
 
     return (
         <>
-        <Navbar expand="sm" bg={dark} data-bs-theme={dark} sticky="top">
+        <Navbar expand="sm" bg={dark} data-bs-theme={dark} sticky="top" style={{width:"101%"}}>
         <Navbar.Brand as={Link} to="/home" style={{marginLeft:"20px"}}>Teaterstickorna</Navbar.Brand>
         <Button variant="outline-secondary" size="sm" onClick={handleClick}>{dark === "dark" ? 'Light Theme' : 'Dark Theme'}</Button>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
