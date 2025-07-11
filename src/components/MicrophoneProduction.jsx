@@ -270,8 +270,8 @@ const MicrophoneProduction = () => {
     <>
       <h1>Manage Microphone in production</h1>
       <br />
-      <h2>Select Production to work from</h2>
-      <Table striped bordered hover variant={dark}>
+      <h2>Select Production</h2>
+      <Table striped bordered hover variant={dark} size="sm">
         <thead>
           <tr>
             <th>Theater Production</th>
@@ -289,6 +289,7 @@ const MicrophoneProduction = () => {
               <td>{item.description}</td>
               <td>
                 <Button
+                size="sm"
                   onClick={() => {
                     setPlayName(item.playName), fetchMicrophoneData;
                   }}
@@ -306,7 +307,7 @@ const MicrophoneProduction = () => {
         ""
       )}
       {playName != "" ? (
-        <Table striped bordered hover variant={dark}>
+        <Table striped bordered hover variant={dark} size="sm">
           <thead>
             <tr>
               <th>Scene</th>
@@ -326,6 +327,7 @@ const MicrophoneProduction = () => {
                 <td>{item.microphoneName}</td>
                 <td>
                   <Button
+                  size="sm"
                     style={{ width: "80px", marginRight: "10px" }}
                     onClick={() => {
                       setSceneCharacterId(item.scene_characterId),
@@ -336,6 +338,7 @@ const MicrophoneProduction = () => {
                   </Button>
                   {item.microphoneId != null ? (
                     <Button
+                    size="sm"
                       style={{ width: "80px" }}
                       variant="danger"
                       onClick={() => removeMicrophone(item.scene_characterId)}

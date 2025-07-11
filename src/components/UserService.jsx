@@ -131,8 +131,9 @@ const UserService = () => {
           paddingBottom: "120px"
         }}
       >
-        <p>User service</p>
-        <Table striped bordered hover variant="dark">
+        <div style={{marginLeft:"20px", marginRight:"20px"}}>
+        <h1>User service</h1>
+        <Table striped bordered hover variant="dark" size="sm">
           <thead>
             <tr>
               <th>Id</th>
@@ -149,6 +150,8 @@ const UserService = () => {
                 <td>{item.userName}</td>
                 <td>
                   <select
+                  size="1"
+                  
                     id="role"
                     defaultValue={item.role}
                     className={`form-select`}
@@ -165,12 +168,14 @@ const UserService = () => {
                 </td>
                 <td>
                   <Button
+                  size="sm"
                     style={{ width: "120px", marginRight: "10px" }}
                     onClick={() => editUser(item.userId, item.role)}
                   >
                     Set New Role
                   </Button>
                   <Button
+                  size="sm"
                     style={{ width: "120px" }}
                     variant="danger"
                     onClick={() => deleteUser(item.userId)}
@@ -182,6 +187,7 @@ const UserService = () => {
             </tbody>
           ))}
         </Table>
+      </div>
       </div>
     </>
   );

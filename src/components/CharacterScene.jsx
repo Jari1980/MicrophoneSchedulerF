@@ -208,8 +208,8 @@ const CharacterScene = () => {
     <>
       <h1>Manage characters to scene</h1>
       <br />
-      <h2>Select Production to work from</h2>
-      <Table striped bordered hover variant={dark}>
+      <h2>Select Production</h2>
+      <Table striped bordered hover variant={dark} size="sm">
         <thead>
           <tr>
             <th>Theater Production</th>
@@ -227,6 +227,7 @@ const CharacterScene = () => {
               <td>{item.description}</td>
               <td>
                 <Button
+                size="sm"
                   onClick={() => {
                     setShowCharacters(!showCharacter), setPlayName(item.playName), fetchScenes;
                   }}
@@ -240,7 +241,7 @@ const CharacterScene = () => {
       </Table>
       {playName != "" ? <h2>{playName}</h2> : ""}
       {playName != "" ? (
-        <Table striped bordered hover variant={dark}>
+        <Table striped bordered hover variant={dark} size="sm">
           <thead>
             <tr>
               <th>Act Number</th>
@@ -257,7 +258,9 @@ const CharacterScene = () => {
                 <td>{item.sceneNumber}</td>
                 <td>{item.sceneName}</td>
                 <td>
-                  <Button onClick={() => {showCharacter(item.sceneId), setSceneName(item.sceneName)}}>
+                  <Button
+                  size="sm" 
+                  onClick={() => {showCharacter(item.sceneId), setSceneName(item.sceneName)}}>
                     Select
                   </Button>
                 </td>
@@ -271,7 +274,7 @@ const CharacterScene = () => {
       <div ref={ref}></div>
       {showCharacters != "" ? <h2>{sceneName} selected</h2> : ""}
       {showCharacters ? (
-        <Table striped bordered hover variant={dark}>
+        <Table striped bordered hover variant={dark} size="sm">
           <thead>
             <tr>
               <th>Character Name</th>
