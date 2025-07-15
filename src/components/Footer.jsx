@@ -20,7 +20,7 @@ const Footer = () => {
 
   return (
     <footer >
-      <Container fluid style={{marginTop: "auto", position:"fixed", width:"100%", bottom: "0", height: "auto"}}>
+      <Container fluid style={{marginTop: "auto", position:"fixed", width:"100%", bottom: "0", height: "120px"}}>
         <Row className={footerRowClass} >
           <Col className="mx-4">
             <Stack>

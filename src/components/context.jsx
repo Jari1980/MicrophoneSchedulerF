@@ -55,6 +55,24 @@ export const GlobalProvider = ({ children }) => {
     const [productionNameTranslation, setProductionNameTranslation] = useState("Production Name")
     const [saveProductionTranslation, setSaveProductionTranslation] = useState("Save Production")
     const [cancelEditTranslation, setCancelEditTranslation] = useState("Cancel Edit")
+    const [manageActSceneTranslation, setManageActSceneTranslation] = useState("Manage Acts & Scenes")
+    const [selectProductionTranslation, setSelectProductionTranslation] = useState("Select Production")
+    const [productionTranslation, setProductionTranslation] = useState("Production")
+    const [actNumberTranslation, setActNumberTranslation] = useState("Act Number")
+    const [sceneNumberTranslation, setSceneNumberTranslation] = useState("Scene Number")
+    const [sceneNameTranslation, setSceneNameTranslation] = useState("Scene Name")
+    const [saveSceneTranslation, setSaveSceneTranslation] = useState("Save Scene")
+    const [addActTranslation, setAddActTranslation] = useState("Add Act")
+    const [numberOfScenesTranslation, setNumberOfScenesTranslation] = useState("Number of Scenes")
+    const [numberOfScenesToAddTranslation, setNumberOfScenesToAddTranslation] = useState("Number of scenes to be added")
+    const [manageCharacterToSceneTranslation, setManageCharacterToSceneTranslation] = useState("Manage Character to Scene")
+    const [charactersTranslation, setCharactersTranslation] = useState("Characters")
+    const [characterNameTranslation, setCharacterNameTranslation] = useState("Character Name")
+    const [addCharacterTranslation, setAddCharacterTranslation] = useState("Add Character")
+    const [addTranslation, setAddTranslation] = useState("Add")
+    const [removeTranslation, setRemoveTranslation] = useState("Remove")
+    const [cancelTranslation, setCancelTranslation] = useState("Cancel")
+    const [selectTranslation, setSelectTranslation] = useState("Select")
 
   return (
     <GlobalContext.Provider
@@ -145,7 +163,43 @@ export const GlobalProvider = ({ children }) => {
         saveProductionTranslation,
         setSaveProductionTranslation,
         cancelEditTranslation,
-        setCancelEditTranslation
+        setCancelEditTranslation,
+        manageActSceneTranslation,
+        setManageActSceneTranslation,
+        selectProductionTranslation,
+        setSelectProductionTranslation,
+        productionTranslation,
+        setProductionTranslation,
+        actNumberTranslation,
+        setActNumberTranslation,
+        sceneNumberTranslation,
+        setSceneNumberTranslation,
+        sceneNameTranslation,
+        setSceneNameTranslation,
+        saveSceneTranslation,
+        setSaveSceneTranslation,
+        addActTranslation,
+        setAddActTranslation,
+        numberOfScenesTranslation,
+        setNumberOfScenesTranslation,
+        numberOfScenesToAddTranslation,
+        setNumberOfScenesToAddTranslation,
+        manageCharacterToSceneTranslation,
+        setManageCharacterToSceneTranslation,
+        charactersTranslation,
+        setCharactersTranslation,
+        characterNameTranslation,
+        setCharacterNameTranslation,
+        addCharacterTranslation,
+        setAddCharacterTranslation,
+        addTranslation,
+        setAddTranslation,
+        removeTranslation,
+        setRemoveTranslation,
+        cancelTranslation,
+        setCancelTranslation,
+        selectTranslation,
+        setSelectTranslation,
     }}
     >
         {children}
