@@ -12,6 +12,14 @@ const UserService = () => {
   const { bgColor, setBgColor } = useGlobalContext();
   const navigate = useNavigate();
 
+  //Translations
+  const { homeUserService, setHomeUserService } = useGlobalContext();
+  const {userName, setUserName} = useGlobalContext();
+    const {userRole, setUserRole} = useGlobalContext();
+    const {actions, setActions} = useGlobalContext();
+    const {newRole, setNewRole} = useGlobalContext();
+    const {deleteUserTranslation, setDeleteUserTranslation} = useGlobalContext();
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -93,7 +101,6 @@ const UserService = () => {
             headers: { Authorization: `Bearer ${cookies.jwtToken}` },
           }
         )
-        //.then();
         .catch((error) => {
           if (error.response.status === 401) {
             setCookie("jwtToken", "", { path: "/" });
@@ -102,7 +109,8 @@ const UserService = () => {
             navigate("/");
           }
           console.log("error editing role: " + error);
-        });
+        })
+        alert("Roll uppdaterad")
     } catch (error) {
       console.log("error editing role: " + error);
     }
@@ -128,66 +136,65 @@ const UserService = () => {
           width: "100vw",
           height: "100%",
           overflow: "hidden",
-          paddingBottom: "120px"
+          paddingBottom: "120px",
         }}
       >
-        <div style={{marginLeft:"20px", marginRight:"20px"}}>
-        <h1>User service</h1>
-        <Table striped bordered hover variant="dark" size="sm">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>User Name</th>
-              <th>User Role</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-
-          {userData.map((item) => (
-            <tbody key={item.userId}>
+        <div style={{ marginLeft: "20px", marginRight: "20px" }}>
+          <br />
+          <h1>{homeUserService}</h1>
+          <br />
+          <Table striped bordered hover variant="dark" size="sm">
+            <thead>
               <tr>
-                <td>{item.userId}</td>
-                <td>{item.userName}</td>
-                <td>
-                  <select
-                  size="1"
-                  
-                    id="role"
-                    defaultValue={item.role}
-                    className={`form-select`}
-                    onChange={(event) =>
-                      uppdate(item.userId, event.target.value)
-                    }
-                  >
-                    {roles.map((type) => (
-                      <option key={type.id} value={type.role}>
-                        {type.role}
-                      </option>
-                    ))}
-                  </select>
-                </td>
-                <td>
-                  <Button
-                  size="sm"
-                    style={{ width: "120px", marginRight: "10px" }}
-                    onClick={() => editUser(item.userId, item.role)}
-                  >
-                    Set New Role
-                  </Button>
-                  <Button
-                  size="sm"
-                    style={{ width: "120px" }}
-                    variant="danger"
-                    onClick={() => deleteUser(item.userId)}
-                  >
-                    Delete User
-                  </Button>
-                </td>
+                <th>{userName}</th>
+                <th>{userRole}</th>
+                <th>{actions}</th>
               </tr>
-            </tbody>
-          ))}
-        </Table>
-      </div>
+            </thead>
+
+            {userData.map((item) => (
+              <tbody key={item.userId}>
+                <tr>
+                  <td>{item.userName}</td>
+                  <td>
+                    <select
+                      size="1"
+                      id="role"
+                      defaultValue={item.role}
+                      className={`form-select`}
+                      onChange={(event) =>
+                        uppdate(item.userId, event.target.value)
+                      }
+                    >
+                      {roles.map((type) => (
+                        <option key={type.id} value={type.role}>
+                          {type.role}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                  <td>
+                    <Button
+                      size="sm"
+                      style={{ width: "140px", marginRight: "10px" }}
+                      onClick={() => editUser(item.userId, item.role)}
+                    >
+                      {newRole}
+                    </Button>
+                    <Button
+                      size="sm"
+                      style={{ width: "140px" }}
+                      variant="danger"
+                      onClick={() => deleteUser(item.userId)}
+                    >
+                      {deleteUserTranslation}
+                    </Button>
+                  </td>
+                </tr>
+              </tbody>
+            ))}
+          </Table>
+        </div>
       </div>
     </>
   );

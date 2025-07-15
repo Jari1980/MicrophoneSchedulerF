@@ -29,20 +29,33 @@ const NavBar = () => {
     useGlobalContext();
   const { homeUserService, setHomeUserService } = useGlobalContext();
 
-  const {theaterProduction, setTheaterProduction} = useGlobalContext();
-  const {premiereDate, setPremiereDate} = useGlobalContext();
-  const {description, setDescription} = useGlobalContext();
-  const {scene, setScene} = useGlobalContext();
-  const {character, setCharacter} = useGlobalContext();
-  const {microphone, setMicrophone} = useGlobalContext();
-  const {hideMicrophone, setHideMicrophone} = useGlobalContext();
-  const {otherMicrophoneSchedule, setOtherMicrophoneSchedule} = useGlobalContext();
-  const {actor, setActor} = useGlobalContext();
-  const {showSchedule, setShowSchedule} = useGlobalContext();
-  const {hide, setHide} = useGlobalContext();
-  const {commentTranslation, setCommentTranslation} = useGlobalContext();
-  const {save, setSave} = useGlobalContext();
-  const {commentInfo, setCommentInfo} = useGlobalContext();
+  const { theaterProduction, setTheaterProduction } = useGlobalContext();
+  const { premiereDate, setPremiereDate } = useGlobalContext();
+  const { description, setDescription } = useGlobalContext();
+  const { scene, setScene } = useGlobalContext();
+  const { character, setCharacter } = useGlobalContext();
+  const { microphone, setMicrophone } = useGlobalContext();
+  const { hideMicrophone, setHideMicrophone } = useGlobalContext();
+  const { otherMicrophoneSchedule, setOtherMicrophoneSchedule } =
+    useGlobalContext();
+  const { actor, setActor } = useGlobalContext();
+  const { showSchedule, setShowSchedule } = useGlobalContext();
+  const { hide, setHide } = useGlobalContext();
+  const { commentTranslation, setCommentTranslation } = useGlobalContext();
+  const { save, setSave } = useGlobalContext();
+  const { commentInfo, setCommentInfo } = useGlobalContext();
+
+  const { userName, setUserName } = useGlobalContext();
+  const { userRole, setUserRole } = useGlobalContext();
+  const { actions, setActions } = useGlobalContext();
+  const { newRole, setNewRole } = useGlobalContext();
+  const { deleteUserTranslation, setDeleteUserTranslation } = useGlobalContext();
+
+  const {registerTranslation, setRegisterTranslation} = useGlobalContext();
+  const {passwordTranslation, setPasswordTranslation} = useGlobalContext();
+  const {registerloginTranslation, setRegisterLoginTranslation} = useGlobalContext();
+
+  const {logInTranslation, setLogInTranslation} = useGlobalContext();
 
   function logout() {
     setCookie("jwtToken", "", { path: "/" });
@@ -90,19 +103,30 @@ const NavBar = () => {
       setHomeTheaterProductions("Teater produktion");
       setHomeUserService("Hantera användare");
       setTheaterProduction("Teater Föreställning");
-      setPremiereDate("Premiär Datum")
-      setDescription("Beskrivning")
-      setScene("Scen")
-      setCharacter("Karaktär")
-      setMicrophone("Mikrofon")
-      setHideMicrophone("Dölj Mikrofon Schema")
-      setOtherMicrophoneSchedule("Schema Andra Skådespelare")
-      setActor("Skådespelare")
-      setShowSchedule("Visa Scema")
-      setHide("Dölj")
-      setCommentTranslation("Kommentar")
-      setSave("Spara")
-      setCommentInfo("Kommentarer är synliga för dig, administratörer och direktörer")
+      setPremiereDate("Premiär Datum");
+      setDescription("Beskrivning");
+      setScene("Scen");
+      setCharacter("Karaktär");
+      setMicrophone("Mikrofon");
+      setHideMicrophone("Dölj Mikrofon Schema");
+      setOtherMicrophoneSchedule("Schema Andra Skådespelare");
+      setActor("Skådespelare");
+      setShowSchedule("Visa Scema");
+      setHide("Dölj");
+      setCommentTranslation("Kommentar");
+      setSave("Spara");
+      setCommentInfo(
+        "Kommentarer är synliga för dig, administratörer och direktörer"
+      );
+      setUserName("Användarnamn");
+      setUserRole("Användarroll");
+      setActions("Händelser");
+      setNewRole("Bekräfta Roll");
+      setDeleteUserTranslation("Ta bort Användare");
+      setRegisterTranslation("Registrera");
+      setPasswordTranslation("Lösenord");
+      setRegisterLoginTranslation("Registrera och LoggaIn");
+      setLogInTranslation("Logga In")
     } else {
       setLanguage("../src/assets/England.png");
       setLightTheme("Light Theme");
@@ -115,19 +139,28 @@ const NavBar = () => {
       setHomeTheaterProductions("Theater Productions");
       setHomeUserService("User Service");
       setTheaterProduction("Theater Production");
-      setPremiereDate("Premiere Date")
-      setDescription("Description")
-      setScene("Scene")
-      setCharacter("Character")
-      setMicrophone("Microphone")
-      setHideMicrophone("Hide Microphone Schedule")
-      setOtherMicrophoneSchedule("Other Actors Schedule")
-      setActor("Actor")
-      setShowSchedule("Show Schedule")
-      setHide("Hide")
-      setCommentTranslation("Comment")
-      setSave("Save")
-      setCommentInfo("Comments are visible for you, admins and directors")
+      setPremiereDate("Premiere Date");
+      setDescription("Description");
+      setScene("Scene");
+      setCharacter("Character");
+      setMicrophone("Microphone");
+      setHideMicrophone("Hide Microphone Schedule");
+      setOtherMicrophoneSchedule("Other Actors Schedule");
+      setActor("Actor");
+      setShowSchedule("Show Schedule");
+      setHide("Hide");
+      setCommentTranslation("Comment");
+      setSave("Save");
+      setCommentInfo("Comments are visible for you, admins and directors");
+      setUserName("User Name");
+      setUserRole("User Role");
+      setActions("Actions");
+      setNewRole("Set new Role");
+      setDeleteUserTranslation("Delete User");
+      setRegisterTranslation("Register");
+      setPasswordTranslation("Password");
+      setRegisterLoginTranslation("Register and Login");
+      setLogInTranslation("LogIn");
     }
   }
 
