@@ -21,6 +21,20 @@ export const GlobalProvider = ({ children }) => {
     const [homeMicrophoneSchedule, setHomeMicrophoneSchedule] = useState("Microphone Schedule")
     const [homeTheaterProductions,  setHomeTheaterProductions] = useState("Theater Productions")
     const [homeUserService, setHomeUserService] = useState("User Service")
+    const [theaterProduction, setTheaterProduction] = useState("Theater Production")
+    const [premiereDate, setPremiereDate] = useState("Premiere Date")
+    const [description, setDescription] = useState("Description")
+    const [scene, setScene] = useState("Scene")
+    const [character, setCharacter] = useState("Character")
+    const [microphone, setMicrophone] = useState("Microphone")
+    const [hideMicrophone, setHideMicrophone] = useState("Hide Microphone Schedule")
+    const [otherMicrophoneSchedule, setOtherMicrophoneSchedule] = useState("Other Actors Schedule")
+    const [actor, setActor] = useState("Actor")
+    const [showSchedule, setShowSchedule] = useState("Show Schedule")
+    const [hide, setHide] = useState("Hide")
+    const [commentTranslation, setCommentTranslation] = useState("Comment")
+    const [save, setSave] = useState("Save")
+    const [commentInfo, setCommentInfo] = useState("Comments are visible for you, admins and directors")
 
   return (
     <GlobalContext.Provider
@@ -43,7 +57,35 @@ export const GlobalProvider = ({ children }) => {
         homeTheaterProductions,
         setHomeTheaterProductions,
         homeUserService,
-        setHomeUserService
+        setHomeUserService,
+        theaterProduction,
+        setTheaterProduction,
+        premiereDate,
+        setPremiereDate,
+        description,
+        setDescription,
+        scene,
+        setScene,
+        character,
+        setCharacter,
+        microphone,
+        setMicrophone,
+        hideMicrophone,
+        setHideMicrophone,
+        otherMicrophoneSchedule,
+        setOtherMicrophoneSchedule,
+        actor,
+        setActor,
+        showSchedule,
+        setShowSchedule,
+        hide,
+        setHide,
+        commentTranslation,
+        setCommentTranslation,
+        save,
+        setSave,
+        commentInfo,
+        setCommentInfo
     }}
     >
         {children}

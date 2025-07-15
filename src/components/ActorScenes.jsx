@@ -25,6 +25,24 @@ const ActorScenes = () => {
   const [comment, setComment] = useState("");
   const [sceneCharacterId, setSceneCharacterId] = useState();
 
+  //Translations
+  const { homeMicrophoneSchedule, setHomeMicrophoneSchedule } =
+    useGlobalContext();
+  const { theaterProduction, setTheaterProduction } = useGlobalContext();
+  const { premiereDate, setPremiereDate } = useGlobalContext();
+  const { description, setDescription } = useGlobalContext();
+  const { scene, setScene } = useGlobalContext();
+  const { character, setCharacter } = useGlobalContext();
+  const { microphone, setMicrophone } = useGlobalContext();
+  const { hideMicrophone, setHideMicrophone } = useGlobalContext();
+  const { otherMicrophoneSchedule, setOtherMicrophoneSchedule } =
+    useGlobalContext();
+  const { actor, setActor } = useGlobalContext();
+  const { showSchedule, setShowSchedule } = useGlobalContext();
+  const { hide, setHide } = useGlobalContext();
+  const { commentTranslation, setCommentTranslation } = useGlobalContext();
+  const { save, setSave } = useGlobalContext();
+  const { commentInfo, setCommentInfo } = useGlobalContext();
 
   const handleChoise = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -176,13 +194,13 @@ const ActorScenes = () => {
           }
         )
         .then((response) => {
-          if (!showOtherSchedule){
-            setShowComment(false)
-            fetchActorData(productionName)
+          if (!showOtherSchedule) {
+            setShowComment(false);
+            fetchActorData(productionName);
           }
-          if (showOtherSchedule){
-            setShowComment(false)
-            handleShowEdited()
+          if (showOtherSchedule) {
+            setShowComment(false);
+            handleShowEdited();
           }
         })
         .catch((error) => {
@@ -192,7 +210,6 @@ const ActorScenes = () => {
       console.log("Error editing comment: " + error);
     }
   }
-
 
   function handleShowEdited() {
     console.log("userId: " + userId + ", production name: " + productionName);
@@ -215,10 +232,9 @@ const ActorScenes = () => {
         )
         .then((res) => {
           setOtherMicrophoneData(res.data.actorScenes);
-          if(showOther){
+          if (showOther) {
             setShowOtherSchedule(true);
           }
-          
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -242,7 +258,7 @@ const ActorScenes = () => {
           width: "100vw",
           height: "100%",
           overflow: "hidden",
-          paddingBottom: "120px"
+          paddingBottom: "120px",
         }}
       >
         <div
@@ -253,16 +269,15 @@ const ActorScenes = () => {
           }}
         >
           <br />
-          <h1>Microphone Schedule</h1>
+          <h1>{homeMicrophoneSchedule}</h1>
           <br />
           <br />
-          <h3>Productions</h3>
           <Table striped bordered hover variant={dark} size="sm">
             <thead>
               <tr>
-                <th>Theater Production</th>
-                <th>Premiere Date</th>
-                <th>Description</th>
+                <th>{theaterProduction}</th>
+                <th>{premiereDate}</th>
+                <th>{description}</th>
                 <th></th>
               </tr>
             </thead>
@@ -275,7 +290,7 @@ const ActorScenes = () => {
                   <td>{item.description}</td>
                   <td>
                     <Button
-                    size="sm"
+                      size="sm"
                       style={{ width: "70px", marginRight: "10px" }}
                       onClick={() => fetchActorData(item.playName)}
                     >
@@ -290,9 +305,9 @@ const ActorScenes = () => {
             <Table striped bordered hover variant={dark} size="sm">
               <thead>
                 <tr>
-                  <th>Scene</th>
-                  <th>Character</th>
-                  <th>Microphone</th>
+                  <th>{scene}</th>
+                  <th>{character}</th>
+                  <th>{microphone}</th>
                   <th></th>
                 </tr>
               </thead>
@@ -304,27 +319,30 @@ const ActorScenes = () => {
                     <td>{item.personageName}</td>
                     <td>{item.microphoneName}</td>
                     <td>
-                        {item.comment != null && item.comment != "" ?
+                      {item.comment != null && item.comment != "" ? (
                         <Button
-                        size="sm"
-                        variant="success"
-                        onClick={() =>
-                          {setSceneCharacterId(item.sceneCharacterId), setUserId(item.userId), viewComment(item.comment, item.sceneCharacterId)}
-                        }
-                      >
-                        Comment
-                      </Button>
-                        :
+                          size="sm"
+                          variant="success"
+                          onClick={() => {
+                            setSceneCharacterId(item.sceneCharacterId),
+                              setUserId(item.userId),
+                              viewComment(item.comment, item.sceneCharacterId);
+                          }}
+                        >
+                          {commentTranslation}
+                        </Button>
+                      ) : (
                         <Button
-                        size="sm"
-                        onClick={() =>
-                          {setSceneCharacterId(item.sceneCharacterId), setUserId(item.userId), viewComment(item.comment, item.sceneCharacterId)}
-                        }
-                      >
-                        Comment
-                      </Button>
-                    }
-                      
+                          size="sm"
+                          onClick={() => {
+                            setSceneCharacterId(item.sceneCharacterId),
+                              setUserId(item.userId),
+                              viewComment(item.comment, item.sceneCharacterId);
+                          }}
+                        >
+                          {commentTranslation}
+                        </Button>
+                      )}
                     </td>
                   </tr>
                 </tbody>
@@ -333,12 +351,16 @@ const ActorScenes = () => {
           ) : (
             ""
           )}
-          {showComment ? <i>Comments are visible for you, admins and directors</i> : ""}
+          {showComment ? (
+            <i>{commentInfo}</i>
+          ) : (
+            ""
+          )}
           {showComment ? (
             <Form onSubmit={handleSubmitComment}>
               <Form.Group className="mb-3" controlId="formComment">
                 <Form.Label>
-                  <b>Comment</b>
+                  <b>{commentTranslation}</b>
                 </Form.Label>
                 <Form.Control
                   type="text"
@@ -348,10 +370,14 @@ const ActorScenes = () => {
                 />
               </Form.Group>
               <Button variant="primary" type="submit" className="extButton">
-                Save
+                {save}
               </Button>
-              <Button variant="danger" className="extButton" onClick={() => setShowComment(false)}>
-                Hide
+              <Button
+                variant="danger"
+                className="extButton"
+                onClick={() => setShowComment(false)}
+              >
+                {hide}
               </Button>
             </Form>
           ) : (
@@ -360,7 +386,7 @@ const ActorScenes = () => {
           <br />
           {showMicrophoneSchedule ? (
             <Button
-              style={{ width: "220px" }}
+              style={{ width: "240px" }}
               onClick={() => {
                 setShowOther(false),
                   setShowMicrophoneSchedule(!showMicrophoneSchedule),
@@ -368,7 +394,7 @@ const ActorScenes = () => {
                   setShowComment(false);
               }}
             >
-              Hide MicrophoneSchedule
+              {hideMicrophone}
             </Button>
           ) : (
             ""
@@ -376,8 +402,13 @@ const ActorScenes = () => {
           <br />
           <br />
           {showMicrophoneSchedule && !showOther ? (
-            <Button style={{ width: "220px" }} onClick={() => {setShowComment(false), fetchUsers()}}>
-              Other Actors Schedule
+            <Button
+              style={{ width: "240px" }}
+              onClick={() => {
+                setShowComment(false), fetchUsers();
+              }}
+            >
+              {otherMicrophoneSchedule}
             </Button>
           ) : (
             ""
@@ -392,10 +423,10 @@ const ActorScenes = () => {
                 className="mb-3 w-50 align-items-center justify-content-center"
                 as={Row}
               >
-                <Form.Label column sm={2}>
-                  <b>Actor</b>
+                <Form.Label column sm={3}>
+                  <b>{actor}</b>
                 </Form.Label>
-                <Col sm={10}>
+                <Col sm={7}>
                   <Select
                     id="search"
                     isMulti={false}
@@ -412,7 +443,7 @@ const ActorScenes = () => {
                 type="submit"
                 className="extButton"
               >
-                Show Schedule
+                {showSchedule}
               </Button>
               <Button
                 style={{ width: "140px" }}
@@ -423,7 +454,7 @@ const ActorScenes = () => {
                   setShowOtherSchedule(false), setShowOther(false);
                 }}
               >
-                Hide
+                {hide}
               </Button>
             </Form>
           ) : (
@@ -435,9 +466,9 @@ const ActorScenes = () => {
             <Table striped bordered hover variant={dark} size="sm">
               <thead>
                 <tr>
-                  <th>Scene</th>
-                  <th>Character</th>
-                  <th>Microphone</th>
+                  <th>{scene}</th>
+                  <th>{character}</th>
+                  <th>{microphone}</th>
                 </tr>
               </thead>
 
@@ -454,14 +485,16 @@ const ActorScenes = () => {
           ) : (
             ""
           )}
-          {showOtherSchedule && (cookies.userRole == "ROLE_DIRECTOR" || cookies.userRole == "ROLE_ADMINISTRATOR") ? (
+          {showOtherSchedule &&
+          (cookies.userRole == "ROLE_DIRECTOR" ||
+            cookies.userRole == "ROLE_ADMINISTRATOR") ? (
             <Table striped bordered hover variant={dark} size="sm">
               <thead>
                 <tr>
-                  <th>Scene</th>
-                  <th>Character</th>
-                  <th>Microphone</th>
-                  <th>Comment</th>
+                  <th>{scene}</th>
+                  <th>{character}</th>
+                  <th>{microphone}</th>
+                  <th>{commentTranslation}</th>
                 </tr>
               </thead>
 
@@ -472,26 +505,26 @@ const ActorScenes = () => {
                     <td>{item.personageName}</td>
                     <td>{item.microphoneName}</td>
                     <td>
-                        {item.comment !== null && item.comment !== "" ?
+                      {item.comment !== null && item.comment !== "" ? (
                         <Button
-                        size="sm"
-                        variant="success"
-                        onClick={() =>
-                          viewComment(item.comment, item.sceneCharacterId)
-                        }
-                      >
-                        Comment
-                      </Button>
-                        :
+                          size="sm"
+                          variant="success"
+                          onClick={() =>
+                            viewComment(item.comment, item.sceneCharacterId)
+                          }
+                        >
+                          {commentTranslation}
+                        </Button>
+                      ) : (
                         <Button
-                        size="sm"
-                        onClick={() =>
-                          viewComment(item.comment, item.sceneCharacterId)
-                        }
-                      >
-                        Comment
-                      </Button>
-                    }
+                          size="sm"
+                          onClick={() =>
+                            viewComment(item.comment, item.sceneCharacterId)
+                          }
+                        >
+                          {commentTranslation}
+                        </Button>
+                      )}
                     </td>
                   </tr>
                 </tbody>
