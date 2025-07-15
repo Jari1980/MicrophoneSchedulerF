@@ -44,6 +44,17 @@ export const GlobalProvider = ({ children }) => {
     const [passwordTranslation, setPasswordTranslation] = useState("Password")
     const [registerloginTranslation, setRegisterLoginTranslation] = useState("Register and Login")
     const [logInTranslation, setLogInTranslation] = useState("LogIn")
+    const [actSceneTranslation, setActSceneTranslation] = useState("Act & Scene")
+    const [characterToSceneTranslation, setCharacterToSceneTranslation] = useState("Character To Scene")
+    const [microphoneInProductionTranslation, setMicrophoneInProductionTranslation] = useState("Microphone in Production")
+    const [manageTheaterProductionsTranslate, setManageTheaterProductionsTranslate] = useState("Manage Theater Productions")
+    const [editTranslation, setEditTranslation] = useState("Edit")
+    const [newProductionTranslation, setNewProductionTranslation] = useState("New Production")
+    const [addProductionTranlation, setAddProductionTranslation] = useState("Add Production")
+    const [deleteTranslation, setDeleteTranslation] = useState("Delete")
+    const [productionNameTranslation, setProductionNameTranslation] = useState("Production Name")
+    const [saveProductionTranslation, setSaveProductionTranslation] = useState("Save Production")
+    const [cancelEditTranslation, setCancelEditTranslation] = useState("Cancel Edit")
 
   return (
     <GlobalContext.Provider
@@ -113,6 +124,28 @@ export const GlobalProvider = ({ children }) => {
         setRegisterLoginTranslation,
         logInTranslation,
         setLogInTranslation,
+        actSceneTranslation,
+        setActSceneTranslation,
+        characterToSceneTranslation,
+        setCharacterToSceneTranslation,
+        microphoneInProductionTranslation,
+        setMicrophoneInProductionTranslation,
+        manageTheaterProductionsTranslate,
+        setManageTheaterProductionsTranslate,
+        editTranslation,
+        setEditTranslation,
+        newProductionTranslation,
+        setNewProductionTranslation,
+        addProductionTranlation,
+        setAddProductionTranslation,
+        deleteTranslation,
+        setDeleteTranslation,
+        productionNameTranslation,
+        setProductionNameTranslation,
+        saveProductionTranslation,
+        setSaveProductionTranslation,
+        cancelEditTranslation,
+        setCancelEditTranslation
     }}
     >
         {children}
