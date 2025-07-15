@@ -4,6 +4,8 @@ import axios from "axios";
 const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
+
+    //Toggle background
     const [dark, setDark] = useState("dark");
     const [bgColor, setBgColor] = useState(
       "linear-gradient(120deg,rgb(114, 119, 138),rgb(71, 97, 190) 50%,rgb(132, 142, 173))"
@@ -14,7 +16,11 @@ export const GlobalProvider = ({ children }) => {
     const [dashboardText, setDashboardText] = useState("whitesmoke")
     const [footerRowClass, setFooterRowClass] = useState("bg-dark text-secondary p-2")
     const [footerLinkText, setFooterLinkText] = useState("text-secondary")
-    
+
+    //Toggle language
+    const [homeMicrophoneSchedule, setHomeMicrophoneSchedule] = useState("Microphone Schedule")
+    const [homeTheaterProductions,  setHomeTheaterProductions] = useState("Theater Productions")
+    const [homeUserService, setHomeUserService] = useState("User Service")
 
   return (
     <GlobalContext.Provider
@@ -30,7 +36,14 @@ export const GlobalProvider = ({ children }) => {
         footerRowClass,
         setFooterRowClass,
         footerLinkText,
-        setFooterLinkText
+        setFooterLinkText,
+
+        homeMicrophoneSchedule,
+        setHomeMicrophoneSchedule,
+        homeTheaterProductions,
+        setHomeTheaterProductions,
+        homeUserService,
+        setHomeUserService
     }}
     >
         {children}
