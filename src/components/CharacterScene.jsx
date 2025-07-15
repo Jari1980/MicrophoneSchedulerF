@@ -22,6 +22,24 @@ const CharacterScene = () => {
   const navigate = useNavigate();
   const ref = useRef(null);
 
+  //Translations
+  const {manageCharacterToSceneTranslation, setManageCharacterToSceneTranslation} = useGlobalContext();
+  const {charactersTranslation, setCharactersTranslation} = useGlobalContext();
+  const {characterNameTranslation, setCharacterNameTranslation} = useGlobalContext();
+  const {addCharacterTranslation, setAddCharacterTranslation} = useGlobalContext();
+  const {addTranslation, setAddTranslation} = useGlobalContext();
+  const { theaterProduction, setTheaterProduction } = useGlobalContext();
+  const { premiereDate, setPremiereDate } = useGlobalContext();
+  const { description, setDescription } = useGlobalContext();
+  const { actions, setActions } = useGlobalContext();
+  const { actNumberTranslation, setActNumberTranslation } = useGlobalContext();
+  const { sceneNumberTranslation, setSceneNumberTranslation } =
+      useGlobalContext();
+  const { sceneNameTranslation, setSceneNameTranslation } = useGlobalContext();
+  const {removeTranslation, setRemoveTranslation} = useGlobalContext();
+  const {cancelTranslation, setCancelTranslation} = useGlobalContext();
+  const {selectTranslation, setSelectTranslation} = useGlobalContext();
+
   useEffect(() => {
     fetchData();
     
@@ -206,16 +224,16 @@ const CharacterScene = () => {
 
   return (
     <>
-      <h1>Manage characters to scene</h1>
+    <br/>
+      <h1>{manageCharacterToSceneTranslation}</h1>
       <br />
-      <h2>Select Production</h2>
       <Table striped bordered hover variant={dark} size="sm">
         <thead>
           <tr>
-            <th>Theater Production</th>
-            <th>Premiere</th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th>{theaterProduction}</th>
+            <th>{premiereDate}</th>
+            <th>{description}</th>
+            <th>{actions}</th>
           </tr>
         </thead>
 
@@ -232,7 +250,7 @@ const CharacterScene = () => {
                     setShowCharacters(!showCharacter), setPlayName(item.playName), fetchScenes;
                   }}
                 >
-                  Select
+                  {selectTranslation}
                 </Button>
               </td>
             </tr>
@@ -244,10 +262,10 @@ const CharacterScene = () => {
         <Table striped bordered hover variant={dark} size="sm">
           <thead>
             <tr>
-              <th>Act Number</th>
-              <th>Scene Number</th>
-              <th>Scene Name</th>
-              <th>Characters</th>
+              <th>{actNumberTranslation}</th>
+              <th>{sceneNumberTranslation}</th>
+              <th>{sceneNameTranslation}</th>
+              <th>{charactersTranslation}</th>
             </tr>
           </thead>
 
@@ -261,7 +279,7 @@ const CharacterScene = () => {
                   <Button
                   size="sm" 
                   onClick={() => {showCharacter(item.sceneId), setSceneName(item.sceneName)}}>
-                    Select
+                    {selectTranslation}
                   </Button>
                 </td>
               </tr>
@@ -272,13 +290,13 @@ const CharacterScene = () => {
         ""
       )}
       <div ref={ref}></div>
-      {showCharacters != "" ? <h2>{sceneName} selected</h2> : ""}
+      {showCharacters != "" ? <h2>{sceneName}</h2> : ""}
       {showCharacters ? (
         <Table striped bordered hover variant={dark} size="sm">
           <thead>
             <tr>
-              <th>Character Name</th>
-              <th>Action</th>
+              <th>{characterNameTranslation}</th>
+              <th>{actions}</th>
             </tr>
           </thead>
           {characterScenes.personages &&
@@ -293,7 +311,7 @@ const CharacterScene = () => {
                         removeCharacterFromScene(item.personageId, sceneId)
                       }
                     >
-                      Remove
+                      {removeTranslation}
                     </Button>
                   </td>
                 </tr>
@@ -304,7 +322,7 @@ const CharacterScene = () => {
         ""
       )}
       {showCharacters != "" && !addCharacter ? (
-        <Button onClick={() => setAddCharacter(true)}>+ Add Character</Button>
+        <Button onClick={() => setAddCharacter(true)}>+ {addCharacterTranslation}</Button>
       ) : (
         ""
       )}
@@ -312,7 +330,7 @@ const CharacterScene = () => {
       <Form onSubmit={handleAddCharacter}>
                 <Form.Group className="mb-3" controlId="formActor">
                   <Form.Label>
-                    <b>Add character</b>
+                    <b>{addCharacterTranslation}</b>
                   </Form.Label>
                   <select
                     id="level"
@@ -326,7 +344,7 @@ const CharacterScene = () => {
                   </select>
                 </Form.Group>
                 <Button variant="primary" type="submit" className="extButton">
-                  Add
+                  {addTranslation}
                 </Button>
                 <Button
                   variant="danger"
@@ -334,7 +352,7 @@ const CharacterScene = () => {
                   className="extButton"
                   onClick={() => setAddCharacter(false)}
                 >
-                  Cancel
+                  {cancelTranslation}
                 </Button>
               </Form>
       : ""}

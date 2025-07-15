@@ -22,6 +22,32 @@ const Scene = () => {
   const ref = useRef(null);
   //const [createScene, setCreateScene] = useState(false);
 
+  //Translations
+  const { theaterProduction, setTheaterProduction } = useGlobalContext();
+  const { premiereDate, setPremiereDate } = useGlobalContext();
+  const { description, setDescription } = useGlobalContext();
+  const { actions, setActions } = useGlobalContext();
+  const { editTranslation, setEditTranslation } = useGlobalContext();
+  const { deleteTranslation, setDeleteTranslation } = useGlobalContext();
+  const { cancelEditTranslation, setCancelEditTranslation } =
+    useGlobalContext();
+  const { manageActSceneTranslation, setManageActSceneTranslation } =
+    useGlobalContext();
+  const { selectProductionTranslation, setSelectProductionTranslation } =
+    useGlobalContext();
+  const { productionTranslation, setProductionTranslation } =
+    useGlobalContext();
+  const { actNumberTranslation, setActNumberTranslation } = useGlobalContext();
+  const { sceneNumberTranslation, setSceneNumberTranslation } =
+    useGlobalContext();
+  const { sceneNameTranslation, setSceneNameTranslation } = useGlobalContext();
+  const { saveSceneTranslation, setSaveSceneTranslation } = useGlobalContext();
+  const { addActTranslation, setAddActTranslation } = useGlobalContext();
+  const { numberOfScenesTranslation, setNumberOfScenesTranslation } =
+    useGlobalContext();
+  const { numberOfScenesToAddTranslation, setNumberOfScenesToAddTranslation } =
+    useGlobalContext();
+
   useEffect(() => {
     fetchData();
     if (playName != "") {
@@ -123,7 +149,7 @@ const Scene = () => {
     setSceneNumber(sceneNumb);
     setSceneName(name);
     setShowEdit(true);
-    ref.current?.scrollIntoView({behaviour: 'smooth'});
+    ref.current?.scrollIntoView({ behaviour: "smooth" });
   }
 
   function handleEditSubmitScene(event) {
@@ -155,7 +181,7 @@ const Scene = () => {
             navigate("/");
           }
           if (error.response.status === 491) {
-            alert("This scene already exist")
+            alert("This scene already exist");
           }
           console.log("error editing: " + error);
         });
@@ -232,16 +258,16 @@ const Scene = () => {
   */
   return (
     <div>
-      <h1>Manage Acts & Scenes</h1>
+      <h1>{manageActSceneTranslation}</h1>
       <br />
-      <h2>Select Production</h2>
+      <h2>{selectProductionTranslation}</h2>
       <Table striped bordered hover variant={dark} size="sm">
         <thead>
           <tr>
-            <th>Theater Production</th>
-            <th>Premiere Date</th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th>{theaterProduction}</th>
+            <th>{premiereDate}</th>
+            <th>{description}</th>
+            <th>{actions}</th>
           </tr>
         </thead>
 
@@ -260,16 +286,16 @@ const Scene = () => {
           </tbody>
         ))}
       </Table>
-      {playName != "" ? <b>Production: {playName}</b> : ""}
+      {playName != "" ? <b>{productionTranslation}: {playName}</b> : ""}
 
       {sceneData != null && sceneData != "" ? (
         <Table striped bordered hover variant={dark} size="sm">
           <thead>
             <tr>
-              <th>Act Number</th>
-              <th>Scene Number</th>
-              <th>Scene Name</th>
-              <th>Actions</th>
+              <th>{actNumberTranslation}</th>
+              <th>{sceneNumberTranslation}</th>
+              <th>{sceneNameTranslation}</th>
+              <th>{actions}</th>
             </tr>
           </thead>
 
@@ -282,7 +308,7 @@ const Scene = () => {
                 <td>
                   {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                     <Button
-                    size="sm"
+                      size="sm"
                       style={{ width: "70px", marginRight: "10px" }}
                       onClick={() =>
                         editScene(
@@ -293,19 +319,19 @@ const Scene = () => {
                         )
                       }
                     >
-                      Edit
+                      {editTranslation}
                     </Button>
                   ) : (
                     ""
                   )}
                   {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                     <Button
-                    size="sm"
+                      size="sm"
                       style={{ width: "70px" }}
                       variant="danger"
                       onClick={() => deleteScene(item.sceneId)}
                     >
-                      Delete
+                      {deleteTranslation}
                     </Button>
                   ) : (
                     ""
@@ -318,7 +344,7 @@ const Scene = () => {
       ) : (
         ""
       )}
-      {showEdit ? <b>Editing scene {sceneName}</b> : ""}
+      {showEdit ? <b>{sceneName}</b> : ""}
       {showEdit ? (
         <Form onSubmit={handleEditSubmitScene}>
           <Form.Group className="mb-3" controlId="formSceneId">
@@ -327,19 +353,19 @@ const Scene = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formActNumber">
             <Form.Label>
-              <b>Act Number</b>
+              <b>{actNumberTranslation}</b>
             </Form.Label>
             <Form.Control type="text" defaultValue={actNumber} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formSceneNumber">
             <Form.Label>
-              <b>Scene Number</b>
+              <b>{sceneNumberTranslation}</b>
             </Form.Label>
             <Form.Control type="text" defaultValue={sceneNumber} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formSceneName">
             <Form.Label>
-              <b>Scene Name</b>
+              <b>{sceneNameTranslation}</b>
             </Form.Label>
             <Form.Control type="text" defaultValue={sceneName} />
           </Form.Group>
@@ -349,14 +375,14 @@ const Scene = () => {
             type="submit"
             className="extButton"
           >
-            Save Scene
+            {saveSceneTranslation}
           </Button>
           <Button
             variant="danger"
             onClick={() => setShowEdit(false)}
             className="extButton"
           >
-            Cancel edit
+            {cancelEditTranslation}
           </Button>
         </Form>
       ) : (
@@ -364,8 +390,8 @@ const Scene = () => {
       )}
       <div ref={ref}></div>
       <br />
-      {playName != "" && !addAct? (
-        <Button onClick={() => setAddAct(true)}>+ Add Act</Button>
+      {playName != "" && !addAct ? (
+        <Button onClick={() => setAddAct(true)}>+ {addActTranslation}</Button>
       ) : (
         ""
       )}
@@ -373,22 +399,22 @@ const Scene = () => {
         <Form onSubmit={handleAddAct}>
           <Form.Group className="mb-3" controlId="formScenes">
             <Form.Label>
-              <b>Number of Scenes</b>
+              <b>{numberOfScenesTranslation}</b>
             </Form.Label>
             <Form.Control
               type="text"
-              placeholder="Number of scenes to be added"
+              placeholder={numberOfScenesToAddTranslation}
             />
           </Form.Group>
           <Button variant="primary" type="submit" className="extButton">
-            Add Act
+            {addActTranslation}
           </Button>
           <Button
             variant="danger"
             onClick={() => setAddAct(false)}
             className="extButton"
           >
-            Cancel
+            {cancelEditTranslation}
           </Button>
         </Form>
       ) : (

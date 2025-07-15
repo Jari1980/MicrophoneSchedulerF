@@ -66,7 +66,7 @@ const NavBar = () => {
     microphoneInProductionTranslation,
     setMicrophoneInProductionTranslation,
   } = useGlobalContext();
-  const {deleteTranslation, setDeleteTranslation} = useGlobalContext();
+  const { deleteTranslation, setDeleteTranslation } = useGlobalContext();
 
   const {
     manageTheaterProductionsTranslate,
@@ -77,9 +77,38 @@ const NavBar = () => {
     useGlobalContext();
   const { addProductionTranlation, setAddProductionTranslation } =
     useGlobalContext();
-  const {productionNameTranslation, setProductionNameTranslation} = useGlobalContext();
-  const {saveProductionTranslation, setSaveProductionTranslation} = useGlobalContext();
-  const {cancelEditTranslation, setCancelEditTranslation} = useGlobalContext();
+  const { productionNameTranslation, setProductionNameTranslation } =
+    useGlobalContext();
+  const { saveProductionTranslation, setSaveProductionTranslation } =
+    useGlobalContext();
+  const { cancelEditTranslation, setCancelEditTranslation } =
+    useGlobalContext();
+
+  const { manageActSceneTranslation, setManageActSceneTranslation } =
+    useGlobalContext();
+  const { selectProductionTranslation, setSelectProductionTranslation } =
+    useGlobalContext();
+  const { productionTranslation, setProductionTranslation } =
+    useGlobalContext();
+  const { actNumberTranslation, setActNumberTranslation } = useGlobalContext();
+  const { sceneNumberTranslation, setSceneNumberTranslation } =
+    useGlobalContext();
+  const { sceneNameTranslation, setSceneNameTranslation } = useGlobalContext();
+  const { saveSceneTranslation, setSaveSceneTranslation } = useGlobalContext();
+  const { addActTranslation, setAddActTranslation } = useGlobalContext();
+  const { numberOfScenesTranslation, setNumberOfScenesTranslation } =
+    useGlobalContext();
+  const { numberOfScenesToAddTranslation, setNumberOfScenesToAddTranslation } =
+    useGlobalContext();
+
+  const {manageCharacterToSceneTranslation, setManageCharacterToSceneTranslation} = useGlobalContext();
+  const {charactersTranslation, setCharactersTranslation} = useGlobalContext();
+  const {characterNameTranslation, setCharacterNameTranslation} = useGlobalContext();
+  const {addCharacterTranslation, setAddCharacterTranslation} = useGlobalContext();
+  const {addTranslation, setAddTranslation} = useGlobalContext();
+  const {removeTranslation, setRemoveTranslation} = useGlobalContext();
+  const {cancelTranslation, setCancelTranslation} = useGlobalContext();
+  const {selectTranslation, setSelectTranslation} = useGlobalContext();
 
   function logout() {
     setCookie("jwtToken", "", { path: "/" });
@@ -162,6 +191,24 @@ const NavBar = () => {
       setProductionNameTranslation("Produktions Namn");
       setSaveProductionTranslation("Spara Produktion");
       setCancelEditTranslation("Avbryt Redigering");
+      setManageActSceneTranslation("Hantera Akter & Scener");
+      setSelectProductionTranslation("Välj Produktion");
+      setProductionTranslation("Produktion");
+      setActNumberTranslation("Akt Nummer");
+      setSceneNumberTranslation("Scen Nummer");
+      setSceneNameTranslation("Scen Namn");
+      setSaveSceneTranslation("Spara Scen");
+      setAddActTranslation("Lägg till Akt");
+      setNumberOfScenesTranslation("Antal Scener");
+      setNumberOfScenesToAddTranslation("Antal scener som skall läggas till");
+      setManageCharacterToSceneTranslation("Hantera Karaktärer till Scen");
+      setCharactersTranslation("Karaktärer");
+      setCharacterNameTranslation("Karaktär Namn");
+      setAddCharacterTranslation("Lägg till Karaktär");
+      setAddTranslation("Lägg till");
+      setRemoveTranslation("Ta bort");
+      setCancelTranslation("Avbryt");
+      setSelectTranslation("Välj");
     } else {
       setLanguage("../src/assets/England.png");
       setLightTheme("Light Theme");
@@ -207,6 +254,24 @@ const NavBar = () => {
       setProductionNameTranslation("Production Name");
       setSaveProductionTranslation("Save Production");
       setCancelEditTranslation("Cancel Edit");
+      setManageActSceneTranslation("Manage Acts & Scenes");
+      setSelectProductionTranslation("Select Production");
+      setProductionTranslation("Production");
+      setActNumberTranslation("Act Number");
+      setSceneNumberTranslation("Scene Number");
+      setSceneNameTranslation("Scene Name");
+      setSaveSceneTranslation("Save Scene");
+      setAddActTranslation("Add Act");
+      setNumberOfScenesTranslation("Number of Scenes");
+      setNumberOfScenesToAddTranslation("Number of scenes to be added");
+      setManageCharacterToSceneTranslation("Manage Characters to Scene");
+      setCharactersTranslation("Characters");
+      setCharacterNameTranslation("Character Name");
+      setAddCharacterTranslation("Add Character");
+      setAddTranslation("Add");
+      setRemoveTranslation("Remove");
+      setCancelTranslation("Cancel");
+      setSelectTranslation("Select");
     }
   }
 
