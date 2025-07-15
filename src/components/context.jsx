@@ -35,6 +35,15 @@ export const GlobalProvider = ({ children }) => {
     const [commentTranslation, setCommentTranslation] = useState("Comment")
     const [save, setSave] = useState("Save")
     const [commentInfo, setCommentInfo] = useState("Comments are visible for you, admins and directors")
+    const [userName, setUserName] = useState("User Name")
+    const [userRole, setUserRole] = useState("User Role")
+    const [actions, setActions] = useState("Actions")
+    const [newRole, setNewRole] = useState("Set New Role")
+    const [deleteUserTranslation, setDeleteUserTranslation] = useState("Delete User")
+    const [registerTranslation, setRegisterTranslation] = useState("Register")
+    const [passwordTranslation, setPasswordTranslation] = useState("Password")
+    const [registerloginTranslation, setRegisterLoginTranslation] = useState("Register and Login")
+    const [logInTranslation, setLogInTranslation] = useState("LogIn")
 
   return (
     <GlobalContext.Provider
@@ -85,7 +94,25 @@ export const GlobalProvider = ({ children }) => {
         save,
         setSave,
         commentInfo,
-        setCommentInfo
+        setCommentInfo,
+        userName,
+        setUserName,
+        userRole,
+        setUserRole,
+        actions,
+        setActions,
+        newRole,
+        setNewRole,
+        deleteUserTranslation,
+        setDeleteUserTranslation,
+        registerTranslation,
+        setRegisterTranslation,
+        passwordTranslation,
+        setPasswordTranslation,
+        registerloginTranslation,
+        setRegisterLoginTranslation,
+        logInTranslation,
+        setLogInTranslation,
     }}
     >
         {children}

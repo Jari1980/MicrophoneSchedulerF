@@ -10,6 +10,11 @@ const LogIn = () => {
   const navigate = useNavigate();
   const {bgColor, setBgColor} = useGlobalContext();
 
+  //Translations
+  const { userName, setUserName } = useGlobalContext();
+  const {passwordTranslation, setPasswordTranslation} = useGlobalContext();
+  const {logInTranslation, setLogInTranslation} = useGlobalContext();
+
   function handleSubmit(event) {
     event.preventDefault();
     try {
@@ -43,24 +48,24 @@ const LogIn = () => {
       <Container
         style={{ width: "50%", alignItems: "center", justifyContent: "center" }}
       >
-        <h1 style={{ marginTop: "20px" }}>Login</h1>
+        <h1 style={{ marginTop: "20px" }}>{logInTranslation}</h1>
         <br />
         <br />
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formUserName">
             <Form.Label>
-              <b>Username</b>
+              <b>{userName}</b>
             </Form.Label>
             <Form.Control type="text" placeholder="Enter username" />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formPassword">
             <Form.Label>
-              <b>Password</b>
+              <b>{passwordTranslation}</b>
             </Form.Label>
             <Form.Control type="password" placeholder="Enter password" />
           </Form.Group>
           <Button variant="primary" type="submit" className="extButton">
-            LogIn
+            {logInTranslation}
           </Button>
         </Form>
       </Container>
