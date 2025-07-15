@@ -49,13 +49,37 @@ const NavBar = () => {
   const { userRole, setUserRole } = useGlobalContext();
   const { actions, setActions } = useGlobalContext();
   const { newRole, setNewRole } = useGlobalContext();
-  const { deleteUserTranslation, setDeleteUserTranslation } = useGlobalContext();
+  const { deleteUserTranslation, setDeleteUserTranslation } =
+    useGlobalContext();
 
-  const {registerTranslation, setRegisterTranslation} = useGlobalContext();
-  const {passwordTranslation, setPasswordTranslation} = useGlobalContext();
-  const {registerloginTranslation, setRegisterLoginTranslation} = useGlobalContext();
+  const { registerTranslation, setRegisterTranslation } = useGlobalContext();
+  const { passwordTranslation, setPasswordTranslation } = useGlobalContext();
+  const { registerloginTranslation, setRegisterLoginTranslation } =
+    useGlobalContext();
 
-  const {logInTranslation, setLogInTranslation} = useGlobalContext();
+  const { logInTranslation, setLogInTranslation } = useGlobalContext();
+
+  const { actSceneTranslation, setActSceneTranslation } = useGlobalContext();
+  const { characterToSceneTranslation, setCharacterToSceneTranslation } =
+    useGlobalContext();
+  const {
+    microphoneInProductionTranslation,
+    setMicrophoneInProductionTranslation,
+  } = useGlobalContext();
+  const {deleteTranslation, setDeleteTranslation} = useGlobalContext();
+
+  const {
+    manageTheaterProductionsTranslate,
+    setManageTheaterProductionsTranslate,
+  } = useGlobalContext();
+  const { editTranslation, setEditTranslation } = useGlobalContext();
+  const { newProductionTranslation, setNewProductionTranslation } =
+    useGlobalContext();
+  const { addProductionTranlation, setAddProductionTranslation } =
+    useGlobalContext();
+  const {productionNameTranslation, setProductionNameTranslation} = useGlobalContext();
+  const {saveProductionTranslation, setSaveProductionTranslation} = useGlobalContext();
+  const {cancelEditTranslation, setCancelEditTranslation} = useGlobalContext();
 
   function logout() {
     setCookie("jwtToken", "", { path: "/" });
@@ -100,8 +124,8 @@ const NavBar = () => {
       setRegister("Registrera");
       setSignOut("LoggaUt");
       setHomeMicrophoneSchedule("Mikrofon Schema");
-      setHomeTheaterProductions("Teater produktion");
-      setHomeUserService("Hantera användare");
+      setHomeTheaterProductions("Teater Produktioner");
+      setHomeUserService("Hantera Användare");
       setTheaterProduction("Teater Föreställning");
       setPremiereDate("Premiär Datum");
       setDescription("Beskrivning");
@@ -126,7 +150,18 @@ const NavBar = () => {
       setRegisterTranslation("Registrera");
       setPasswordTranslation("Lösenord");
       setRegisterLoginTranslation("Registrera och LoggaIn");
-      setLogInTranslation("Logga In")
+      setLogInTranslation("Logga In");
+      setActSceneTranslation("Akt & Scen");
+      setCharacterToSceneTranslation("Karaktär till Scen");
+      setMicrophoneInProductionTranslation("Mikrofon i Produktion");
+      setManageTheaterProductionsTranslate("Hantera Teater Produktioner");
+      setEditTranslation("Redigera");
+      setNewProductionTranslation("Ny Produktion");
+      setAddProductionTranslation("Lägg till Produktion");
+      setDeleteTranslation("Ta Bort");
+      setProductionNameTranslation("Produktions Namn");
+      setSaveProductionTranslation("Spara Produktion");
+      setCancelEditTranslation("Avbryt Redigering");
     } else {
       setLanguage("../src/assets/England.png");
       setLightTheme("Light Theme");
@@ -161,6 +196,17 @@ const NavBar = () => {
       setPasswordTranslation("Password");
       setRegisterLoginTranslation("Register and Login");
       setLogInTranslation("LogIn");
+      setActSceneTranslation("Act & Scene");
+      setCharacterToSceneTranslation("Character to Scene");
+      setMicrophoneInProductionTranslation("Microphone in Production");
+      setManageTheaterProductionsTranslate("Manage Theater Productions");
+      setEditTranslation("Edit");
+      setNewProductionTranslation("New Production");
+      setAddProductionTranslation("Add Production");
+      setDeleteTranslation("Delete");
+      setProductionNameTranslation("Production Name");
+      setSaveProductionTranslation("Save Production");
+      setCancelEditTranslation("Cancel Edit");
     }
   }
 

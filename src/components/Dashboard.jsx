@@ -19,6 +19,20 @@ const Dashboard = () => {
   const { dashboardText, setDashboardText } = useGlobalContext();
   const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
 
+  //Translations
+
+  const { homeTheaterProductions, setHomeTheaterProductions } =
+    useGlobalContext();
+  const { microphone, setMicrophone } = useGlobalContext();
+  const { character, setCharacter } = useGlobalContext();
+  const { actSceneTranslation, setActSceneTranslation } = useGlobalContext();
+  const { characterToSceneTranslation, setCharacterToSceneTranslation } =
+    useGlobalContext();
+  const {
+    microphoneInProductionTranslation,
+    setMicrophoneInProductionTranslation,
+  } = useGlobalContext();
+
   useEffect(() => {
     const handleToggle = () => {
       if (window.innerWidth < 550 && open) {
@@ -41,17 +55,20 @@ const Dashboard = () => {
         <aside className={`aside ${open ? "aside-open" : "aside-closed"}`}>
           <Nav style={{ height: "100%", background: bgColorDashboard }}>
             <ul style={{ listStyle: "none", padding: 10 }}>
-              {cookies.userRole == "ROLE_ADMINISTRATOR" || cookies.userRole == "ROLE_DIRECTOR" ? (
-              <li>
-                <button
-                  className="btn btn-outline-primary w-100 mb-2"
-                  style={{ color: dashboardText }}
-                  onClick={() => navigate("../dashboard")}
-                >
-                  Theater Productions
-                </button>
-              </li>
-              ) : "" }
+              {cookies.userRole == "ROLE_ADMINISTRATOR" ||
+              cookies.userRole == "ROLE_DIRECTOR" ? (
+                <li>
+                  <button
+                    className="btn btn-outline-primary w-100 mb-2"
+                    style={{ color: dashboardText }}
+                    onClick={() => navigate("../dashboard")}
+                  >
+                    {homeTheaterProductions}
+                  </button>
+                </li>
+              ) : (
+                ""
+              )}
               {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                 <li>
                   <button
@@ -59,65 +76,68 @@ const Dashboard = () => {
                     style={{ color: dashboardText }}
                     onClick={() => navigate("../dashboard/scene")}
                   >
-                    Act & Scene
+                    {actSceneTranslation}
                   </button>
                 </li>
               ) : (
                 ""
               )}
               {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
-              <li>
-                <button
-                  className="btn btn-outline-primary w-100 mb-2"
-                  style={{ color: dashboardText }}
-                  onClick={() => navigate("../dashboard/characterscene")}
-                >
-                  Character to Scene
-                </button>
-              </li>
-              ) : ""}
-              {cookies.userRole == "ROLE_ADMINISTRATOR" || cookies.userRole == "ROLE_DIRECTOR" ? (
-              <li>
-                <button
-                  className="btn btn-outline-primary w-100 mb-2"
-                  style={{ color: dashboardText }}
-                  onClick={() => navigate("../dashboard/character")}
-                >
-                  Character
-                </button>
-              </li>
-              ) : ""}
-              {cookies.userRole == "ROLE_ADMINISTRATOR" || cookies.userRole == "ROLE_DIRECTOR" ? (
-              <li>
-                <button
-                  className="btn btn-outline-primary w-100 mb-2"
-                  style={{ color: dashboardText }}
-                  onClick={() => navigate("../dashboard/microphoneProduction")}
-                >
-                  Microphone in Production
-                </button>
-              </li>
-              ) : ""}
+                <li>
+                  <button
+                    className="btn btn-outline-primary w-100 mb-2"
+                    style={{ color: dashboardText }}
+                    onClick={() => navigate("../dashboard/characterscene")}
+                  >
+                    {characterToSceneTranslation}
+                  </button>
+                </li>
+              ) : (
+                ""
+              )}
+              {cookies.userRole == "ROLE_ADMINISTRATOR" ||
+              cookies.userRole == "ROLE_DIRECTOR" ? (
+                <li>
+                  <button
+                    className="btn btn-outline-primary w-100 mb-2"
+                    style={{ color: dashboardText }}
+                    onClick={() => navigate("../dashboard/character")}
+                  >
+                    {character}
+                  </button>
+                </li>
+              ) : (
+                ""
+              )}
+              {cookies.userRole == "ROLE_ADMINISTRATOR" ||
+              cookies.userRole == "ROLE_DIRECTOR" ? (
+                <li>
+                  <button
+                    className="btn btn-outline-primary w-100 mb-2"
+                    style={{ color: dashboardText }}
+                    onClick={() =>
+                      navigate("../dashboard/microphoneProduction")
+                    }
+                  >
+                    {microphoneInProductionTranslation}
+                  </button>
+                </li>
+              ) : (
+                ""
+              )}
               {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
-              <li>
-                <button
-                  className="btn btn-outline-primary w-100 mb-2"
-                  style={{ color: dashboardText }}
-                  onClick={() => navigate("../dashboard/microphone")}
-                >
-                  Microphone
-                </button>
-              </li>
-              ) : "" }
-              <li>
-                <button
-                  className="btn btn-outline-primary w-100 mb-2"
-                  style={{ color: dashboardText }}
-                  disabled
-                >
-                  ...
-                </button>
-              </li>
+                <li>
+                  <button
+                    className="btn btn-outline-primary w-100 mb-2"
+                    style={{ color: dashboardText }}
+                    onClick={() => navigate("../dashboard/microphone")}
+                  >
+                    {microphone}
+                  </button>
+                </li>
+              ) : (
+                ""
+              )}
             </ul>
           </Nav>
         </aside>

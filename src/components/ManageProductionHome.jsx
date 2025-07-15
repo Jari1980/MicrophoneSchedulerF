@@ -19,6 +19,25 @@ const ManageProductionHome = () => {
   const [productionId, setProductionId] = useState();
   const navigate = useNavigate();
 
+  //Translations
+  const {
+    manageTheaterProductionsTranslate,
+    setManageTheaterProductionsTranslate,
+  } = useGlobalContext();
+  const { editTranslation, setEditTranslation } = useGlobalContext();
+  const { newProductionTranslation, setNewProductionTranslation } =
+    useGlobalContext();
+  const { addProductionTranlation, setAddProductionTranslation } =
+    useGlobalContext();
+  const { theaterProduction, setTheaterProduction } = useGlobalContext();
+  const { premiereDate, setPremiereDate } = useGlobalContext();
+  const { description, setDescription } = useGlobalContext();
+  const { actions, setActions } = useGlobalContext();
+  const {deleteTranslation, setDeleteTranslation} = useGlobalContext();
+  const {productionNameTranslation, setProductionNameTranslation} = useGlobalContext();
+  const {saveProductionTranslation, setSaveProductionTranslation} = useGlobalContext();
+  const {cancelEditTranslation, setCancelEditTranslation} = useGlobalContext();
+
   useEffect(() => {
     fetchData();
   }, [formVisible]);
@@ -150,9 +169,9 @@ const ManageProductionHome = () => {
 
   return (
     <div>
-      <h1>Manage Theater Productions</h1>
       <br />
-      <h2>Theatre plays in database</h2>
+      <h1>{manageTheaterProductionsTranslate}</h1>
+      <br />
       <Alert key="alert-text" variant="warning" show={showAlert}>
         <b>Warning!</b>
         <br />
@@ -181,10 +200,10 @@ const ManageProductionHome = () => {
       <Table striped bordered hover variant={dark} size="sm">
         <thead>
           <tr>
-            <th>Theater Production</th>
-            <th>Premiere Date</th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th>{theaterProduction}</th>
+            <th>{premiereDate}</th>
+            <th>{description}</th>
+            <th>{actions}</th>
           </tr>
         </thead>
 
@@ -207,7 +226,7 @@ const ManageProductionHome = () => {
                       )
                     }
                   >
-                    Edit
+                    {editTranslation}
                   </Button>
                 ) : (
                   ""
@@ -221,7 +240,7 @@ const ManageProductionHome = () => {
                       setShowAlert(true), setProductionId(item.playName);
                     }}
                   >
-                    Delete
+                    {deleteTranslation}
                   </Button>
                 ) : (
                   ""
@@ -235,43 +254,39 @@ const ManageProductionHome = () => {
         <Form onSubmit={handleEditSubmitNewProduction}>
           <Form.Group className="mb-3" controlId="formEditPlayName">
             <Form.Label>
-              <b>Production Name</b>
+              <b>{productionNameTranslation}</b>
             </Form.Label>
             <Form.Control type="text" defaultValue={editName} disabled />
           </Form.Group>
           <Form.Group className="mb-3" controlId="dateEditCreated">
             <Form.Label>
-              <b>Premiere Date</b>
+              <b>{premiereDate}</b>
             </Form.Label>
             <Form.Control type="date" defaultValue={editDate} />
           </Form.Group>
           <Form.Group className="mb-3" controlId="editDescription">
             <Form.Label>
-              <b>Description</b>
+              <b>{description}</b>
             </Form.Label>
             <Form.Control type="text" placeholder={editDescription} />
           </Form.Group>
-          <Button variant="primary" type="submit" className="extButton">
-            Save Production
+          <Button variant="primary" type="submit" className="extButton" style={{marginRight:"20px"}}>
+            {saveProductionTranslation}
           </Button>
           <Button
             variant="danger"
             onClick={() => setFormEditVisible(false)}
             className="extButton"
           >
-            Cancel edit
+            {cancelEditTranslation}
           </Button>
         </Form>
       ) : (
         ""
       )}
+      <br />
       {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
-        <p><b>Edit a production or create a new</b></p>
-      ) : (
-        ""
-      )}
-      {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
-        <Button onClick={() => showForm()}>+ New Production</Button>
+        <Button onClick={() => showForm()}>+ {newProductionTranslation}</Button>
       ) : (
         ""
       )}
@@ -281,24 +296,24 @@ const ManageProductionHome = () => {
         <Form onSubmit={handleSubmitNewProduction}>
           <Form.Group className="mb-3" controlId="formPlayName">
             <Form.Label>
-              <b>Production Name</b>
+              <b>{productionNameTranslation}</b>
             </Form.Label>
             <Form.Control type="text" placeholder="Enter production name" />
           </Form.Group>
           <Form.Group className="mb-3" controlId="dateCreated">
             <Form.Label>
-              <b>Premiere Date</b>
+              <b>{premiereDate}</b>
             </Form.Label>
             <Form.Control type="date" placeholder="Enter date" />
           </Form.Group>
           <Form.Group className="mb-3" controlId="description">
             <Form.Label>
-              <b>Description</b>
+              <b>{description}</b>
             </Form.Label>
             <Form.Control type="text" placeholder="Describe production" />
           </Form.Group>
           <Button variant="primary" type="submit" className="extButton">
-            Add Production
+            {addProductionTranlation}
           </Button>
         </Form>
       ) : (
