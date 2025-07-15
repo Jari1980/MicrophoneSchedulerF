@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from "react-router-dom";
 import { useGlobalContext } from './context';
+import { useState } from 'react';
 
 const NavBar = () => {
     const [cookies, setCookie] = useCookies(["jwtToken", "userName", "userRole"]);
@@ -14,6 +15,17 @@ const NavBar = () => {
     const {dashboardText, setDashboardText} = useGlobalContext();
     const {footerRowClass, setFooterRowClass} = useGlobalContext();
     const {footerLinkText, setFooterLinkText} = useGlobalContext();
+    //Translations
+    const [language, setLanguage] = useState("../src/assets/England.png");
+    const [lightTheme, setLightTheme] = useState("Light Theme")
+    const [darkTheme, setDarkTheme] = useState("Dark Theme")
+    const [about, setAbout] = useState("About");
+    const [logIn, setLogIn] = useState("LogIn")
+    const [register, setRegister] = useState("Register");
+    const [signOut, setSignOut] = useState("SignOut");
+    const {homeMicrophoneSchedule, setHomeMicrophoneSchedule} = useGlobalContext();
+    const {homeTheaterProductions,  setHomeTheaterProductions} = useGlobalContext();
+    const {homeUserService, setHomeUserService} = useGlobalContext();
 
     function logout(){
         setCookie("jwtToken", "", {path: "/"})
@@ -41,17 +53,48 @@ const NavBar = () => {
     }
   }
 
+  function toggleLanguage(){
+    if(language === "../src/assets/England.png"){
+      setLanguage("../src/assets/Sweden.png")
+      setLightTheme("Ljus Tema")
+      setDarkTheme("Mörk Tema")
+      setAbout("Om")
+      setLogIn("LoggaIn")
+      setRegister("Registrera")
+      setSignOut("LoggaUt")
+      setHomeMicrophoneSchedule("Mikrofon Schema")
+      setHomeTheaterProductions("Teater produktion")
+      setHomeUserService("Hantera användare")
+    }
+    else{
+      setLanguage("../src/assets/England.png")
+      setLightTheme("Light Theme")
+      setDarkTheme("Dark Theme")
+      setAbout("About")
+      setLogIn("LogIn")
+      setRegister("Register")
+      setSignOut("SignOut")
+      setHomeMicrophoneSchedule("Microphone Schedule")
+      setHomeTheaterProductions("Theater Productions")
+      setHomeUserService("User Service")
+    }
+      
+  }
+
     return (
         <>
         <Navbar expand="sm" bg={dark} data-bs-theme={dark} sticky="top" style={{width:"101%"}}>
         <Navbar.Brand as={Link} to="/home" style={{marginLeft:"20px"}}>Teaterstickorna</Navbar.Brand>
-        <Button variant="outline-secondary" size="sm" onClick={handleClick}>{dark === "dark" ? 'Light Theme' : 'Dark Theme'}</Button>
+        <Navbar.Brand>
+          <img src={language} onClick={toggleLanguage} alt='' width={"40px"} height={"25px"} style={{marginBottom:"2px"}}/>
+        </Navbar.Brand>
+        <Button variant="outline-secondary" size="sm" onClick={handleClick}>{dark === "dark" ? lightTheme : darkTheme}</Button>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto" style={{marginRight:"20px"}}>
-              <Navbar.Brand as={Link} to="/about" style={{marginLeft:"20px"}}>About</Navbar.Brand>
-              {cookies.userName == "" || cookies.userName == null ? <Nav.Link as={Link} to="/register">Register</Nav.Link> : ""}
-              {cookies.userName == "" || cookies.userName == null ? <Nav.Link as={Link} to="/login">Login</Nav.Link> : <Button onClick={() => logout()}>{cookies.userName} SignOut</Button>}
+              <Navbar.Brand as={Link} to="/about" style={{marginLeft:"20px"}}>{about}</Navbar.Brand>
+              {cookies.userName == "" || cookies.userName == null ? <Nav.Link as={Link} to="/register">{register}</Nav.Link> : ""}
+              {cookies.userName == "" || cookies.userName == null ? <Nav.Link as={Link} to="/login">{login}</Nav.Link> : <Button onClick={() => logout()}>{cookies.userName} {signOut}</Button>}
             </Nav>
           </Navbar.Collapse>
         </Navbar>

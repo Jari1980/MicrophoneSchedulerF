@@ -16,6 +16,11 @@ function Home() {
   ]);
   const navigate = useNavigate();
   const { bgColor, setBgColor } = useGlobalContext();
+  const { homeMicrophoneSchedule, setHomeMicrophoneSchedule } =
+    useGlobalContext();
+  const { homeTheaterProductions, setHomeTheaterProductions } =
+    useGlobalContext();
+  const { homeUserService, setHomeUserService } = useGlobalContext();
 
   return (
     <>
@@ -25,7 +30,7 @@ function Home() {
           width: "100vw",
           height: "100%",
           overflow: "hidden",
-          paddingBottom: "120px"
+          paddingBottom: "120px",
         }}
       >
         {!cookies.cookieConsent && <CookieConsent />}
@@ -35,16 +40,17 @@ function Home() {
             Teaterstickorna
           </h1>
           <br />
-          <b>Image?</b>
           <br />
           <br />
           <br />
-          {cookies.userRole == "ROLE_ACTOR" || cookies.userRole == "ROLE_ADMINISTRATOR"|| cookies.userRole == "ROLE_DIRECTOR"? (
+          {cookies.userRole == "ROLE_ACTOR" ||
+          cookies.userRole == "ROLE_ADMINISTRATOR" ||
+          cookies.userRole == "ROLE_DIRECTOR" ? (
             <Button
               style={{ width: "240px" }}
               onClick={() => navigate("/actorscenes")}
             >
-              View Microphone Schedule
+              {homeMicrophoneSchedule}
             </Button>
           ) : (
             ""
@@ -57,7 +63,7 @@ function Home() {
               style={{ width: "240px" }}
               onClick={() => navigate("/dashboard")}
             >
-              Manage Theater productions
+              {homeTheaterProductions}
             </Button>
           ) : (
             ""
@@ -69,7 +75,7 @@ function Home() {
               style={{ width: "240px" }}
               onClick={() => navigate("/userservice")}
             >
-              User Service
+              {homeUserService}
             </Button>
           ) : (
             ""
