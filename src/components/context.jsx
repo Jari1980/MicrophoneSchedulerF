@@ -80,6 +80,18 @@ export const GlobalProvider = ({ children }) => {
     const [sceneInformationTranslation, setSceneInformationTranslation] = useState("Scene Information")
     const [scenesTranslation, setScenesTranslation] = useState("Scenes")
     const [hideSceneInfoTranslation, setHideSceneInfoTranslation] = useState("Hide Scene Info")
+    const [manageMicrophoneInProductionTranslation, setManageMicrophoneInProductionTranslation] = useState("Manage Microphone in Production")
+    const [scenesWithAssignedCharactersTranslation, setScenesWithAssignedCharactersTranslation] = useState("scenes with assigned characters")
+    const [suggestMicrophoneScheduleTranslation, setSuggestMicrophoneScheduleTranslation] = useState("Suggest MicrophoneSchedule")
+    const [applyTranslation, setApplyTranslation] = useState("Apply")
+    const [loadPDFTranslation, setLoadPDFTranslation] = useState("Load PDF")
+    const [hidePDFTranslation, setHidePDFTranslation] = useState("Hide PDF")
+    const [suggestedScheduleTranslation, setSuggestedScheduleTranslation] = useState("Suggested Schedule")
+    const [hideSuggestedTranslation, setHideSuggestedTranslation] = useState("Hide Suggested")
+    const [microphonesTranslation, setMicrophonesTranslation] = useState("Microphones")
+    const [nameTranslation, setNameTranslation] = useState("Name")
+    const [renameTranslation, setRenameTranslation] = useState("Rename")
+    const [enterMicrophoneName, setEnterMicrophoneName] = useState("Enter Microphone Name")
     
 
   return (
@@ -222,6 +234,30 @@ export const GlobalProvider = ({ children }) => {
         setScenesTranslation,
         hideSceneInfoTranslation,
         setHideSceneInfoTranslation,
+        manageMicrophoneInProductionTranslation,
+        setManageMicrophoneInProductionTranslation,
+        scenesWithAssignedCharactersTranslation,
+        setScenesWithAssignedCharactersTranslation,
+        suggestMicrophoneScheduleTranslation,
+        setSuggestMicrophoneScheduleTranslation,
+        applyTranslation,
+        setApplyTranslation,
+        loadPDFTranslation,
+        setLoadPDFTranslation,
+        hidePDFTranslation,
+        setHidePDFTranslation,
+        suggestedScheduleTranslation,
+        setSuggestedScheduleTranslation,
+        hideSuggestedTranslation,
+        setHideSuggestedTranslation,
+        microphonesTranslation,
+        setMicrophonesTranslation,
+        nameTranslation,
+        setNameTranslation,
+        renameTranslation,
+        setRenameTranslation,
+        enterMicrophoneName,
+        setEnterMicrophoneName,
     }}
     >
         {children}
