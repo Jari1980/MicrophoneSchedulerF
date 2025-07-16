@@ -21,6 +21,7 @@ const CharacterScene = () => {
   const [characters, setCharacters] = useState([]);
   const navigate = useNavigate();
   const ref = useRef(null);
+  const [active, setActive] = useState("");
 
   //Translations
   const {manageCharacterToSceneTranslation, setManageCharacterToSceneTranslation} = useGlobalContext();
@@ -39,6 +40,8 @@ const CharacterScene = () => {
   const {removeTranslation, setRemoveTranslation} = useGlobalContext();
   const {cancelTranslation, setCancelTranslation} = useGlobalContext();
   const {selectTranslation, setSelectTranslation} = useGlobalContext();
+  const { selectProductionTranslation, setSelectProductionTranslation } =
+    useGlobalContext();
 
   useEffect(() => {
     fetchData();
@@ -59,7 +62,9 @@ const CharacterScene = () => {
     
   }, [characterScenes])
 
-  
+  const setActiveRow = (id) => {
+    setActive(id);
+  };
 
   const fetchData = async () => {
     try {
@@ -227,32 +232,30 @@ const CharacterScene = () => {
     <br/>
       <h1>{manageCharacterToSceneTranslation}</h1>
       <br />
+      <br />
+      <h2>{selectProductionTranslation}</h2>
       <Table striped bordered hover variant={dark} size="sm">
         <thead>
           <tr>
             <th>{theaterProduction}</th>
             <th>{premiereDate}</th>
             <th>{description}</th>
-            <th>{actions}</th>
           </tr>
         </thead>
 
         {productionData.map((item) => (
           <tbody key={item.playName}>
-            <tr>
+            <tr
+            className={
+                    active == item.playName ? "table-success" : { dark }
+                  }
+                  onClick={() => {
+                    setShowCharacters(!showCharacter), setPlayName(item.playName), fetchScenes, setActiveRow(item.playName);
+                  }}
+            >
               <td>{item.playName}</td>
               <td>{item.premiereDate}</td>
               <td>{item.description}</td>
-              <td>
-                <Button
-                size="sm"
-                  onClick={() => {
-                    setShowCharacters(!showCharacter), setPlayName(item.playName), fetchScenes;
-                  }}
-                >
-                  {selectTranslation}
-                </Button>
-              </td>
             </tr>
           </tbody>
         ))}

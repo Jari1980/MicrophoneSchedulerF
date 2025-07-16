@@ -24,6 +24,7 @@ const ActorScenes = () => {
   const [showComment, setShowComment] = useState(false);
   const [comment, setComment] = useState("");
   const [sceneCharacterId, setSceneCharacterId] = useState();
+  const [active, setActive] = useState("");
 
   //Translations
   const { homeMicrophoneSchedule, setHomeMicrophoneSchedule } =
@@ -43,6 +44,8 @@ const ActorScenes = () => {
   const { commentTranslation, setCommentTranslation } = useGlobalContext();
   const { save, setSave } = useGlobalContext();
   const { commentInfo, setCommentInfo } = useGlobalContext();
+  const { selectProductionTranslation, setSelectProductionTranslation } =
+    useGlobalContext();
 
   const handleChoise = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -55,6 +58,10 @@ const ActorScenes = () => {
     //    fetchActorData(productionName)
     //}
   }, []);
+
+  const setActiveRow = (id) => {
+    setActive(id);
+  };
 
   const fetchData = async () => {
     try {
@@ -272,31 +279,29 @@ const ActorScenes = () => {
           <h1>{homeMicrophoneSchedule}</h1>
           <br />
           <br />
+          <h2>{selectProductionTranslation}</h2>
           <Table striped bordered hover variant={dark} size="sm">
             <thead>
               <tr>
                 <th>{theaterProduction}</th>
                 <th>{premiereDate}</th>
                 <th>{description}</th>
-                <th></th>
               </tr>
             </thead>
 
             {productionData.map((item) => (
               <tbody key={item.playName}>
-                <tr>
+                <tr
+                  className={
+                    active == item.playName ? "table-success" : { dark }
+                  }
+                  onClick={() => {
+                    fetchActorData(item.playName), setActiveRow(item.playName);
+                  }}
+                >
                   <td>{item.playName}</td>
                   <td>{item.premiereDate}</td>
                   <td>{item.description}</td>
-                  <td>
-                    <Button
-                      size="sm"
-                      style={{ width: "70px", marginRight: "10px" }}
-                      onClick={() => fetchActorData(item.playName)}
-                    >
-                      Select
-                    </Button>
-                  </td>
                 </tr>
               </tbody>
             ))}
@@ -351,11 +356,7 @@ const ActorScenes = () => {
           ) : (
             ""
           )}
-          {showComment ? (
-            <i>{commentInfo}</i>
-          ) : (
-            ""
-          )}
+          {showComment ? <i>{commentInfo}</i> : ""}
           {showComment ? (
             <Form onSubmit={handleSubmitComment}>
               <Form.Group className="mb-3" controlId="formComment">

@@ -20,7 +20,7 @@ const Scene = () => {
   const [addAct, setAddAct] = useState(false);
   const navigate = useNavigate();
   const ref = useRef(null);
-  //const [createScene, setCreateScene] = useState(false);
+  const [active, setActive] = useState("");
 
   //Translations
   const { theaterProduction, setTheaterProduction } = useGlobalContext();
@@ -65,6 +65,10 @@ const Scene = () => {
       }
     }
   }, [sceneData]);
+
+  const setActiveRow = (id) => {
+    setActive(id);
+  };
 
   const fetchData = async () => {
     try {
@@ -267,21 +271,22 @@ const Scene = () => {
             <th>{theaterProduction}</th>
             <th>{premiereDate}</th>
             <th>{description}</th>
-            <th>{actions}</th>
           </tr>
         </thead>
 
         {productionData.map((item) => (
           <tbody key={item.playName}>
-            <tr>
+            <tr
+            className={
+                    active == item.playName ? "table-success" : { dark }
+                  }
+                  onClick={() => {
+                    fetchScenes(item.playName), setActiveRow(item.playName);
+                  }}
+            >
               <td>{item.playName}</td>
               <td>{item.premiereDate}</td>
               <td>{item.description}</td>
-              <td>
-                <Button size="sm" onClick={() => fetchScenes(item.playName)}>
-                  Select
-                </Button>
-              </td>
             </tr>
           </tbody>
         ))}
