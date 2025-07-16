@@ -335,16 +335,20 @@ const NavBar = () => {
         style={{ width: "101%" }}
       >
         <Navbar.Brand as={Link} to="/home" style={{ marginLeft: "20px" }}>
-          Teaterstickorna
+          <img
+            src="../src/assets/Med-namn-transparent.png"
+            alt=""
+            height={"45px"}
+          />
         </Navbar.Brand>
-        <Navbar.Brand>
+        <Navbar.Brand as={Link}>
           <img
             src={language}
             onClick={toggleLanguage}
             alt=""
             width={"40px"}
             height={"25px"}
-            style={{ marginBottom: "2px" }}
+            style={{ marginBottom: "2px", marginLeft: "10px" }}
           />
         </Navbar.Brand>
         <Button variant="outline-secondary" size="sm" onClick={handleClick}>

@@ -30,7 +30,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/actorscenes" element={<ActorScenes />} />
           <Route path="about" element={<About />} />
         </Routes>
-        <Footer />
+        {/*<Footer />*/}
       </CookiesProvider>
     </GlobalProvider>
   </BrowserRouter>
