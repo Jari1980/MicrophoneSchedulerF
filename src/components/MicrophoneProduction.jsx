@@ -24,6 +24,7 @@ const MicrophoneProduction = () => {
   const { dark, setDark } = useGlobalContext();
   const [showPDF, setShowPDF] = useState(false);
   const navigate = useNavigate();
+  const [active, setActive] = useState("");
 
   //Translations
   const {
@@ -69,6 +70,10 @@ const MicrophoneProduction = () => {
       fetchMicrophoneData();
     }
   }, [playName]);
+
+  const setActiveRow = (id) => {
+    setActive(id);
+  };
 
   // For pdf
   const styles = StyleSheet.create({
@@ -312,26 +317,22 @@ const MicrophoneProduction = () => {
             <th>{theaterProduction}</th>
             <th>{premiereDate}</th>
             <th>{description}</th>
-            <th>Actions</th>
           </tr>
         </thead>
 
         {productionData.map((item) => (
           <tbody key={item.playName}>
-            <tr>
+            <tr
+            className={
+                    active == item.playName ? "table-success" : { dark }
+                  }
+                  onClick={() => {
+                    setPlayName(item.playName), fetchMicrophoneData, setActiveRow(item.playName);
+                  }}
+            >
               <td>{item.playName}</td>
               <td>{item.premiereDate}</td>
               <td>{item.description}</td>
-              <td>
-                <Button
-                  size="sm"
-                  onClick={() => {
-                    setPlayName(item.playName), fetchMicrophoneData;
-                  }}
-                >
-                  Select
-                </Button>
-              </td>
             </tr>
           </tbody>
         ))}
