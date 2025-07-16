@@ -25,6 +25,38 @@ const MicrophoneProduction = () => {
   const [showPDF, setShowPDF] = useState(false);
   const navigate = useNavigate();
 
+  //Translations
+  const {
+    manageMicrophoneInProductionTranslation,
+    setManageMicrophoneInProductionTranslation,
+  } = useGlobalContext();
+  const {
+    scenesWithAssignedCharactersTranslation,
+    setScenesWithAssignedCharactersTranslation,
+  } = useGlobalContext();
+  const {
+    suggestMicrophoneScheduleTranslation,
+    setSuggestMicrophoneScheduleTranslation,
+  } = useGlobalContext();
+  const { applyTranslation, setApplyTranslation } = useGlobalContext();
+  const { loadPDFTranslation, setLoadPDFTranslation } = useGlobalContext();
+  const { hidePDFTranslation, setHidePDFTranslation } = useGlobalContext();
+  const { suggestedScheduleTranslation, setSuggestedScheduleTranslation } =
+    useGlobalContext();
+  const { selectProductionTranslation, setSelectProductionTranslation } =
+    useGlobalContext();
+  const { theaterProduction, setTheaterProduction } = useGlobalContext();
+  const { premiereDate, setPremiereDate } = useGlobalContext();
+  const { description, setDescription } = useGlobalContext();
+  const { scene, setScene } = useGlobalContext();
+  const { character, setCharacter } = useGlobalContext();
+  const { microphone, setMicrophone } = useGlobalContext();
+  const { userName, setUserName } = useGlobalContext();
+  const {addTranslation, setAddTranslation} = useGlobalContext();
+  const {removeTranslation, setRemoveTranslation} = useGlobalContext();
+  const {cancelTranslation, setCancelTranslation} = useGlobalContext();
+  const {hideSuggestedTranslation, setHideSuggestedTranslation} = useGlobalContext();
+
   const handleChoise = (selectedOption) => {
     setSelectedOption(selectedOption);
     setMicrophoneId(selectedOption.microphoneId);
@@ -45,7 +77,7 @@ const MicrophoneProduction = () => {
       textAlign: "center",
       color: "black",
       fontWeight: "1000",
-      fontSize: "26"
+      fontSize: "26",
     },
     table: {
       width: "100%",
@@ -65,6 +97,7 @@ const MicrophoneProduction = () => {
     },
     col1: {
       width: "25%",
+      marginLeft: "20px",
     },
     col2: {
       width: "25%",
@@ -231,7 +264,7 @@ const MicrophoneProduction = () => {
     }
   };
 
-  function addSuggested(){
+  function addSuggested() {
     try {
       const response = axios
         .put(
@@ -250,8 +283,10 @@ const MicrophoneProduction = () => {
           setShowSuggested(false)
         )
         .catch((error) => {
-          if (error.response.status === 495){
-            alert("Not enough microphones in database, please add more in order to assign these.")
+          if (error.response.status === 495) {
+            alert(
+              "Not enough microphones in database, please add more in order to assign these."
+            );
           }
           if (error.response.status === 401) {
             setCookie("jwtToken", "", { path: "/" });
@@ -268,15 +303,15 @@ const MicrophoneProduction = () => {
 
   return (
     <>
-      <h1>Manage Microphone in production</h1>
+      <h1>{manageMicrophoneInProductionTranslation}</h1>
       <br />
-      <h2>Select Production</h2>
+      <h2>{selectProductionTranslation}</h2>
       <Table striped bordered hover variant={dark} size="sm">
         <thead>
           <tr>
-            <th>Theater Production</th>
-            <th>Premiere Date</th>
-            <th>Description</th>
+            <th>{theaterProduction}</th>
+            <th>{premiereDate}</th>
+            <th>{description}</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -289,7 +324,7 @@ const MicrophoneProduction = () => {
               <td>{item.description}</td>
               <td>
                 <Button
-                size="sm"
+                  size="sm"
                   onClick={() => {
                     setPlayName(item.playName), fetchMicrophoneData;
                   }}
@@ -302,7 +337,7 @@ const MicrophoneProduction = () => {
         ))}
       </Table>
       {playName != "" ? (
-        <h2>{playName}, scenes with assigned characters</h2>
+        <h2>{playName}, {scenesWithAssignedCharactersTranslation}</h2>
       ) : (
         ""
       )}
@@ -310,11 +345,11 @@ const MicrophoneProduction = () => {
         <Table striped bordered hover variant={dark} size="sm">
           <thead>
             <tr>
-              <th>Scene</th>
-              <th>Character</th>
-              <th>User</th>
-              <th>Microphone</th>
-              <th>Microphone Action</th>
+              <th>{scene}</th>
+              <th>{character}</th>
+              <th>{userName}</th>
+              <th>{microphone}</th>
+              <th>{microphone}</th>
             </tr>
           </thead>
 
@@ -327,23 +362,23 @@ const MicrophoneProduction = () => {
                 <td>{item.microphoneName}</td>
                 <td>
                   <Button
-                  size="sm"
+                    size="sm"
                     style={{ width: "80px", marginRight: "10px" }}
                     onClick={() => {
                       setSceneCharacterId(item.scene_characterId),
                         setAddMicrophone(true);
                     }}
                   >
-                    Add
+                    {addTranslation}
                   </Button>
                   {item.microphoneId != null ? (
                     <Button
-                    size="sm"
+                      size="sm"
                       style={{ width: "80px" }}
                       variant="danger"
                       onClick={() => removeMicrophone(item.scene_characterId)}
                     >
-                      Remove
+                      {removeTranslation}
                     </Button>
                   ) : (
                     ""
@@ -360,7 +395,7 @@ const MicrophoneProduction = () => {
         <Form onSubmit={handleAddMicrophone}>
           <Form.Group className="mb-3">
             <Form.Label>
-              <b>Add Microphone</b>
+              <b>{addMicrophone}</b>
             </Form.Label>
             <Select
               id="search"
@@ -377,7 +412,7 @@ const MicrophoneProduction = () => {
             type="submit"
             className="extButton"
           >
-            Add
+            {addTranslation}
           </Button>
           <Button
             style={{ width: "70px" }}
@@ -386,7 +421,7 @@ const MicrophoneProduction = () => {
             className="extButton"
             onClick={() => setAddMicrophone(false)}
           >
-            Cancel
+            {cancelTranslation}
           </Button>
         </Form>
       ) : (
@@ -395,22 +430,22 @@ const MicrophoneProduction = () => {
       <br />
       {playName != "" ? (
         <Button onClick={() => suggestMicrophones()}>
-          Suggest MicrophoneSchedule
+          {suggestMicrophoneScheduleTranslation}
         </Button>
       ) : (
         ""
       )}
       <br />
       <br />
-      {showSuggested ? <b>Suggested Schedule</b> : ""}
+      {showSuggested ? <b>{suggestedScheduleTranslation}</b> : ""}
       {showSuggested ? (
         <Table striped bordered hover variant="dark">
           <thead>
             <tr>
-              <th>Scene</th>
-              <th>Character</th>
-              <th>User</th>
-              <th>Microphone</th>
+              <th>{scene}</th>
+              <th>{character}</th>
+              <th>{userName}</th>
+              <th>{microphone}</th>
             </tr>
           </thead>
 
@@ -429,24 +464,26 @@ const MicrophoneProduction = () => {
         ""
       )}
       {showSuggested ? (
-        <Button style={{marginRight:"20px"}} onClick={() => addSuggested()}>Add suggested</Button>
+        <Button style={{ marginRight: "20px" }} onClick={() => addSuggested()}>
+          {applyTranslation}
+        </Button>
       ) : (
         ""
       )}
       {showSuggested ? (
-        <Button onClick={() => setShowSuggested(false)}>Hide suggested</Button>
+        <Button onClick={() => setShowSuggested(false)}>{hideSuggestedTranslation}</Button>
       ) : (
         ""
       )}
       <br />
       <br />
       {!showPDF && playName != "" ? (
-        <Button onClick={() => setShowPDF(true)}>Load PDF</Button>
+        <Button onClick={() => setShowPDF(true)}>{loadPDFTranslation}</Button>
       ) : (
         ""
       )}
       {showPDF && playName != "" ? (
-        <Button onClick={() => setShowPDF(false)}>Hide PDF</Button>
+        <Button onClick={() => setShowPDF(false)}>{hidePDFTranslation}</Button>
       ) : (
         ""
       )}
@@ -459,10 +496,10 @@ const MicrophoneProduction = () => {
               <Text style={styles.heading}>{playName}</Text>
               <View style={styles.table}>
                 <View style={[styles.row, styles.bold, styles.header]}>
-                  <Text style={styles.col1}>Scene</Text>
-                  <Text style={styles.col2}>Character</Text>
-                  <Text style={styles.col3}>User</Text>
-                  <Text style={styles.col4}>Microphone</Text>
+                  <Text style={styles.col1}>{scene}</Text>
+                  <Text style={styles.col2}>{character}</Text>
+                  <Text style={styles.col3}>{userName}</Text>
+                  <Text style={styles.col4}>{microphone}</Text>
                 </View>
                 {microphoneData.map((row, i) => (
                   <View key={i} style={styles.row} wrap={false}>

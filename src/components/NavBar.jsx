@@ -29,7 +29,6 @@ const NavBar = () => {
   const { homeTheaterProductions, setHomeTheaterProductions } =
     useGlobalContext();
   const { homeUserService, setHomeUserService } = useGlobalContext();
-
   const { theaterProduction, setTheaterProduction } = useGlobalContext();
   const { premiereDate, setPremiereDate } = useGlobalContext();
   const { description, setDescription } = useGlobalContext();
@@ -45,21 +44,17 @@ const NavBar = () => {
   const { commentTranslation, setCommentTranslation } = useGlobalContext();
   const { save, setSave } = useGlobalContext();
   const { commentInfo, setCommentInfo } = useGlobalContext();
-
   const { userName, setUserName } = useGlobalContext();
   const { userRole, setUserRole } = useGlobalContext();
   const { actions, setActions } = useGlobalContext();
   const { newRole, setNewRole } = useGlobalContext();
   const { deleteUserTranslation, setDeleteUserTranslation } =
     useGlobalContext();
-
   const { registerTranslation, setRegisterTranslation } = useGlobalContext();
   const { passwordTranslation, setPasswordTranslation } = useGlobalContext();
   const { registerloginTranslation, setRegisterLoginTranslation } =
     useGlobalContext();
-
   const { logInTranslation, setLogInTranslation } = useGlobalContext();
-
   const { actSceneTranslation, setActSceneTranslation } = useGlobalContext();
   const { characterToSceneTranslation, setCharacterToSceneTranslation } =
     useGlobalContext();
@@ -68,7 +63,6 @@ const NavBar = () => {
     setMicrophoneInProductionTranslation,
   } = useGlobalContext();
   const { deleteTranslation, setDeleteTranslation } = useGlobalContext();
-
   const {
     manageTheaterProductionsTranslate,
     setManageTheaterProductionsTranslate,
@@ -84,7 +78,6 @@ const NavBar = () => {
     useGlobalContext();
   const { cancelEditTranslation, setCancelEditTranslation } =
     useGlobalContext();
-
   const { manageActSceneTranslation, setManageActSceneTranslation } =
     useGlobalContext();
   const { selectProductionTranslation, setSelectProductionTranslation } =
@@ -101,7 +94,6 @@ const NavBar = () => {
     useGlobalContext();
   const { numberOfScenesToAddTranslation, setNumberOfScenesToAddTranslation } =
     useGlobalContext();
-
   const {manageCharacterToSceneTranslation, setManageCharacterToSceneTranslation} = useGlobalContext();
   const {charactersTranslation, setCharactersTranslation} = useGlobalContext();
   const {characterNameTranslation, setCharacterNameTranslation} = useGlobalContext();
@@ -110,7 +102,6 @@ const NavBar = () => {
   const {removeTranslation, setRemoveTranslation} = useGlobalContext();
   const {cancelTranslation, setCancelTranslation} = useGlobalContext();
   const {selectTranslation, setSelectTranslation} = useGlobalContext();
-
   const {manageCharatersTranslation, setManageCharatersTranslation} = useGlobalContext();
   const {editActorTranslation, setEditActorTranslation} = useGlobalContext();
   const {createCharacterTranslation, setCreateCharacterTranslation} = useGlobalContext();
@@ -118,6 +109,18 @@ const NavBar = () => {
   const {sceneInformationTranslation, setSceneInformationTranslation} = useGlobalContext();
   const {scenesTranslation, setScenesTranslation} = useGlobalContext();
   const {hideSceneInfoTranslation, setHideSceneInfoTranslation} = useGlobalContext();
+  const {manageMicrophoneInProductionTranslation, setManageMicrophoneInProductionTranslation} = useGlobalContext();
+  const {scenesWithAssignedCharactersTranslation, setScenesWithAssignedCharactersTranslation} = useGlobalContext();
+  const {suggestMicrophoneScheduleTranslation, setSuggestMicrophoneScheduleTranslation} = useGlobalContext();
+  const {applyTranslation, setApplyTranslation} = useGlobalContext();
+  const {loadPDFTranslation, setLoadPDFTranslation} = useGlobalContext();
+  const {hidePDFTranslation, setHidePDFTranslation} = useGlobalContext();
+  const {suggestedScheduleTranslation, setSuggestedScheduleTranslation} = useGlobalContext();
+  const {hideSuggestedTranslation, setHideSuggestedTranslation} = useGlobalContext();
+  const {microphonesTranslation, setMicrophonesTranslation} = useGlobalContext();
+  const {nameTranslation, setNameTranslation} = useGlobalContext();
+  const {renameTranslation, setRenameTranslation} = useGlobalContext();
+  const {enterMicrophoneName, setEnterMicrophoneName} = useGlobalContext();
 
   function logout() {
     setCookie("jwtToken", "", { path: "/" });
@@ -225,6 +228,18 @@ const NavBar = () => {
       setSceneInformationTranslation("Scen Information");
       setScenesTranslation("Scener");
       setHideSceneInfoTranslation("Dölj Scne Info");
+      setManageMicrophoneInProductionTranslation("Hantera Mikrofoner i Produktion");
+      setScenesWithAssignedCharactersTranslation("Scener med allokerade Karaktärer");
+      setSuggestMicrophoneScheduleTranslation("Föreslå Mikrofon Schema");
+      setApplyTranslation("Tillämpa");
+      setLoadPDFTranslation("Visa PDF");
+      setHidePDFTranslation("Dölj PDF");
+      setSuggestedScheduleTranslation("Föreslagen Schema");
+      setHideSuggestedTranslation("Dölj förslag");
+      setMicrophonesTranslation("Mikrofoner");
+      setNameTranslation("Namn");
+      setRenameTranslation("Döp Om");
+      setEnterMicrophoneName("Skriv Mikrofon Namn");
     } else {
       setLanguage("../src/assets/England.png");
       setLightTheme("Light Theme");
@@ -295,6 +310,18 @@ const NavBar = () => {
       setSceneInformationTranslation("Scene Information");
       setScenesTranslation("Scenes");
       setHideSceneInfoTranslation("Hide Scene Info");
+      setManageMicrophoneInProductionTranslation("Manage Microphone in Production");
+      setScenesWithAssignedCharactersTranslation("Scenes with assigned Characters");
+      setSuggestMicrophoneScheduleTranslation("Suggest MicrophoneSchedule");
+      setApplyTranslation("Apply");
+      setLoadPDFTranslation("Load PDF");
+      setHidePDFTranslation("Hide PDF");
+      setSuggestedScheduleTranslation("Suggested Schedule");
+      setHideSuggestedTranslation("Hide Suggested");
+      setMicrophonesTranslation("Microphones");
+      setNameTranslation("Name");
+      setRenameTranslation("Rename");
+      setEnterMicrophoneName("Enter Microphone Name");
     }
   }
 

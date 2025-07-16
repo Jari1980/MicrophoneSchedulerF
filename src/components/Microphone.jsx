@@ -15,6 +15,17 @@ const Microphone = () => {
   const {dark, setDark} = useGlobalContext();
   const navigate = useNavigate();
 
+  //Translations
+  const {microphonesTranslation, setMicrophonesTranslation} = useGlobalContext();
+  const {nameTranslation, setNameTranslation} = useGlobalContext();
+  const {renameTranslation, setRenameTranslation} = useGlobalContext();
+  const { actions, setActions } = useGlobalContext();
+  const { deleteTranslation, setDeleteTranslation } = useGlobalContext();
+  const { microphone, setMicrophone } = useGlobalContext();
+  const { save, setSave } = useGlobalContext();
+  const {cancelTranslation, setCancelTranslation} = useGlobalContext();
+  const {enterMicrophoneName, setEnterMicrophoneName} = useGlobalContext();
+
   useEffect(() => {
     fetchMicrophones();
   }, []);
@@ -138,14 +149,14 @@ const Microphone = () => {
 
   return (
     <>
-      <h1>Microphones</h1>
+      <h1>{microphonesTranslation}</h1>
       <br />
       <Table striped bordered hover variant={dark} size="sm">
         <thead>
           <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Actions</th>
+            <th>{nameTranslation}</th>
+            <th>{actions}</th>
           </tr>
         </thead>
 
@@ -166,14 +177,14 @@ const Microphone = () => {
                       );
                   }}
                 >
-                  Rename
+                  {renameTranslation}
                 </Button>
                 <Button
                 size="sm"
                 style={{width: "80px"}}
                 variant="danger" 
                 onClick={() => deleteMicrophone(item.microphoneName)}>
-                  Delete
+                  {deleteTranslation}
                 </Button>
               </td>
             </tr>
@@ -181,20 +192,20 @@ const Microphone = () => {
         ))}
       </Table>
       <Button onClick={() => setAddMicrophone(!addMicrophone)}>
-        + Microphone
+        + {microphone}
       </Button>
       {addMicrophone ? (
         <Form onSubmit={handleAddMicrophone}>
           <Form.Group className="mb-3" controlId="formMicrophone">
             <Form.Label>
-              <b>Add Microphone</b>
+              <b>{addMicrophone}</b>
             </Form.Label>
-            <Form.Control type="text" placeholder="Enter username" />
+            <Form.Control type="text" placeholder={enterMicrophoneName} />
           </Form.Group>
           <Button
           style={{width: "70px", marginRight: "10px"}} 
           variant="primary" className="extButton" type="submit">
-            Create
+            {save}
           </Button>
           <Button
           style={{width: "70px"}}
@@ -203,7 +214,7 @@ const Microphone = () => {
             className="extButton"
             onClick={() => setAddMicrophone(!addMicrophone)}
           >
-            Cancel
+            {cancelTranslation}
           </Button>
         </Form>
       ) : (
@@ -213,12 +224,12 @@ const Microphone = () => {
         <Form onSubmit={renameMicrophone}>
           <Form.Group className="mb-3" controlId="formMicrophoneName">
             <Form.Label>
-              <b>Add Microphone</b>
+              <br />
             </Form.Label>
             <Form.Control type="text" placeholder={microphoneName} />
           </Form.Group>
           <Button variant="primary" className="extButton" type="submit">
-            Rename
+            {renameTranslation}
           </Button>
           <Button
             variant="danger"
@@ -226,7 +237,7 @@ const Microphone = () => {
             className="extButton"
             onClick={() => setShowRenameMicrophone(!showRenameMicrophone)}
           >
-            Cancel
+            {cancelTranslation}
           </Button>
         </Form>
       ) : (
