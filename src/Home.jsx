@@ -40,7 +40,11 @@ function Home() {
             Teaterstickorna
           </h1>
           <br />
-          <br />
+          <img
+            src="../src/assets/Stickan.png"
+            alt=""
+            style={{mixBlendMode:"multiply"}}
+          />
           <br />
           <br />
           {cookies.userRole == "ROLE_ACTOR" ||
