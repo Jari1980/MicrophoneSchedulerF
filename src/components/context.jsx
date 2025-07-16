@@ -73,6 +73,14 @@ export const GlobalProvider = ({ children }) => {
     const [removeTranslation, setRemoveTranslation] = useState("Remove")
     const [cancelTranslation, setCancelTranslation] = useState("Cancel")
     const [selectTranslation, setSelectTranslation] = useState("Select")
+    const [manageCharatersTranslation, setManageCharatersTranslation] = useState("Manage Characters")
+    const [editActorTranslation, setEditActorTranslation] = useState("Edit Actor")
+    const [createCharacterTranslation, setCreateCharacterTranslation] = useState("Create Character")
+    const [enterCharacterNameTranslation, setEnterCharacterNameTranslation] = useState("Enter Character name")
+    const [sceneInformationTranslation, setSceneInformationTranslation] = useState("Scene Information")
+    const [scenesTranslation, setScenesTranslation] = useState("Scenes")
+    const [hideSceneInfoTranslation, setHideSceneInfoTranslation] = useState("Hide Scene Info")
+    
 
   return (
     <GlobalContext.Provider
@@ -200,6 +208,20 @@ export const GlobalProvider = ({ children }) => {
         setCancelTranslation,
         selectTranslation,
         setSelectTranslation,
+        manageCharatersTranslation,
+        setManageCharatersTranslation,
+        editActorTranslation,
+        setEditActorTranslation,
+        createCharacterTranslation,
+        setCreateCharacterTranslation,
+        enterCharacterNameTranslation,
+        setEnterCharacterNameTranslation,
+        sceneInformationTranslation,
+        setSceneInformationTranslation,
+        scenesTranslation,
+        setScenesTranslation,
+        hideSceneInfoTranslation,
+        setHideSceneInfoTranslation,
     }}
     >
         {children}

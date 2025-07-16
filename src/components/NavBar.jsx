@@ -15,6 +15,7 @@ const NavBar = () => {
   const { dashboardText, setDashboardText } = useGlobalContext();
   const { footerRowClass, setFooterRowClass } = useGlobalContext();
   const { footerLinkText, setFooterLinkText } = useGlobalContext();
+
   //Translations
   const [language, setLanguage] = useState("../src/assets/England.png");
   const [lightTheme, setLightTheme] = useState("Light Theme");
@@ -109,6 +110,14 @@ const NavBar = () => {
   const {removeTranslation, setRemoveTranslation} = useGlobalContext();
   const {cancelTranslation, setCancelTranslation} = useGlobalContext();
   const {selectTranslation, setSelectTranslation} = useGlobalContext();
+
+  const {manageCharatersTranslation, setManageCharatersTranslation} = useGlobalContext();
+  const {editActorTranslation, setEditActorTranslation} = useGlobalContext();
+  const {createCharacterTranslation, setCreateCharacterTranslation} = useGlobalContext();
+  const {enterCharacterNameTranslation, setEnterCharacterNameTranslation} = useGlobalContext();
+  const {sceneInformationTranslation, setSceneInformationTranslation} = useGlobalContext();
+  const {scenesTranslation, setScenesTranslation} = useGlobalContext();
+  const {hideSceneInfoTranslation, setHideSceneInfoTranslation} = useGlobalContext();
 
   function logout() {
     setCookie("jwtToken", "", { path: "/" });
@@ -209,6 +218,13 @@ const NavBar = () => {
       setRemoveTranslation("Ta bort");
       setCancelTranslation("Avbryt");
       setSelectTranslation("Välj");
+      setManageCharatersTranslation("Hantera Karaktärer");
+      setEditActorTranslation("Redigera Skådespelare");
+      setCreateCharacterTranslation("Skapa Karaktär");
+      setEnterCharacterNameTranslation("Skriv in namn på Karaktär");
+      setSceneInformationTranslation("Scen Information");
+      setScenesTranslation("Scener");
+      setHideSceneInfoTranslation("Dölj Scne Info");
     } else {
       setLanguage("../src/assets/England.png");
       setLightTheme("Light Theme");
@@ -272,6 +288,13 @@ const NavBar = () => {
       setRemoveTranslation("Remove");
       setCancelTranslation("Cancel");
       setSelectTranslation("Select");
+      setManageCharatersTranslation("Manage Characters");
+      setEditActorTranslation("Edit Actor");
+      setCreateCharacterTranslation("Create Character");
+      setEnterCharacterNameTranslation("Enter Character name");
+      setSceneInformationTranslation("Scene Information");
+      setScenesTranslation("Scenes");
+      setHideSceneInfoTranslation("Hide Scene Info");
     }
   }
 

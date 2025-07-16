@@ -35,6 +35,32 @@ const Character = () => {
     setActorId(selectedOption.actorId);
   };
 
+  //Translations
+  const { manageCharatersTranslation, setManageCharatersTranslation } =
+    useGlobalContext();
+  const { editActorTranslation, setEditActorTranslation } = useGlobalContext();
+  const { createCharacterTranslation, setCreateCharacterTranslation } =
+    useGlobalContext();
+  const { enterCharacterNameTranslation, setEnterCharacterNameTranslation } =
+    useGlobalContext();
+  const { sceneInformationTranslation, setSceneInformationTranslation } =
+    useGlobalContext();
+  const { scenesTranslation, setScenesTranslation } = useGlobalContext();
+  const { actor, setActor } = useGlobalContext();
+  const { character, setCharacter } = useGlobalContext();
+  const { theaterProduction, setTheaterProduction } = useGlobalContext();
+  const { actions, setActions } = useGlobalContext();
+  const { deleteTranslation, setDeleteTranslation } = useGlobalContext();
+  const { actNumberTranslation, setActNumberTranslation } = useGlobalContext();
+  const { sceneNumberTranslation, setSceneNumberTranslation } =
+    useGlobalContext();
+  const { sceneNameTranslation, setSceneNameTranslation } = useGlobalContext();
+  const {hideSceneInfoTranslation, setHideSceneInfoTranslation} = useGlobalContext();
+  const { save, setSave } = useGlobalContext();
+  const {cancelTranslation, setCancelTranslation} = useGlobalContext();
+  const { userName, setUserName } = useGlobalContext();
+  const {addCharacterTranslation, setAddCharacterTranslation} = useGlobalContext();
+
   const refCharacter = useRef(null);
   const refScene = useRef(null);
 
@@ -94,8 +120,7 @@ const Character = () => {
     setCharacterScenes(data[0]);
     setSelectedCharacter(name);
     setShowScenes(true);
-    refScene.current?.scrollIntoView({behaviour: 'smooth'});
-    
+    refScene.current?.scrollIntoView({ behaviour: "smooth" });
   }
 
   function editCharacter(id, name, actorName) {
@@ -105,7 +130,7 @@ const Character = () => {
     fetchActorUser();
     setShowEditForm(!showEditForm);
     //if(!showEditForm){
-      refCharacter.current?.scrollIntoView({behaviour: 'smooth'});
+    refCharacter.current?.scrollIntoView({ behaviour: "smooth" });
     //}
   }
 
@@ -202,16 +227,16 @@ const Character = () => {
 
   return (
     <>
-      <h1>Manage Characters</h1>
+      <h1>{manageCharatersTranslation}</h1>
       <br />
       <Table striped bordered hover variant={dark} size="sm">
         <thead>
           <tr>
-            <th>Character Name</th>
-            <th>Production Name</th>
-            <th>Actor Name</th>
-            <th>Scenes</th>
-            {cookies.userRole == "ROLE_ADMINISTRATOR" ? <th>Actions</th> : ""}
+            <th>{character}</th>
+            <th>{theaterProduction}</th>
+            <th>{actor}</th>
+            <th>{scenesTranslation}</th>
+            {cookies.userRole == "ROLE_ADMINISTRATOR" ? <th>{actions}</th> : ""}
           </tr>
         </thead>
 
@@ -223,18 +248,18 @@ const Character = () => {
               <td>{item.actorName}</td>
               <td>
                 <Button
-                size="sm"
+                  size="sm"
                   onClick={() =>
                     handleShowScenes(item.personageId, item.personageName)
                   }
                 >
-                  Scenes
+                  {scenesTranslation}
                 </Button>
               </td>
               {cookies.userRole == "ROLE_ADMINISTRATOR" ? (
                 <td>
                   <Button
-                  size="sm"
+                    size="sm"
                     style={{ width: "100px", marginRight: "10px" }}
                     onClick={() =>
                       editCharacter(
@@ -244,15 +269,15 @@ const Character = () => {
                       )
                     }
                   >
-                    Edit Actor
+                    {editActorTranslation}
                   </Button>
                   <Button
-                  size="sm"
+                    size="sm"
                     style={{ width: "100px" }}
                     variant="danger"
                     onClick={() => deleteCharacter(item.personageId)}
                   >
-                    Delete
+                    {deleteTranslation}
                   </Button>
                 </td>
               ) : (
@@ -263,14 +288,20 @@ const Character = () => {
         ))}
       </Table>
       <div ref={refScene}></div>
-      {showScenes ? <h3>{selectedCharacter} Scene Information</h3> : ""}
+      {showScenes ? (
+        <h3>
+          {selectedCharacter} {sceneInformationTranslation}
+        </h3>
+      ) : (
+        ""
+      )}
       {showScenes ? (
         <Table striped bordered hover variant={dark} size="sm">
           <thead>
             <tr>
-              <th>Act Number</th>
-              <th>Scene Number</th>
-              <th>Scene Name</th>
+              <th>{actNumberTranslation}</th>
+              <th>{sceneNumberTranslation}</th>
+              <th>{sceneNameTranslation}</th>
             </tr>
           </thead>
 
@@ -289,7 +320,7 @@ const Character = () => {
         ""
       )}
       {showScenes ? (
-        <Button onClick={() => setShowScenes(false)}>Hide Scene Info</Button>
+        <Button onClick={() => setShowScenes(false)}>{hideSceneInfoTranslation}</Button>
       ) : (
         ""
       )}
@@ -299,13 +330,13 @@ const Character = () => {
         <Form onSubmit={handleEdit} id="editCharacter">
           <Form.Group className="mb-3" controlId="formCharacterName">
             <Form.Label>
-              <b>Character Name</b>
+              <b>{character}</b>
             </Form.Label>
             <Form.Control type="text" defaultValue={selectedCharacter} />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>
-              <b>Actor</b>
+              <b>{actor}</b>
             </Form.Label>
             <Select
               id="search"
@@ -322,7 +353,7 @@ const Character = () => {
             type="submit"
             className="extButton"
           >
-            Save
+            {save}
           </Button>
           <Button
             style={{ width: "70px" }}
@@ -331,26 +362,28 @@ const Character = () => {
             className="extButton"
             onClick={() => setShowEditForm(false)}
           >
-            Cancel
+            {cancelTranslation}
           </Button>
         </Form>
       ) : (
         ""
       )}
       <br />
-      {cookies.userRole == "ROLE_ADMINISTRATOR" && !showCreate? (
-      <Button onClick={() => setShowCreate(true)}>+ Create Character</Button>
-      ) : "" }
+      {cookies.userRole == "ROLE_ADMINISTRATOR" && !showCreate ? (
+        <Button onClick={() => setShowCreate(true)}>+ {createCharacterTranslation}</Button>
+      ) : (
+        ""
+      )}
       {showCreate ? (
         <Form onSubmit={handleCreate}>
           <Form.Group className="mb-3" controlId="formCharacter">
             <Form.Label>
-              <b>Username</b>
+              <b>{userName}</b>
             </Form.Label>
             <Form.Control type="text" placeholder="Enter Character name" />
           </Form.Group>
           <Button variant="primary" type="submit" className="extButton">
-            Add Character
+            {addCharacterTranslation}
           </Button>
           <Button
             variant="danger"
@@ -358,7 +391,7 @@ const Character = () => {
             className="extButton"
             onClick={() => setShowCreate(false)}
           >
-            Cancel
+            {cancelTranslation}
           </Button>
         </Form>
       ) : (
