@@ -92,6 +92,9 @@ export const GlobalProvider = ({ children }) => {
     const [nameTranslation, setNameTranslation] = useState("Name")
     const [renameTranslation, setRenameTranslation] = useState("Rename")
     const [enterMicrophoneName, setEnterMicrophoneName] = useState("Enter Microphone Name")
+    const [showExcelTranslation, setShowExcelTranslation] = useState("Show Excel")
+    const [hideExcelTranslation, setHideExcelTranslation] = useState("Hide Excel")
+    const [saveExcelTranslation, setSaveExcelTranslation] = useState("Save Excel")
     
 
   return (
@@ -258,6 +261,12 @@ export const GlobalProvider = ({ children }) => {
         setRenameTranslation,
         enterMicrophoneName,
         setEnterMicrophoneName,
+        showExcelTranslation,
+        setShowExcelTranslation,
+        hideExcelTranslation,
+        setHideExcelTranslation,
+        saveExcelTranslation,
+        setSaveExcelTranslation,
     }}
     >
         {children}

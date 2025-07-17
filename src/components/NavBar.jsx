@@ -121,6 +121,9 @@ const NavBar = () => {
   const {nameTranslation, setNameTranslation} = useGlobalContext();
   const {renameTranslation, setRenameTranslation} = useGlobalContext();
   const {enterMicrophoneName, setEnterMicrophoneName} = useGlobalContext();
+  const {showExcelTranslation, setShowExcelTranslation} = useGlobalContext();
+  const {hideExcelTranslation, setHideExcelTranslation} = useGlobalContext();
+  const {saveExcelTranslation, setSaveExcelTranslation} = useGlobalContext();
 
   function logout() {
     setCookie("jwtToken", "", { path: "/" });
@@ -240,6 +243,9 @@ const NavBar = () => {
       setNameTranslation("Namn");
       setRenameTranslation("Döp Om");
       setEnterMicrophoneName("Skriv Mikrofon Namn");
+      setShowExcelTranslation("Visa Excel");
+      setHideExcelTranslation("Dölj Excel");
+      setSaveExcelTranslation("Spara Excel");
     } else {
       setLanguage("../src/assets/England.png");
       setLightTheme("Light Theme");
@@ -322,6 +328,9 @@ const NavBar = () => {
       setNameTranslation("Name");
       setRenameTranslation("Rename");
       setEnterMicrophoneName("Enter Microphone Name");
+      setShowExcelTranslation("Show Excel");
+      setHideExcelTranslation("Hide Excel");
+      setSaveExcelTranslation("Save Excel");
     }
   }
 
