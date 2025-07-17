@@ -17,6 +17,7 @@
     "react-bootstrap": "^2.10.10",
     "react-cookie": "^8.0.1",
     "react-dom": "^19.1.0",
+    "react-export-table-to-excel": "^1.0.6",
     "react-hook-form": "^7.56.4",
     "react-router-dom": "^7.6.1",
     "react-select": "^5.10.1"

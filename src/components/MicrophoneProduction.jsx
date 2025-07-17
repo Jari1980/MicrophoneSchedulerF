@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment, useRef } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { Button, Table, Form, FormCheck } from "react-bootstrap";
 import axios from "axios";
@@ -8,6 +8,7 @@ import { useGlobalContext } from "./context";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 //import ReactPDF from '@react-pdf/renderer';
 import { PDFViewer } from "@react-pdf/renderer";
+import { downloadExcel, DownloadTableExcel } from "react-export-table-to-excel";
 
 const MicrophoneProduction = () => {
   const [productionData, setProductionData] = useState([]);
@@ -25,6 +26,7 @@ const MicrophoneProduction = () => {
   const [showPDF, setShowPDF] = useState(false);
   const navigate = useNavigate();
   const [active, setActive] = useState("");
+  const [showExcel, setShowExcel] = useState(false);
 
   //Translations
   const {
@@ -57,6 +59,9 @@ const MicrophoneProduction = () => {
   const {removeTranslation, setRemoveTranslation} = useGlobalContext();
   const {cancelTranslation, setCancelTranslation} = useGlobalContext();
   const {hideSuggestedTranslation, setHideSuggestedTranslation} = useGlobalContext();
+  const {showExcelTranslation, setShowExcelTranslation} = useGlobalContext();
+  const {hideExcelTranslation, setHideExcelTranslation} = useGlobalContext();
+  const {saveExcelTranslation, setSaveExcelTranslation} = useGlobalContext();
 
   const handleChoise = (selectedOption) => {
     setSelectedOption(selectedOption);
@@ -74,6 +79,9 @@ const MicrophoneProduction = () => {
   const setActiveRow = (id) => {
     setActive(id);
   };
+
+  // For Excel
+  const tableRef = useRef(null);
 
   // For pdf
   const styles = StyleSheet.create({
@@ -479,12 +487,22 @@ const MicrophoneProduction = () => {
       <br />
       <br />
       {!showPDF && playName != "" ? (
-        <Button onClick={() => setShowPDF(true)}>{loadPDFTranslation}</Button>
+        <Button style={{marginRight:"20px"}} onClick={() => setShowPDF(true)}>{loadPDFTranslation}</Button>
+      ) : (
+        ""
+      )}
+      {!showExcel && playName != "" ? (
+        <Button style={{marginRight:"20px"}} onClick={() => setShowExcel(true)}>{showExcelTranslation}</Button>
       ) : (
         ""
       )}
       {showPDF && playName != "" ? (
-        <Button onClick={() => setShowPDF(false)}>{hidePDFTranslation}</Button>
+        <Button style={{marginRight:"20px"}} variant="warning" onClick={() => setShowPDF(false)}>{hidePDFTranslation}</Button>
+      ) : (
+        ""
+      )}
+      {showExcel && playName != "" ? (
+        <Button style={{marginRight:"20px"}} variant="warning" onClick={() => setShowExcel(false)}>{hideExcelTranslation}</Button>
       ) : (
         ""
       )}
@@ -517,7 +535,42 @@ const MicrophoneProduction = () => {
       ) : (
         ""
       )}
-
+      {showExcel && playName != "" ? (
+        <DownloadTableExcel
+        filename="Microphone Schedule"
+        sheet="microphones"
+        currentTableRef={tableRef.current}
+        >
+          <Button style={{marginBottom:"20px"}}>{saveExcelTranslation}</Button>
+        </DownloadTableExcel>
+      ) : (
+        ""
+      )}
+      {showExcel && playName != "" ? (
+        <Table ref={tableRef}>
+          <thead>
+            <tr>
+              <th>{scene}</th>
+              <th>{character}</th>
+              <th>{userName}</th>
+              <th>{microphone}</th>
+            </tr>
+            </thead>
+            {microphoneData.map((item, index) => (
+            <tbody key={index}>
+              <tr>
+                <td>{item.sceneName}</td>
+                <td>{item.personageName}</td>
+                <td>{item.userName}</td>
+                <td>{item.microphoneId}</td>
+              </tr>
+            </tbody>
+          ))}
+          
+        </Table>
+      ) : (
+        ""
+      )}
       <br />
       <br />
       <br />
