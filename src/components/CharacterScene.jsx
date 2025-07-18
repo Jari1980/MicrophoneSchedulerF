@@ -101,7 +101,7 @@ const CharacterScene = () => {
           }
         )
         .then((res) => {
-          console.log("Data fetched");
+          //console.log("Data fetched");
           setSceneData(res.data);
           if(showCharacters){
             showCharacter(sceneId)
@@ -148,10 +148,10 @@ const CharacterScene = () => {
   const showCharacter = async (id) => {
     const data = sceneData.filter((item) => item.sceneId == id);
     setCharacterScenes(data[0]);
-    console.log("characters: " + characterScenes + ", data: " + data);
+    //console.log("characters: " + characterScenes + ", data: " + data);
     setSceneId(id);
     
-    console.log("mmm" + sceneName + "mmm" + name)
+    //console.log("mmm" + sceneName + "mmm" + name)
     setShowCharacters(true);
   }
 

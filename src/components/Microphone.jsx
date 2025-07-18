@@ -38,7 +38,7 @@ const Microphone = () => {
         })
         .then((res) => {
           setMicrophoneData(res.data);
-          console.log(res.data);
+          //console.log(res.data);
         })
         .catch((error) => {
           if (error.response.status === 401) {

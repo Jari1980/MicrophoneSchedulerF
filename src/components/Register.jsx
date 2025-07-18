@@ -28,22 +28,22 @@ const Register = () => {
           password: event.currentTarget.elements.formPassword.value,
         })
         .then(() => {
-          console.log("Register succes, loggin in");
+          //console.log("Register succes, loggin in");
           axios
             .post("http://localhost:8080/api/v1/user/login", {
               userName: userData.username,
               password: userData.password,
             })
             .then((response) => {
-              console.log(
-                "LogIn succes: " +
-                  "\nJWT: " +
-                  response.data.jwtToken +
-                  "\nuserName: " +
-                  response.data.userName +
-                  "\nuserRole: " +
-                  response.data.userRole
-              );
+              //console.log(
+              //  "LogIn succes: " +
+              //    "\nJWT: " +
+              //    response.data.jwtToken +
+              //    "\nuserName: " +
+              //    response.data.userName +
+              //    "\nuserRole: " +
+              //    response.data.userRole
+              //);
               setCookie("jwtToken", response.data.jwtToken, { path: "/" });
               setCookie("userName", response.data.userName, { path: "/" });
               setCookie("userRole", response.data.userRole, { path: "/" });
