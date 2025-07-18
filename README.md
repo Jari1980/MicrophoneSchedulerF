@@ -1,10 +1,12 @@
-#MicrophoneSchedulerF
+<h1>MicrophoneScheduler - FrontEnd</h1>
 
 
-This application is created for Teaterstickorna as a part of Lexicon Växjö fullstackdeveloper course.
-The main goal of this application is to provide a easy to use microphone scheduler.
+<i>This application is created for Teaterstickorna as a part of Lexicon Växjö fullstackdeveloper course.
+The main goal of this application is to provide a easy to use microphone scheduler.</i>
 
 Users can have any of three roles, Admin create and manage theater productions, users and roles. Director overview of productions and ability to make modifications. Actor get microphoneschedule for production, ability to comment any scene which can be seen by director and admin, also ability to check fellow actors schedules.
+
+This project is created with React Vite as a single page application, SPA.
 
 Frontend uses react-cookies in order to work. Cookiesconsent is given duration of 30 days in CookieConsent.jsx while cookie for jwtToken, userName and userRole are session based and will expire when browser closes or set to "" if user logsout.
 
