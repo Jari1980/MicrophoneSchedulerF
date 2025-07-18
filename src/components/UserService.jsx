@@ -47,7 +47,7 @@ const UserService = () => {
         })
         .then((res) => {
           setUserData(res.data);
-          console.log(res.data);
+          //console.log(res.data);
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -118,7 +118,7 @@ const UserService = () => {
 
   //Function to uppdate userData with new role
   function uppdate(id, newRole) {
-    console.log(id + role);
+    //console.log(id + role);
     const newUserData = userData.map((item) => {
       if (item.userId == id) {
         return { ...item, role: newRole };

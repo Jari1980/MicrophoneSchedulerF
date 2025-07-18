@@ -52,7 +52,7 @@ const Scene = () => {
     fetchData();
     if (playName != "") {
       fetchScenes(playName);
-      console.log("Getting here");
+      //console.log("Getting here");
     }
   }, [counter]);
 
@@ -78,7 +78,7 @@ const Scene = () => {
         })
         .then((res) => {
           setProductionData(res.data);
-          console.log(res.data);
+          //console.log(res.data);
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -173,7 +173,7 @@ const Scene = () => {
           }
         )
         .then((response) => {
-          console.log("scene edited");
+          //console.log("scene edited");
           setCounter(counter + 1);
           setShowEdit(!showEdit);
         })
@@ -217,7 +217,7 @@ const Scene = () => {
           }
         )
         .then((response) => {
-          console.log("Scene Created");
+          //console.log("Scene Created");
           setCounter(counter + 1);
           setAddAct(!addAct);
         });

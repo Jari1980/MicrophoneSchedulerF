@@ -99,7 +99,7 @@ const Character = () => {
         })
         .then((res) => {
           setActorUserData(res.data);
-          console.log("Actor user data: " + actorUserData[0]);
+          //console.log("Actor user data: " + actorUserData[0]);
         })
         .catch((error) => {
           if (error.response.status === 401) {

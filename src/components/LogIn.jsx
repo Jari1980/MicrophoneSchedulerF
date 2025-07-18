@@ -24,15 +24,15 @@ const LogIn = () => {
           password: event.currentTarget.elements.formPassword.value,
         })
         .then((response) => {
-          console.log(
-            "LogIn succes: " +
-              "\nJWT: " +
-              response.data.jwtToken +
-              "\nuserName: " +
-              response.data.userName +
-              "\nuserRole: " +
-              response.data.userRole
-          );
+          //console.log(
+          //  "LogIn succes: " +
+          //    "\nJWT: " +
+          //    response.data.jwtToken +
+          //    "\nuserName: " +
+          //    response.data.userName +
+          //    "\nuserRole: " +
+          //    response.data.userRole
+          //);
           setCookie("jwtToken", response.data.jwtToken, { path: "/" });
           setCookie("userName", response.data.userName, { path: "/" });
           setCookie("userRole", response.data.userRole, { path: "/" });

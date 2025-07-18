@@ -131,7 +131,7 @@ const MicrophoneProduction = () => {
         })
         .then((res) => {
           setProductionData(res.data);
-          console.log(res.data);
+          //console.log(res.data);
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -180,7 +180,7 @@ const MicrophoneProduction = () => {
           }
         )
         .then((res) => {
-          console.log("Data fetched");
+          //console.log("Data fetched");
           setMicrophoneData(res.data);
         })
         .catch((error) => {
@@ -198,7 +198,7 @@ const MicrophoneProduction = () => {
   };
 
   const removeMicrophone = async (id) => {
-    console.log("id: " + id);
+    //console.log("id: " + id);
     try {
       const response = await axios
         .put(
@@ -268,7 +268,7 @@ const MicrophoneProduction = () => {
           }
         )
         .then((res) => {
-          console.log("Data fetched");
+          //console.log("Data fetched");
           setSuggestedMicrophones(res.data.microphoneList);
           setShowSuggested(!showSuggested);
         });

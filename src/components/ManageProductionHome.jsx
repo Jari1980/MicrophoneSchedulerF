@@ -50,7 +50,7 @@ const ManageProductionHome = () => {
         })
         .then((res) => {
           setProductionData(res.data);
-          console.log(res.data);
+          //console.log(res.data);
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -86,7 +86,7 @@ const ManageProductionHome = () => {
           }
         )
         .then((response) => {
-          console.log("Play created");
+          //console.log("Play created");
           setFormVisible(!formVisible);
         })
         .catch((error) => {
@@ -119,7 +119,7 @@ const ManageProductionHome = () => {
           }
         )
         .then((response) => {
-          console.log("Play edited");
+          //console.log("Play edited");
           setFormEditVisible(!formEditVisible);
         })
         .catch((error) => {
